@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6951bdc4_7b303aef",
+        "filename": "INFO.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2019-07-11T15:17:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83c8b2df_7c0f1aef",
+      "revId": "e7319e0ad846b11e33ee595aa2cc0e4754c21e58",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c239b859_92160b61",
         "filename": "INFO.yaml",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2019-07-10T17:38:48Z",
       "side": 1,
       "message": "CET",
+      "revId": "e7319e0ad846b11e33ee595aa2cc0e4754c21e58",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1485b22_3d38ff83",
+        "filename": "INFO.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2019-07-11T15:17:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c239b859_92160b61",
       "revId": "e7319e0ad846b11e33ee595aa2cc0e4754c21e58",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "a8f0d52b_d00e74fd",
+        "filename": "INFO.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2019-07-11T15:17:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e85b734_e26bb1f8",
+      "range": {
+        "startLine": 69,
+        "startChar": 14,
+        "endLine": 69,
+        "endChar": 42
+      },
+      "revId": "e7319e0ad846b11e33ee595aa2cc0e4754c21e58",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce85e784_81adb059",
         "filename": "INFO.yaml",
         "patchSetId": 5
@@ -70,6 +130,30 @@
       "writtenOn": "2019-07-10T17:57:38Z",
       "side": 1,
       "message": "My Linux ID is rprakash fro ONAP but it\u0027s pramchan for both OPNFV + OpenStack. Since this is in OPNFV like to retain paramchan isntead of rprakash.",
+      "range": {
+        "startLine": 71,
+        "startChar": 11,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "e7319e0ad846b11e33ee595aa2cc0e4754c21e58",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b98f207e_26ce2606",
+        "filename": "INFO.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2019-07-11T15:17:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce85e784_81adb059",
       "range": {
         "startLine": 71,
         "startChar": 11,
