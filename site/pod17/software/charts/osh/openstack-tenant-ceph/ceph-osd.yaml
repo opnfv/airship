@@ -1,0 +1,34 @@
+---
+# The purpose of this file is to define environment-specific parameters for
+# ceph-osd
+schema: armada/Chart/v1
+metadata:
+  schema: metadata/Document/v1
+  name: tenant-ceph-osd
+  layeringDefinition:
+    abstract: false
+    layer: site
+    parentSelector:
+      name: tenant-ceph-osd-global
+    actions:
+      - method: replace
+        path: .values.conf.storage.osd
+      - method: merge
+        path: .
+  storagePolicy: cleartext
+data:
+  values:
+    labels:
+      osd:
+        node_selector_key: tenant-ceph-osd
+        node_selector_value: enabled
+    conf:
+      storage:
+        osd:
+          - data:
+              type: block-logical
+              location: /dev/sdb2
+            journal:
+              type: block-logical
+              location: /dev/sda4
+...
