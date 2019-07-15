@@ -1,0 +1,17 @@
+---
+schema: pegleg/SiteDefinition/v1
+metadata:
+  schema: metadata/Document/v1
+  layeringDefinition:
+    abstract: false
+    layer: site
+  name: intel-pod17
+  storagePolicy: cleartext
+data:
+  site_type: cntt
+
+  repositories:
+    global:
+      revision: v1.3
+      url: https://github.com/airshipit/treasuremap
+...
