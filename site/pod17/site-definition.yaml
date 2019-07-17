@@ -9,7 +9,6 @@ metadata:
   storagePolicy: cleartext
 data:
   site_type: opnfv
-
   repositories:
     global:
       revision: v1.1
