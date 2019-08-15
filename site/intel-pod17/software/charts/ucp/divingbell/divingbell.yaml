@@ -25,44 +25,31 @@ metadata:
         path: .values.conf.uamlite.users[0].user_sshkeys[0]
       src:
         schema: deckhand/PublicKey/v1
-        name: airship_ssh_public_key
+        name: grego_ssh_public_key
         path: .
     - dest:
         path: .values.conf.uamlite.users[0].user_crypt_passwd
       src:
         schema: deckhand/Passphrase/v1
-        name: ubuntu_crypt_password
+        name: grego_crypt_password
         path: .
     - dest:
         path: .values.conf.uamlite.users[1].user_sshkeys[0]
       src:
         schema: deckhand/PublicKey/v1
-        name: airship_ssh_public_key
-        path: .
-    - dest:
-        path: .values.conf.uamlite.users[2].user_sshkeys[0]
-      src:
-        schema: deckhand/PublicKey/v1
-        name: grego_ssh_public_key
-        path: .
-    - dest:
-        path: .values.conf.uamlite.users[3].user_sshkeys[0]
-      src:
-        schema: deckhand/PublicKey/v1
         name: kasparss_ssh_public_key
         path: .
-
+    - dest:
+        path: .values.conf.uamlite.users[1].user_crypt_passwd
+      src:
+        schema: deckhand/Passphrase/v1
+        name: kasparss_crypt_password
+        path: .
 data:
   values:
     conf:
       uamlite:
         users:
-          - user_name: ubuntu
-            user_sudo: true
-            user_sshkeys: []
-          - user_name: airship
-            user_sudo: true
-            user_sshkeys: []
           - user_name: grego
             user_sudo: true
             user_sshkeys: []

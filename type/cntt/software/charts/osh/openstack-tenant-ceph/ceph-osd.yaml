@@ -26,9 +26,9 @@ data:
       storage:
         osd:
           - data:
-              type: block-logical
-              location: /dev/sdb
+              type: directory
+              location: /var/lib/tenant-ceph/osd/osd-one
             journal:
               type: directory
-              location: /var/lib/openstack-helm/tenant-ceph/osd/osd-sdb
+              location: /var/lib/tenant-ceph/journal/osd-one
 ...
