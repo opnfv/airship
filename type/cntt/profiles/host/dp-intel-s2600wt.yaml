@@ -71,29 +71,38 @@ data:
               fstype: 'ext4'
               mount_options: 'defaults'
           - name: 'log'
-            size: '100g'
+            size: '40g'
             filesystem:
               mountpoint: '/var/log'
               fstype: 'ext4'
               mount_options: 'defaults'
-          # - name: 'cephjournal'
-          #   size: '10g'
           - name: 'var'
-            size: '>100g'
+            size: '160g'
             filesystem:
               mountpoint: '/var'
               fstype: 'ext4'
               mount_options: 'defaults'
-      # datadisk:
-      #   partitions:
-      #     - name: 'nova'
-      #       size: '450g'
-      #       filesystem:
-      #         mountpoint: '/var/lib/nova'
-      #         fstype: 'ext4'
-      #         mount_options: 'defaults'
-      #     - name: 'cephosd'
-      #       size: '>100g'
+          - name: 'cephjournal'
+            size: '10g'
+            filesystem:
+              mountpoint: '/var/lib/tenant-ceph/journal'
+              fstype: 'ext4'
+              mount_options: 'defaults'
+          - name: 'cephosd'
+            size: '>100g'
+            filesystem:
+              mountpoint: '/var/lib/tenant-ceph/osd'
+              fstype: 'ext4'
+              mount_options: 'defaults'
+
+      datadisk:
+        partitions:
+          - name: 'nova'
+            size: '99%'
+            filesystem:
+              mountpoint: '/var/lib/nova'
+              fstype: 'ext4'
+              mount_options: 'defaults'
 
   platform:
     image: 'xenial'
