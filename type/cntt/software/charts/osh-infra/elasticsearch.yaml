@@ -18,9 +18,45 @@ data:
   values:
     pod:
       replicas:
-        master: 2
-        data: 1
-        client: 2
+        client: 3
+      resources:
+        enabled: true
+        apache_proxy:
+          limits:
+            memory: "1024Mi"
+            cpu: "2000m"
+          requests:
+            memory: "0"
+            cpu: "0"
+        client:
+          requests:
+            memory: "4Gi"
+            cpu: "1000m"
+          limits:
+            memory: "8Gi"
+            cpu: "2000m"
+        master:
+          requests:
+            memory: "4Gi"
+            cpu: "1000m"
+          limits:
+            memory: "8Gi"
+            cpu: "2000m"
+        data:
+          requests:
+            memory: "4Gi"
+            cpu: "1000m"
+          limits:
+            memory: "8Gi"
+            cpu: "2000m"
+        prometheus_elasticsearch_exporter:
+          requests:
+            memory: "0"
+            cpu: "0"
+          limits:
+            memory: "1024Mi"
+            cpu: "2000m"
+
     storage:
       requests:
         storage: 40Gi

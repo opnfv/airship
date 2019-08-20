@@ -14,9 +14,5 @@ metadata:
       - method: merge
         path: .
   storagePolicy: cleartext
-data:
-  values:
-    pod:
-      replicas:
-        fluentd: 1
+data: {}
 ...
