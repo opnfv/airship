@@ -16,11 +16,6 @@ metadata:
   storagePolicy: cleartext
 data:
   values:
-    pod:
-      replicas:
-        master: 2
-        data: 1
-        client: 2
     storage:
       requests:
         storage: 40Gi
