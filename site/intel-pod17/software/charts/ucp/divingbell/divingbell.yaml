@@ -45,6 +45,18 @@ metadata:
         schema: deckhand/Passphrase/v1
         name: kasparss_crypt_password
         path: .
+    - dest:
+        path: .values.conf.uamlite.users[2].user_sshkeys[0]
+      src:
+        schema: deckhand/PublicKey/v1
+        name: jorgeas_ssh_public_key
+        path: .
+    - dest:
+        path: .values.conf.uamlite.users[3].user_sshkeys[0]
+      src:
+        schema: deckhand/PublicKey/v1
+        name: trungdt_ssh_public_key
+        path: .
 data:
   values:
     conf:
@@ -54,6 +66,12 @@ data:
             user_sudo: true
             user_sshkeys: []
           - user_name: kasparss
+            user_sudo: true
+            user_sshkeys: []
+          - user_name: jorgeas
+            user_sudo: true
+            user_sshkeys: []
+          - user_name: trungdt
             user_sudo: true
             user_sshkeys: []
 ...
