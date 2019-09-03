@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf1277d0_83cfd32d",
+        "filename": "tools/deploy.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6929
+      },
+      "writtenOn": "2019-09-03T13:53:49Z",
+      "side": 1,
+      "message": "What is the current planned support of linux distributions? If we only support Ubuntu, we should have a check and fail with an error message.",
+      "revId": "9f6df0f203a0e29fd1d532c8f965de3d7094b13d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
