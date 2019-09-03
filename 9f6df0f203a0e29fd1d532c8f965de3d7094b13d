@@ -16,6 +16,24 @@
       "revId": "9f6df0f203a0e29fd1d532c8f965de3d7094b13d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "126ea8ec_9a64d796",
+        "filename": "tools/deploy.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7535
+      },
+      "writtenOn": "2019-09-03T22:10:36Z",
+      "side": 1,
+      "message": "Yeah - I have updated the script slightly to check and install needed tools now.\n\nThe script is now primarily aimed for CI/CD to continuously deploy the site. If this script to be more generically used - we would need to do another round of actually testing on some other platform then Ubuntu.",
+      "parentUuid": "cf1277d0_83cfd32d",
+      "revId": "9f6df0f203a0e29fd1d532c8f965de3d7094b13d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
