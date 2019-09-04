@@ -45,17 +45,10 @@ data:
         # In the first case the document_name is `kubelet-genesis`, and in the
         # second case the document_name format is `kubelete-YOUR_GENESIS_HOSTNAME`.
         - document_name: kubelet-genesis
-          common_name: system:node:pod17-jump
+          common_name: system:node:pod17-node1
           hosts:
-            - pod17-jump
-            - 10.10.172.20
-          groups:
-            - system:nodes
-        - document_name: kubelet-pod17-jump
-          common_name: system:node:pod17-jump
-          hosts:
-            - pod17-jump
-            - 10.10.172.20
+            - pod17-node1
+            - 10.10.172.21
           groups:
             - system:nodes
         - document_name: kubelet-pod17-node1
@@ -140,17 +133,8 @@ data:
         - document_name: kubernetes-etcd-genesis
           common_name: kubernetes-etcd-genesis
           hosts:
-            - pod17-jump
-            - 10.10.172.20
-            - 127.0.0.1
-            - localhost
-            - kubernetes-etcd.kube-system.svc.cluster.local
-            - 10.96.0.2
-        - document_name: kubernetes-etcd-pod17-jump
-          common_name: kubernetes-etcd-pod17-jump
-          hosts:
-            - pod17-jump
-            - 10.10.172.20
+            - pod17-node1
+            - 10.10.172.21
             - 127.0.0.1
             - localhost
             - kubernetes-etcd.kube-system.svc.cluster.local
@@ -173,6 +157,15 @@ data:
             - localhost
             - kubernetes-etcd.kube-system.svc.cluster.local
             - 10.96.0.2
+        - document_name: kubernetes-etcd-pod17-node3
+          common_name: kubernetes-etcd-pod17-node3
+          hosts:
+            - pod17-node3
+            - 10.10.172.23
+            - 127.0.0.1
+            - localhost
+            - kubernetes-etcd.kube-system.svc.cluster.local
+            - 10.96.0.2
         # End node list
     kubernetes-etcd-peer:
       certificates:
@@ -181,17 +174,8 @@ data:
         - document_name: kubernetes-etcd-genesis-peer
           common_name: kubernetes-etcd-genesis-peer
           hosts:
-            - pod17-jump
-            - 10.10.172.20
-            - 127.0.0.1
-            - localhost
-            - kubernetes-etcd.kube-system.svc.cluster.local
-            - 10.96.0.2
-        - document_name: kubernetes-etcd-pod17-jump-peer
-          common_name: kubernetes-etcd-pod17-jump-peer
-          hosts:
-            - pod17-jump
-            - 10.10.172.20
+            - pod17-node1
+            - 10.10.172.21
             - 127.0.0.1
             - localhost
             - kubernetes-etcd.kube-system.svc.cluster.local
@@ -210,6 +194,15 @@ data:
           hosts:
             - pod17-node2
             - 10.10.172.22
+            - 127.0.0.1
+            - localhost
+            - kubernetes-etcd.kube-system.svc.cluster.local
+            - 10.96.0.2
+        - document_name: kubernetes-etcd-pod17-node3-peer
+          common_name: kubernetes-etcd-pod17-node3-peer
+          hosts:
+            - pod17-node3
+            - 10.10.172.23
             - 127.0.0.1
             - localhost
             - kubernetes-etcd.kube-system.svc.cluster.local
@@ -234,14 +227,6 @@ data:
         # listed in baremetal/nodes.yaml, but by convention should be allocated
         # the first non-reserved IP in each logical network allocation range
         # defined in networks/physical/networks.yaml
-        - document_name: calico-etcd-pod17-jump
-          common_name: calico-etcd-pod17-jump
-          hosts:
-            - pod17-jump
-            - 10.10.172.20
-            - 127.0.0.1
-            - localhost
-            - 10.96.232.136
         - document_name: calico-etcd-pod17-node1
           common_name: calico-etcd-pod17-node1
           hosts:
@@ -258,6 +243,14 @@ data:
             - 127.0.0.1
             - localhost
             - 10.96.232.136
+        - document_name: calico-etcd-pod17-node3
+          common_name: calico-etcd-pod17-node3
+          hosts:
+            - pod17-node3
+            - 10.10.172.23
+            - 127.0.0.1
+            - localhost
+            - 10.96.232.136
         - document_name: calico-node
           common_name: calcico-node
         # End node list
@@ -266,14 +259,6 @@ data:
       certificates:
         # NEWSITE-CHANGEME: This list should be identical to the previous list,
         # except that `-peer` has been appended to the document/common names.
-        - document_name: calico-etcd-pod17-jump-peer
-          common_name: calico-etcd-pod17-jump-peer
-          hosts:
-            - pod17-jump
-            - 10.10.172.20
-            - 127.0.0.1
-            - localhost
-            - 10.96.232.136
         - document_name: calico-etcd-pod17-node1-peer
           common_name: calico-etcd-pod17-node1-peer
           hosts:
@@ -287,6 +272,14 @@ data:
           hosts:
             - pod17-node2
             - 10.10.172.22
+            - 127.0.0.1
+            - localhost
+            - 10.96.232.136
+        - document_name: calico-etcd-pod17-node3-peer
+          common_name: calico-etcd-pod17-node3-peer
+          hosts:
+            - pod17-node3
+            - 10.10.172.23
             - 127.0.0.1
             - localhost
             - 10.96.232.136

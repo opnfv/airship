@@ -9,11 +9,11 @@ export OS_PASSWORD=${OS_PASSWORD:-password123}
 export IPMI_USER=${IPMI_USER:-root}
 export IPMI_PASS=${IPMI_PASS:-root}
 
-export GEN_SSH=${GEN_SSH:-pod17}
+export GEN_SSH=${GEN_SSH:-intel-pod17-genesis}
 export SITE_NAME=${SITE_NAME:-intel-pod17}
 
-export GEN_IPMI=${GEN_IPMI:-10.10.170.10}
-export NODES_IPMI=${NODES_IPMI:-'10.10.170.11 10.10.170.12 10.10.170.13 10.10.170.14 10.10.170.15'}
+export GEN_IPMI=${GEN_IPMI:-10.10.170.11}
+export NODES_IPMI=${NODES_IPMI:-'10.10.170.12 10.10.170.13 10.10.170.14 10.10.170.15'}
 
 export GERRIT_REFSPEC=${GERRIT_REFSPEC:-master}
 export SITE_DEF=${SITE_DEF:-airship/site/intel-pod17/site-definition.yaml}

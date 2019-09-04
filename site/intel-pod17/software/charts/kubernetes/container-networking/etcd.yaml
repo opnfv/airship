@@ -45,80 +45,80 @@ metadata:
     # environment. The ordering is important (Genesis is index 0, then master
     # nodes in the order they are specified in common-addresses).
 
-    # Genesis hostname - pod17-jump
+    # Genesis hostname - pod17-node1
     - src:
         schema: deckhand/Certificate/v1
-        name: calico-etcd-pod17-jump
+        name: calico-etcd-pod17-node1
         path: .
       dest:
         path: .values.nodes[0].tls.client.cert
     - src:
         schema: deckhand/CertificateKey/v1
-        name: calico-etcd-pod17-jump
+        name: calico-etcd-pod17-node1
         path: .
       dest:
         path: .values.nodes[0].tls.client.key
     - src:
         schema: deckhand/Certificate/v1
-        name: calico-etcd-pod17-jump-peer
+        name: calico-etcd-pod17-node1-peer
         path: .
       dest:
         path: .values.nodes[0].tls.peer.cert
     - src:
         schema: deckhand/CertificateKey/v1
-        name: calico-etcd-pod17-jump-peer
+        name: calico-etcd-pod17-node1-peer
         path: .
       dest:
         path: .values.nodes[0].tls.peer.key
 
-    # master node 1 hostname - pod17-node1
+    # master node 1 hostname - pod17-node2
     - src:
         schema: deckhand/Certificate/v1
-        name: calico-etcd-pod17-node1
+        name: calico-etcd-pod17-node2
         path: .
       dest:
         path: .values.nodes[1].tls.client.cert
     - src:
         schema: deckhand/CertificateKey/v1
-        name: calico-etcd-pod17-node1
+        name: calico-etcd-pod17-node2
         path: .
       dest:
         path: .values.nodes[1].tls.client.key
     - src:
         schema: deckhand/Certificate/v1
-        name: calico-etcd-pod17-node1-peer
+        name: calico-etcd-pod17-node2-peer
         path: .
       dest:
         path: .values.nodes[1].tls.peer.cert
     - src:
         schema: deckhand/CertificateKey/v1
-        name: calico-etcd-pod17-node1-peer
+        name: calico-etcd-pod17-node2-peer
         path: .
       dest:
         path: .values.nodes[1].tls.peer.key
 
-    # master node 2 hostname - pod17-node2
+    # master node 2 hostname - pod17-node3
     - src:
         schema: deckhand/Certificate/v1
-        name: calico-etcd-pod17-node2
+        name: calico-etcd-pod17-node3
         path: .
       dest:
         path: .values.nodes[2].tls.client.cert
     - src:
         schema: deckhand/CertificateKey/v1
-        name: calico-etcd-pod17-node2
+        name: calico-etcd-pod17-node3
         path: .
       dest:
         path: .values.nodes[2].tls.client.key
     - src:
         schema: deckhand/Certificate/v1
-        name: calico-etcd-pod17-node2-peer
+        name: calico-etcd-pod17-node3-peer
         path: .
       dest:
         path: .values.nodes[2].tls.peer.cert
     - src:
         schema: deckhand/CertificateKey/v1
-        name: calico-etcd-pod17-node2-peer
+        name: calico-etcd-pod17-node3-peer
         path: .
       dest:
         path: .values.nodes[2].tls.peer.key
