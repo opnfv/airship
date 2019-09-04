@@ -129,10 +129,13 @@ site_action() {
   # Site deployment with Shipyard, see more details here
   # https://airship-treasuremap.readthedocs.io/en/latest/authoring_and_deployment.html#deploy-site-with-shipyard
 
-  sudo -E treasuremap/tools/airship shipyard create configdocs $SITE_NAME --directory=/target/collect
+  sudo -E treasuremap/tools/airship shipyard create configdocs \
+    $SITE_NAME --directory=/target/collect --replace
   sudo -E treasuremap/tools/airship shipyard commit configdocs
 
-  sudo -E treasuremap/tools/airship shipyard create action $1
+  sudo -E treasuremap/tools/airship shipyard create action \
+    --allow-intermediate-commits $1
+
   sudo -E treasuremap/tools/gate/wait-for-shipyard.sh
 }
 
