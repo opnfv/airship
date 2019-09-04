@@ -49,7 +49,7 @@ metadata:
     # *NOTE: This is an exception in that `genesis` is not the hostname of the
     # genesis node, but `genesis` is reference here in the certificate names
     # because of certain Promenade assumptions that may be addressed in the
-    # future. Therefore `genesis` is used instead of `pod17-jump` here.
+    # future. Therefore `genesis` is used instead of `pod17-node1` here.
     - src:
         schema: deckhand/Certificate/v1
         name: kubernetes-etcd-genesis
@@ -75,54 +75,54 @@ metadata:
       dest:
         path: .values.nodes[0].tls.peer.key
 
-    # master node 1 hostname - pod17-node1
+    # master node 1 hostname - pod17-node2
     - src:
         schema: deckhand/Certificate/v1
-        name: kubernetes-etcd-pod17-node1
+        name: kubernetes-etcd-pod17-node2
         path: .
       dest:
         path: .values.nodes[1].tls.client.cert
     - src:
         schema: deckhand/CertificateKey/v1
-        name: kubernetes-etcd-pod17-node1
+        name: kubernetes-etcd-pod17-node2
         path: .
       dest:
         path: .values.nodes[1].tls.client.key
     - src:
         schema: deckhand/Certificate/v1
-        name: kubernetes-etcd-pod17-node1-peer
+        name: kubernetes-etcd-pod17-node2-peer
         path: .
       dest:
         path: .values.nodes[1].tls.peer.cert
     - src:
         schema: deckhand/CertificateKey/v1
-        name: kubernetes-etcd-pod17-node1-peer
+        name: kubernetes-etcd-pod17-node2-peer
         path: .
       dest:
         path: .values.nodes[1].tls.peer.key
 
-    # master node 2 hostname - pod17-node2
+    # master node 2 hostname - pod17-node3
     - src:
         schema: deckhand/Certificate/v1
-        name: kubernetes-etcd-pod17-node2
+        name: kubernetes-etcd-pod17-node3
         path: .
       dest:
         path: .values.nodes[2].tls.client.cert
     - src:
         schema: deckhand/CertificateKey/v1
-        name: kubernetes-etcd-pod17-node2
+        name: kubernetes-etcd-pod17-node3
         path: .
       dest:
         path: .values.nodes[2].tls.client.key
     - src:
         schema: deckhand/Certificate/v1
-        name: kubernetes-etcd-pod17-node2-peer
+        name: kubernetes-etcd-pod17-node3-peer
         path: .
       dest:
         path: .values.nodes[2].tls.peer.cert
     - src:
         schema: deckhand/CertificateKey/v1
-        name: kubernetes-etcd-pod17-node2-peer
+        name: kubernetes-etcd-pod17-node3-peer
         path: $
       dest:
         path: .values.nodes[2].tls.peer.key

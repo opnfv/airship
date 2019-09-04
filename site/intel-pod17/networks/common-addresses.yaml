@@ -52,15 +52,15 @@ data:
     # networks/physical/networks.yaml
     # NOTE: Ensure that the genesis node is manually configured with this
     # hostname before running `genesis.sh` on the node.
-    hostname: pod17-jump
+    hostname: pod17-node1
     # NEWSITE-CHANGEME: Calico IP of the Genesis node. Use the "start" value for
     # the calico network defined in networks/physical/networks.yaml for this IP.
-    ip: 10.10.172.20
+    ip: 10.10.172.21
 
   bootstrap:
     # NEWSITE-CHANGEME: Update with the "start" value/IP of the static range
     # defined for the pxe network in networks/physical/networks.yaml
-    ip: 10.10.171.20
+    ip: 10.10.171.21
 
   kubernetes:
     # K8s API service IP
@@ -85,8 +85,8 @@ data:
   # control plane servers. Ensure that this matches the nodes with the 'masters'
   # tags applied in baremetal/nodes.yaml
   masters:
-    - hostname: pod17-node1
     - hostname: pod17-node2
+    - hostname: pod17-node3
 
   # NEWSITE-CHANGEME: Environment proxy information.
   # NOTE: Reference Airship sites do not deploy behind a proxy, so this proxy section

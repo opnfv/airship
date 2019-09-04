@@ -34,7 +34,7 @@ metadata:
   schema: 'metadata/Document/v1'
   # NEWSITE-CHANGEME: Replace with the hostname of the first node in the rack,
   # after (excluding) genesis.
-  name: pod17-node1
+  name: pod17-node2
   layeringDefinition:
     abstract: false
     layer: site
@@ -54,7 +54,7 @@ data:
     # These addresses should already be assigned to nodes racked and stacked in
     # the environment; these are not addresses which MaaS assigns.
     - network: oob
-      address: 10.10.170.11
+      address: 10.10.170.12
     # The IP of the node on the PXE network. Refer to the static IP range
     # defined for the PXE network in networks/physical/networks.yaml. Begin allocating
     # IPs from this network, starting with the second IP (inclusive) from the
@@ -63,27 +63,27 @@ data:
     # genesis will have 10.23.20.11, this node will have 10.23.20.12, and
     # so on with incrementing IP addresses with each additional node.
     - network: dmz
-      address: 10.10.170.21
+      address: 10.10.170.22
     # Genesis node gets first IP, all other nodes increment IPs from there
     # within the allocation range defined for the network in
     # networks/physical/networks.yaml
     - network: admin
-      address: 10.10.171.21
+      address: 10.10.171.22
     # Genesis node gets first IP, all other nodes increment IPs from there
     # within the allocation range defined for the network in
     # networks/physical/networks.yaml
     - network: private
-      address: 10.10.172.21
+      address: 10.10.172.22
     # Genesis node gets first IP, all other nodes increment IPs from there
     # within the allocation range defined for the network in
     # networks/physical/networks.yaml
     - network: storage
-      address: 10.10.173.21
+      address: 10.10.173.22
     # Genesis node gets first IP, all other nodes increment IPs from there
     # within the allocation range defined for the network in
     # networks/physical/networks.yaml
     - network: management
-      address: 10.10.174.21
+      address: 10.10.174.22
   # NEWSITE-CHANGEME: Set the host profile for the node.
   # Note that there are different host profiles depending if this is a control
   # plane vs data plane node, and different profiles that map to different types
@@ -119,40 +119,6 @@ schema: 'drydock/BaremetalNode/v1'
 metadata:
   schema: 'metadata/Document/v1'
   # NEWSITE-CHANGEME: The next node's hostname
-  name: pod17-node2
-  layeringDefinition:
-    abstract: false
-    layer: site
-  storagePolicy: cleartext
-data:
-  # NEWSITE-CHANGEME: The next node's IPv4 addressing
-  addressing:
-    - network: oob
-      address: 10.10.170.12
-    - network: dmz
-      address: 10.10.170.22
-    - network: admin
-      address: 10.10.171.22
-    - network: private
-      address: 10.10.172.22
-    - network: storage
-      address: 10.10.173.22
-    - network: management
-      address: 10.10.174.22
-  # NEWSITE-CHANGEME: The next node's host profile
-  host_profile: cp-intel-s2600wt
-  metadata:
-    # NEWSITE-CHANGEME: The next node's rack designation
-    rack: pod17-rack
-    # NEWSITE-CHANGEME: The next node's role desigatnion
-    tags:
-      - 'masters'
-...
----
-schema: 'drydock/BaremetalNode/v1'
-metadata:
-  schema: 'metadata/Document/v1'
-  # NEWSITE-CHANGEME: The next node's hostname
   name: pod17-node3
   layeringDefinition:
     abstract: false
@@ -175,13 +141,13 @@ data:
       address: 10.10.174.23
   # NEWSITE-CHANGEME: The next node's host profile
   # This is the third "primary" control plane profile after genesis
-  host_profile: dp-intel-s2600wt
+  host_profile: cp-intel-s2600wt
   metadata:
     # NEWSITE-CHANGEME: The next node's rack designation
     rack: pod17-rack
     # NEWSITE-CHANGEME: The next node's role desigatnion
     tags:
-      - 'workers'
+      - 'masters'
 ...
 ---
 schema: 'drydock/BaremetalNode/v1'
