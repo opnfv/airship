@@ -530,6 +530,8 @@ data:
         default: null
         public:
           host: image-airship.DOMAIN
+        admin:
+          host: image-airship.DOMAIN
       path:
         default: null
       scheme:
@@ -537,8 +539,8 @@ data:
         public: "http"
       port:
         api:
-          default: 9292
-          public: 80
+          default: 80
+          internal: 9292
     image_registry:
       name: glance-registry
       hosts:
@@ -687,15 +689,17 @@ data:
         default: null
         public:
           host: compute-airship.DOMAIN
+        admin:
+          host: compute-airship.DOMAIN
       path:
         default: "/v2/%(tenant_id)s"
       scheme:
         default: "http"
-        public: "http"
+        internal: "http"
       port:
         api:
-          default: 8774
-          public: 80
+          default: 80
+          internal: 8774
         novncproxy:
           default: 80
     compute_metadata:
