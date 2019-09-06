@@ -369,21 +369,35 @@ metadata:
       dest:
         - path: .osh.object_store.host_fqdn_override.public.host
           pattern: DOMAIN
+        - path: .osh.object_store.host_fqdn_override.admin.host
+          pattern: DOMAIN
         - path: .osh.ceph_object_store.host_fqdn_override.public.host
           pattern: DOMAIN
         - path: .osh.image.host_fqdn_override.public.host
           pattern: DOMAIN
+        - path: .osh.image.host_fqdn_override.admin.host
+          pattern: DOMAIN
         - path: .osh.cloudformation.host_fqdn_override.public.host
+          pattern: DOMAIN
+        - path: .osh.cloudformation.host_fqdn_override.admin.host
           pattern: DOMAIN
         - path: .osh.orchestration.host_fqdn_override.public.host
           pattern: DOMAIN
+        - path: .osh.orchestration.host_fqdn_override.admin.host
+          pattern: DOMAIN
         - path: .osh.compute.host_fqdn_override.public.host
+          pattern: DOMAIN
+        - path: .osh.compute.host_fqdn_override.admin.host
           pattern: DOMAIN
         - path: .osh.compute_novnc_proxy.host_fqdn_override.public.host
           pattern: DOMAIN
         - path: .osh.placement.host_fqdn_override.public.host
           pattern: DOMAIN
+        - path: .osh.placement.host_fqdn_override.admin.host
+          pattern: DOMAIN
         - path: .osh.network.host_fqdn_override.public.host
+          pattern: DOMAIN
+        - path: .osh.network.host_fqdn_override.admin.host
           pattern: DOMAIN
         - path: .osh.identity.host_fqdn_override.public.host
           pattern: DOMAIN
@@ -393,9 +407,15 @@ metadata:
           pattern: DOMAIN
         - path: .osh.volume.host_fqdn_override.public.host
           pattern: DOMAIN
+        - path: .osh.volume.host_fqdn_override.admin.host
+          pattern: DOMAIN
         - path: .osh.volumev2.host_fqdn_override.public.host
           pattern: DOMAIN
+        - path: .osh.volumev2.host_fqdn_override.admin.host
+          pattern: DOMAIN
         - path: .osh.volumev3.host_fqdn_override.public.host
+          pattern: DOMAIN
+        - path: .osh.volumev3.host_fqdn_override.admin.host
           pattern: DOMAIN
 data:
   osh:
@@ -409,6 +429,8 @@ data:
         default: null
         public:
           host: object-store-airship.DOMAIN
+        admin:
+          host: object-store-airship.DOMAIN
       path:
         default: /swift/v1/KEY_$(tenant_id)s
       scheme:
@@ -416,8 +438,8 @@ data:
         public: "http"
       port:
         api:
-          default: 8088
-          public: 80
+          default: 80
+          internal: 8088
     ceph_object_store:
       name: radosgw
       namespace: openstack
@@ -530,6 +552,8 @@ data:
         default: null
         public:
           host: image-airship.DOMAIN
+        admin:
+          host: image-airship.DOMAIN
       path:
         default: null
       scheme:
@@ -537,8 +561,8 @@ data:
         public: "http"
       port:
         api:
-          default: 9292
-          public: 80
+          default: 80
+          internal: 9292
     image_registry:
       name: glance-registry
       hosts:
@@ -563,6 +587,8 @@ data:
         default: null
         public:
           host: volume-airship.DOMAIN
+        admin:
+          host: volume-airship.DOMAIN
       path:
         default: "/v1/%(tenant_id)s"
       scheme:
@@ -570,8 +596,8 @@ data:
         public: "http"
       port:
         api:
-          default: 8776
-          public: 80
+          default: 80
+          internal: 8776
     volumev2:
       name: cinderv2
       hosts:
@@ -581,6 +607,8 @@ data:
         default: null
         public:
           host: volume-airship.DOMAIN
+        admin:
+          host: volume-airship.DOMAIN
       path:
         default: "/v2/%(tenant_id)s"
       scheme:
@@ -588,8 +616,8 @@ data:
         public: "http"
       port:
         api:
-          default: 8776
-          public: 80
+          default: 80
+          internal: 8776
     volumev3:
       name: cinderv3
       hosts:
@@ -599,6 +627,8 @@ data:
         default: null
         public:
           host: volume-airship.DOMAIN
+        admin:
+          host: volume-airship.DOMAIN
       path:
         default: "/v3/%(tenant_id)s"
       scheme:
@@ -606,8 +636,8 @@ data:
         public: "http"
       port:
         api:
-          default: 8776
-          public: 80
+          default: 80
+          internal: 8776
     orchestration:
       name: heat
       hosts:
@@ -617,6 +647,8 @@ data:
         default: null
         public:
           host: orchestration-airship.DOMAIN
+        admin:
+          host: orchestration-airship.DOMAIN
       path:
         default: "/v1/%(project_id)s"
       scheme:
@@ -624,8 +656,8 @@ data:
         public: "http"
       port:
         api:
-          default: 8004
-          public: 80
+          default: 80
+          internal: 8004
     cloudformation:
       name: heat-cfn
       hosts:
@@ -635,6 +667,8 @@ data:
         default: null
         public:
           host: cloudformation-airship.DOMAIN
+        admin:
+          host: cloudformation-airship.DOMAIN
       path:
         default: /v1
       scheme:
@@ -642,8 +676,8 @@ data:
         public: "http"
       port:
         api:
-          default: 8000
-          public: 80
+          default: 80
+          internal: 8000
     cloudwatch:
       name: heat-cloudwatch
       hosts:
@@ -669,6 +703,8 @@ data:
         default: null
         public:
           host: network-airship.DOMAIN
+        admin:
+          host: network-airship.DOMAIN
       path:
         default: null
       scheme:
@@ -676,8 +712,8 @@ data:
         public: "http"
       port:
         api:
-          default: 9696
-          public: 80
+          default: 80
+          internal: 9696
     compute:
       name: nova
       hosts:
@@ -687,15 +723,17 @@ data:
         default: null
         public:
           host: compute-airship.DOMAIN
+        admin:
+          host: compute-airship.DOMAIN
       path:
         default: "/v2/%(tenant_id)s"
       scheme:
         default: "http"
-        public: "http"
+        internal: "http"
       port:
         api:
-          default: 8774
-          public: 80
+          default: 80
+          internal: 8774
         novncproxy:
           default: 80
     compute_metadata:
@@ -753,6 +791,8 @@ data:
         default: null
         public:
           host: placement-airship.DOMAIN
+        admin:
+          host: placement-airship.DOMAIN
       path:
         default: /
       scheme:
@@ -760,8 +800,8 @@ data:
         public: "http"
       port:
         api:
-          default: 8778
-          public: 80
+          default: 80
+          internal: 8778
     dashboard:
       name: horizon
       hosts:
