@@ -34,31 +34,30 @@ fi
 
 
 help() {
-  echo "Usage: $0 <healthcheck|smoke>"
+  echo "Usage: $0 <healthcheck|smoke|vnf>"
 }
 
 
-run_healthcheck_tests() {
+run_tests() {
+
+  rm -rf ${FUNCTEST_CACHE}/results && mkdir ${FUNCTEST_CACHE}/results
+
   sudo docker run --env-file env \
       -v $(pwd)/openstack.creds:/home/opnfv/functest/conf/env_file \
       -v ${FUNCTEST_CACHE}/images:/home/opnfv/functest/images \
-      opnfv/functest-healthcheck:hunter
+      -v ${FUNCTEST_CACHE}/results:/home/opnfv/functest/results \
+      opnfv/functest-${1}:hunter
 }
-
-run_smoke_tests() {
-  sudo docker run --env-file env \
-      -v $(pwd)/openstack.creds:/home/opnfv/functest/conf/env_file \
-      -v ${FUNCTEST_CACHE}/images:/home/opnfv/functest/images \
-      opnfv/functest-smoke:hunter
-}
-
 
 case "$1" in
 'healthcheck')
-  run_healthcheck_tests
+  run_tests $1
   ;;
 'smoke')
-  run_smoke_tests
+  run_tests $1
+  ;;
+'vnf')
+  run_tests $1
   ;;
 *) help
    exit 1

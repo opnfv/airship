@@ -139,6 +139,12 @@ site_action() {
   sudo -E treasuremap/tools/gate/wait-for-shipyard.sh
 }
 
+create_public_network() {
+  export OS_AUTH_URL=${OS_AUTH_URL:-http://identity-airship.intel-pod17.opnfv.org:80/v3}
+  sudo -E treasuremap/tools/openstack stack create \
+    -t /target/airship/tools/files/heat-public-net-deployment.yaml \
+    public-network
+}
 
 case "$1" in
 'deploy_site')
@@ -148,6 +154,7 @@ case "$1" in
   promenade_bundle
   genesis_deploy
   site_action $1
+  create_public_network
   ;;
 'update_site')
   clone_repos
