@@ -53,6 +53,7 @@ genesis_cleanup() {
     ipmitool -I lanplus -H $node -U $IPMI_USER -P $IPMI_PASS chassis power off
   done
 
+  sleep 11 # wait for genesis node to power-off
   ipmitool -I lanplus -H $GEN_IPMI -U $IPMI_USER -P $IPMI_PASS chassis power on
 
   while ! ssh $GEN_SSH hostname; do :; done

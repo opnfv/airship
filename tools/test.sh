@@ -40,7 +40,7 @@ help() {
 
 run_tests() {
 
-  rm -rf ${FUNCTEST_CACHE}/results && mkdir ${FUNCTEST_CACHE}/results
+  sudo rm -rf ${FUNCTEST_CACHE}/results && mkdir ${FUNCTEST_CACHE}/results
 
   sudo docker run --env-file env \
       -v $(pwd)/openstack.creds:/home/opnfv/functest/conf/env_file \
