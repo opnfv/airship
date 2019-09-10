@@ -39,6 +39,8 @@ volume:
     storage_protocol: ceph
 volume-feature-enabled:
     backup: true
+object-storage-feature-enabled:
+    discoverability: false
 EOF
 
 cat > openstack.creds << EOF
