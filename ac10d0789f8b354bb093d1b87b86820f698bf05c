@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbc2d73e_a849c5f6",
+        "filename": "tools/test.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 168
+      },
+      "writtenOn": "2019-09-10T18:39:34Z",
+      "side": 1,
+      "message": "Do you mean \"benchmarking\"?",
+      "range": {
+        "startLine": 88,
+        "startChar": 9,
+        "endLine": 88,
+        "endChar": 10
+      },
+      "revId": "ac10d0789f8b354bb093d1b87b86820f698bf05c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
