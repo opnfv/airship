@@ -17,8 +17,32 @@ cat > env << EOF
 EXTERNAL_NETWORK=public
 EOF
 
+cat > tempest_conf.yaml << EOF
+---
+compute:
+    max_microversion: 2.42
+compute-feature-enabled:
+    shelve: false
+    vnc_console: false
+    cold_migration: false
+    block_migration_for_live_migration: false
+identity-feature-enabled:
+    api_v2: false
+    api_v2_admin: false
+image-feature-enabled:
+    api_v2: true
+    api_v1: false
+placement:
+    max_microversion: 1.4
+volume:
+    max_microversion: 3.27
+    storage_protocol: ceph
+volume-feature-enabled:
+    backup: true
+EOF
+
 cat > openstack.creds << EOF
-export OS_AUTH_URL=http://identity-airship.intel-pod17.opnfv.org:80/v3
+export OS_AUTH_URL=http://identity-airship.intel-pod17.opnfv.org/v3
 export OS_USER_DOMAIN_NAME=default
 export OS_PROJECT_DOMAIN_NAME=default
 export OS_USERNAME=admin
@@ -50,6 +74,7 @@ run_tests() {
       -v $(pwd)/openstack.creds:/home/opnfv/functest/conf/env_file \
       -v ${FUNCTEST_CACHE}/images:/home/opnfv/functest/images \
       -v ${FUNCTEST_CACHE}/results:/home/opnfv/functest/results \
+      -v $(pwd)/tempest_conf.yaml:/usr/lib/python2.7/site-packages/functest/opnfv_tests/openstack/tempest/custom_tests/tempest_conf.yaml \
       opnfv/functest-${1}:hunter
 }
 
@@ -58,6 +83,9 @@ case "$1" in
   run_tests $1
   ;;
 'smoke')
+  run_tests $1
+  ;;
+'benchmarking')
   run_tests $1
   ;;
 'vnf')
