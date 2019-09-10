@@ -13,16 +13,20 @@ cd $TMP_DIR
 trap "{ sudo rm -rf $TMP_DIR; }" EXIT
 
 
-touch env
+cat > env << EOF
+EXTERNAL_NETWORK=public
+EOF
 
 cat > openstack.creds << EOF
-export OS_AUTH_URL='http://identity-airship.intel-pod17.opnfv.org:80/v3'
+export OS_AUTH_URL=http://identity-airship.intel-pod17.opnfv.org:80/v3
 export OS_USER_DOMAIN_NAME=default
 export OS_PROJECT_DOMAIN_NAME=default
 export OS_USERNAME=admin
 export OS_PROJECT_NAME=admin
 export OS_PASSWORD=password123
 export OS_IDENTITY_API_VERSION=3
+export OS_INTERFACE=public
+export OS_REGION_NAME=intel-pod17
 EOF
 
 # check/download images
@@ -63,4 +67,3 @@ case "$1" in
    exit 1
   ;;
 esac
-
