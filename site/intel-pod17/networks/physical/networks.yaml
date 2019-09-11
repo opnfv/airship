@@ -1,8 +1,8 @@
 ---
 # The purpose of this file is to define all of the NetworkLinks (i.e. layer 1
-# devices) and Networks (i.e. layer 3 configurations). The following is standard
-# for the logical networks in Airship:
+# devices) and Networks (i.e. layer 3 configurations).
 #
+# The following is reference configuration for Intel hosted POD17
 # https://wiki.opnfv.org/display/pharos/Intel+POD17
 # +--------+------------+-----------------------------------+----------+----------+----------------+
 # |        |            |                                   |          |          |                |
@@ -19,11 +19,6 @@
 # NetworkLinks and Networks in this file. Only the IP addresses and CIDRs should
 # need editing.
 #
-# TODO: Given that we expect all network broadcast domains to span all racks in
-# Airship, we should choose network names that do not include the rack number.
-#
-# TODO: FQDN naming standards for hosts
-#
 schema: 'drydock/NetworkLink/v1'
 metadata:
   schema: 'metadata/Document/v1'
@@ -33,8 +28,8 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
-  # MaaS doesnt own this network like it does the others, so the noconfig label
-  # is specified.
+  # MaaS doesnt own this network like it does the others, 
+  # so the noconfig label is specified.
   labels:
     noconfig: enabled
   bonding:
@@ -64,14 +59,6 @@ data:
     - subnet: '0.0.0.0/0'
       gateway: 10.10.170.1
       metric: 100
-  # NEWSITE-CHANGEME: Update with the site's out-of-band IP allocation range
-  # FIXME: Is this IP range actually used/allocated for anything? The HW already
-  # has its OOB IPs assigned. None of the Ubuntu OS's should need IPs on OOB
-  # network either, as they should be routable via the default gw on OAM network
-  ranges:
-    - type: static
-      start: 10.10.170.20
-      end: 10.10.170.39
 ...
 ---
 schema: 'drydock/NetworkLink/v1'
@@ -103,37 +90,24 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
-  # NEWSITE-CHANGEME: Update with the site's PXE network CIDR
-  # NOTE: The CIDR minimum size = (number of nodes * 2) + 10
+  # NEWSITE-CHANGEME: Update with the site's DMZ network CIDR
   cidr: 10.10.170.0/24
   routes:
     - subnet: 0.0.0.0/0
-      # NEWSITE-CHANGEME: Set the OAM network gateway IP address
+      # NEWSITE-CHANGEME: Set the DMZ network gateway IP address
+      # NOTE: This serves as the site's default route.
       gateway: 10.10.170.1
       metric: 100
-  # NOTE: The first 10 IPs in the subnet are reserved for network infrastructure.
-  # The remainder of the range is divided between two subnets of equal size:
-  # one static, and one DHCP.
-  # The DHCP addresses are used when nodes perform a PXE boot (DHCP address gets
-  # assigned), and when a node is commissioning in MaaS (also uses DHCP to get
-  # its IP address). However, when MaaS installs the operating system
-  # ("Deploying/Deployed" states), it will write a static IP assignment to
-  # /etc/network/interfaces[.d] with IPs from the "static" subnet defined here.
   ranges:
-    # NEWSITE-CHANGEME: Update to the first 10 IPs in the CIDR
+    # NEWSITE-CHANGEME: Exclude any reserved IPs for the lab.
     - type: reserved
-      start: 10.10.170.1
-      end: 10.10.170.19
-    # NEWSITE-CHANGEME: Update to the first half of the remaining range after
-    # excluding the 10 reserved IPs.
+      start: 10.10.171.1
+      end: 10.10.171.19
+    # NEWSITE-CHANGEME: Update static range that will be used for the nodes.
+    # See minimum range required for the nodes in baremetal/nodes.yaml.
     - type: static
       start: 10.10.170.20
       end: 10.10.170.39
-    # NEWSITE-CHANGEME: Update to the second half of the remaining range after
-    # excluding the 10 reserved IPs.
-    - type: dhcp
-      start: 10.10.170.40
-      end: 10.10.170.79
   dns:
     # NEWSITE-CHANGEME: FQDN for bare metal nodes.
     # Choose FQDN according to the node FQDN naming conventions at the top of
@@ -177,31 +151,29 @@ data:
   # NEWSITE-CHANGEME: Update with the site's PXE network CIDR
   # NOTE: The CIDR minimum size = (number of nodes * 2) + 10
   cidr: 10.10.171.0/24
-  # routes:
-  #   - subnet: 0.0.0.0/0
-  #     # NEWSITE-CHANGEME: Set the OAM network gateway IP address
-  #     gateway: 10.10.171.1
-  #     metric: 100
-  # NOTE: The first 10 IPs in the subnet are reserved for network infrastructure.
-  # The remainder of the range is divided between two subnets of equal size:
-  # one static, and one DHCP.
-  # The DHCP addresses are used when nodes perform a PXE boot (DHCP address gets
-  # assigned), and when a node is commissioning in MaaS (also uses DHCP to get
-  # its IP address). However, when MaaS installs the operating system
-  # ("Deploying/Deployed" states), it will write a static IP assignment to
-  # /etc/network/interfaces[.d] with IPs from the "static" subnet defined here.
+  routes:
+    - subnet: 0.0.0.0/0
+      # NEWSITE-CHANGEME: Set the Admin network gateway IP address
+      gateway: 10.10.171.1
+      metric: 100
+  # NOTE: The DHCP addresses are used when nodes perform a PXE boot
+  # (DHCP address gets assigned), and when a node is commissioning in MaaS
+  # (also uses DHCP to get its IP address). However, when MaaS installs the
+  # operating system ("Deploying/Deployed" states), it will write a static IP
+  # assignment to /etc/network/interfaces[.d] with IPs from the "static"
+  # subnet defined here.
   ranges:
-    # NEWSITE-CHANGEME: Update to the first 10 IPs in the CIDR
+    # NEWSITE-CHANGEME: Exclude any reserved IPs for the lab.
     - type: reserved
       start: 10.10.171.1
       end: 10.10.171.19
     # NEWSITE-CHANGEME: Update to the first half of the remaining range after
-    # excluding the 10 reserved IPs.
+    # excluding the reserved IPs.
     - type: static
       start: 10.10.171.20
       end: 10.10.171.39
     # NEWSITE-CHANGEME: Update to the second half of the remaining range after
-    # excluding the 10 reserved IPs.
+    # excluding the reserved IPs.
     - type: dhcp
       start: 10.10.171.40
       end: 10.10.171.79
@@ -210,8 +182,10 @@ data:
     # Choose FQDN according to the node FQDN naming conventions at the top of
     # this document.
     domain: intel-pod17.opnfv.org
-    # List of upstream DNS forwards. Verify you can reach them from your
-    # environment. If so, you should not need to change them.
+    # NEWSITE-CHANGEME: Use MAAS VIP as the DNS server.
+    # MAAS has inbuilt DNS server and Debian mirror that allows nodes to be
+    # deployed without requiring routed/internet access for the Admin/PXE interface.
+    # See data.vip.maas_vip in networks/common-addresses.yaml.
     # TODO: This should be populated via substitution from common-addresses
     servers: '10.10.171.100'
 ...
@@ -228,10 +202,7 @@ data:
   bonding:
     mode: disabled
   # NEWSITE-CHANGEME: Ensure the network switches in the environment are
-  # configured for this MTU or greater. Even if switches are configured for or
-  # can support a slightly higher MTU, there is no need (and negliable benefit)
-  # to squeeze every last byte into the MTU (e.g., 9216 vs 9100). Leave MTU at
-  # 9100 for maximum compatibility.
+  # configured for this MTU or greater.
   mtu: 1500
   linkspeed: auto
   trunking:
@@ -250,15 +221,15 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
-  # NEWSITE-CHANGEME: Set the VLAN ID which the storage network is on
+  # NEWSITE-CHANGEME: Set the VLAN ID which the Private network is on
   vlan: '0'
   mtu: 1500
-  # NEWSITE-CHANGEME: Set the CIDR for the storage network
+  # NEWSITE-CHANGEME: Set the CIDR for the Private network
   # NOTE: The CIDR minimum size = number of nodes + 10
   cidr: 10.10.172.0/24
   ranges:
-    # NEWSITE-CHANGEME: Update to the remaining range after excluding the 10
-    # 10 reserved IPs.
+    # NEWSITE-CHANGEME: Update to the remaining range excluding (if any)
+    # reserved IPs.
     - type: static
       start: 10.10.172.1
       end: 10.10.172.19
@@ -273,32 +244,18 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
-  # NEWSITE-CHANGEME: Set the VLAN ID which the OAM network is on
+  # NEWSITE-CHANGEME: Set the VLAN ID which the Management network is on
   vlan: '174'
   mtu: 1500
-  # NEWSITE-CHANGEME: Set the CIDR for the OAM network
+  # NEWSITE-CHANGEME: Set the CIDR for the Management network
   # NOTE: The CIDR minimum size = number of nodes + 10
   cidr: 10.10.174.0/24
-  routes:
-    - subnet: 0.0.0.0/0
-      # NEWSITE-CHANGEME: Set the OAM network gateway IP address
-      gateway: 10.10.174.1
-      metric: 100
   ranges:
-    # NEWSITE-CHANGEME: Update to the remaining range after excluding the 10
-    # 10 reserved IPs.
+    # NEWSITE-CHANGEME: Update to the remaining range excluding (if any)
+    # reserved IPs.
     - type: static
       start: 10.10.174.1
       end: 10.23.21.19
-  dns:
-    # NEWSITE-CHANGEME: FQDN for bare metal nodes.
-    # Choose FQDN according to the node FQDN naming conventions at the top of
-    # this document.
-    domain: intel-pod17.opnfv.org
-    # List of upstream DNS forwards. Verify you can reach them from your
-    # environment. If so, you should not need to change them.
-    # TODO: This should be populated via substitution from common-addresses
-    servers: '8.8.8.8,8.8.4.4'
 ...
 ---
 schema: 'drydock/NetworkLink/v1'
@@ -313,10 +270,7 @@ data:
   bonding:
     mode: disabled
   # NEWSITE-CHANGEME: Ensure the network switches in the environment are
-  # configured for this MTU or greater. Even if switches are configured for or
-  # can support a slightly higher MTU, there is no need (and negliable benefit)
-  # to squeeze every last byte into the MTU (e.g., 9216 vs 9100). Leave MTU at
-  # 9100 for maximum compatibility.
+  # configured for this MTU or greater.
   mtu: 1500
   linkspeed: auto
   trunking:
@@ -336,20 +290,24 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
-  # NEWSITE-CHANGEME: Set the VLAN ID which the storage network is on
+  # NEWSITE-CHANGEME: Set the VLAN ID which the Storage network is on
   vlan: '0'
+  # NEWSITE-CHANGEME: Ensure the network switches in the environment are
+  # configured for this MTU or greater.
   mtu: 1500
-  # NEWSITE-CHANGEME: Set the CIDR for the storage network
+  # NEWSITE-CHANGEME: Set the CIDR for the Storage network
   # NOTE: The CIDR minimum size = number of nodes + 10
   cidr: 10.10.173.0/24
   ranges:
-    # NEWSITE-CHANGEME: Update to the remaining range after excluding the 10
-    # 10 reserved IPs.
+    # NEWSITE-CHANGEME: Update to the remaining range excludin (if any)
+    # reserved IPs.
     - type: static
       start: 10.10.173.1
       end: 10.10.173.19
 ...
 ---
+# The public network for OpenStack VMs.
+# NOTE: Only interface 'ens785f1.1173' will be setup, no IPs assigned to hosts
 schema: 'drydock/Network/v1'
 metadata:
   schema: 'metadata/Document/v1'
@@ -359,7 +317,11 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
+  # NEWSITE-CHANGEME: Set the VLAN ID which the Public network is on
   vlan: '1173'
+  # NEWSITE-CHANGEME: Ensure the network switches in the environment are
+  # configured for this MTU or greater.
   mtu: 1500
+  # NEWSITE-CHANGEME: Set the CIDR for the Public network
   cidr: 10.10.175.0/24
 ...
