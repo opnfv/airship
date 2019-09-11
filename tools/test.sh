@@ -15,6 +15,7 @@ trap "{ sudo rm -rf $TMP_DIR; }" EXIT
 
 cat > env << EOF
 EXTERNAL_NETWORK=public
+BLOCK_MIGRATION=False
 EOF
 
 cat > tempest_conf.yaml << EOF
