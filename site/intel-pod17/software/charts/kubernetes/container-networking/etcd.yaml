@@ -17,7 +17,7 @@ metadata:
   substitutions:
     # Generate a list of control plane nodes (i.e. genesis node + master node
     # list) on which calico etcd will run and will need certs. It is assumed
-    # that Airship sites will have 4 control plane nodes, so this should not need to
+    # that Airship sites will have 3 control plane nodes, so this should not need to
     # change for a new site.
     - src:
         schema: pegleg/CommonAddresses/v1

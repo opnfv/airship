@@ -34,8 +34,7 @@ data:
         # Add/delete from this list as necessary until all nodes are listed.
         # For each node, the `hosts` list should be comprised of:
         #   1. The node's hostname, as already defined in baremetal/nodes.yaml
-        #   2. The node's oam IP address, as already defined in baremetal/nodes.yaml
-        #   3. The node's Calico IP address, as already defined in baremetal/nodes.yaml
+        #   2. The node's Calico IP address, as already defined in baremetal/nodes.yaml
         # NOTE: This list also needs to include the Genesis node, which is not
         # listed in baremetal/nodes.yaml, but by convention should be allocated
         # the first non-reserved IP in each logical network allocation range
@@ -43,7 +42,7 @@ data:
         # NOTE: The genesis node needs to be defined twice (the first two entries
         # on this list) with all of the same paramters except the document_name.
         # In the first case the document_name is `kubelet-genesis`, and in the
-        # second case the document_name format is `kubelete-YOUR_GENESIS_HOSTNAME`.
+        # second case the document_name format is `kubelet-YOUR_GENESIS_HOSTNAME`.
         - document_name: kubelet-genesis
           common_name: system:node:pod17-node1
           hosts:
@@ -115,11 +114,10 @@ data:
         # nodes in the environment, including genesis.
         # For each node, the `hosts` list should be comprised of:
         #   1. The node's hostname, as already defined in baremetal/nodes.yaml
-        #   2. The node's oam IP address, as already defined in baremetal/nodes.yaml
-        #   3. The node's Calico IP address, as already defined in baremetal/nodes.yaml
-        #   4. 127.0.0.1
-        #   5. localhost
-        #   6. kubernetes-etcd.kube-system.svc.cluster.local
+        #   2. The node's Calico IP address, as already defined in baremetal/nodes.yaml
+        #   3. 127.0.0.1
+        #   4. localhost
+        #   5. kubernetes-etcd.kube-system.svc.cluster.local
         # NOTE: This list also needs to include the Genesis node, which is not
         # listed in baremetal/nodes.yaml, but by convention should be allocated
         # the first non-reserved IP in each logical network allocation range
@@ -218,11 +216,10 @@ data:
         # nodes in the environment, including genesis.
         # For each node, the `hosts` list should be comprised of:
         #   1. The node's hostname, as already defined in baremetal/nodes.yaml
-        #   2. The node's oam IP address, as already defined in baremetal/nodes.yaml
-        #   3. The node's Calico IP address, as already defined in baremetal/nodes.yaml
-        #   4. 127.0.0.1
-        #   5. localhost
-        #   6. The calico/etcd/service_ip defined in networks/common-addresses.yaml
+        #   2. The node's Calico IP address, as already defined in baremetal/nodes.yaml
+        #   3. 127.0.0.1
+        #   4. localhost
+        #   5. The calico/etcd/service_ip defined in networks/common-addresses.yaml
         # NOTE: This list also needs to include the Genesis node, which is not
         # listed in baremetal/nodes.yaml, but by convention should be allocated
         # the first non-reserved IP in each logical network allocation range
