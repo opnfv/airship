@@ -14,12 +14,25 @@ metadata:
   name: nova
   layeringDefinition:
     abstract: false
-    layer: site
+    layer: type
     parentSelector:
       name: nova-global
     actions:
       - method: merge
         path: .
   storagePolicy: cleartext
-data: {}
+data:
+  values:
+    network:
+      backend:
+       - openvswitch
+       - sriov
+    conf:
+      nova:
+        pci:
+          alias: '{"capability_type": "pci", "product_id": "154c", "vendor_id": "8086", "device_type": "type-PCI"}'
+          ## NOTE: May need to remove "trusted" setting (let trusted be false by default)
+          ##       once Intel fix the interface issue and provide new i40e driver.
+          passthrough_whitelist: |
+              [{"address": "0000:05:06.*", "physical_network": "sriovnet1"},{"address": "0000:05:07.*", "physical_network": "sriovnet1"},{"address": "0000:05:08.*", "physical_network": "sriovnet1"},{"address": "0000:05:09.*", "physical_network": "sriovnet1"}]
 ...
