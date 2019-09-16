@@ -106,4 +106,10 @@ data:
       address: '5:0.0.0'
       dev_type: 'ST91000640NS'
       bus_type: 'scsi'
+  cpu_sets:
+    kvm: '4-43,48-87'
+  hugepages:
+    dpdk:
+      size: '1G'
+      count: 32
 ...

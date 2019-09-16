@@ -9,7 +9,7 @@ metadata:
   storagePolicy: cleartext
   layeringDefinition:
     abstract: false
-    layer: site
+    layer: type
     parentSelector:
       hosttype: dp-global
     actions:
@@ -97,4 +97,17 @@ data:
     kernel: 'hwe-16.04'
     kernel_params:
       kernel_package: 'linux-image-4.15.0-46-generic'
+      console: 'ttyS1,115200n8'
+      intel_iommu: 'on'
+      iommu: 'pt'
+      amd_iommu: 'on'
+      cgroup_disable: 'hugetlb'
+      transparent_hugepage: 'never'
+      hugepagesz: 'hardwareprofile:hugepages.dpdk.size'
+      hugepages: 'hardwareprofile:hugepages.dpdk.count'
+      default_hugepagesz: 'hardwareprofile:hugepages.dpdk.size'
+      isolcpus: 'hardwareprofile:cpuset.kvm'
+  metadata:
+    owner_data:
+      sriov: enabled
 ...
