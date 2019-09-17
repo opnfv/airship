@@ -16,6 +16,24 @@
       "revId": "be0edeff1e511b232421883cdd5835ae84bfa517",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9338e5e2_9b5ec800",
+        "filename": "type/cntt/software/charts/osh/openstack-compute-kit/neutron.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7551
+      },
+      "writtenOn": "2019-09-17T21:22:47Z",
+      "side": 1,
+      "message": "fixed",
+      "parentUuid": "8d4125d4_c4058188",
+      "revId": "be0edeff1e511b232421883cdd5835ae84bfa517",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
