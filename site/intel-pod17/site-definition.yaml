@@ -10,6 +10,7 @@ metadata:
 data:
   site_type: cntt
 
+  # test
   repositories:
     global:
       revision: v1.4
