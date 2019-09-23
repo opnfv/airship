@@ -18,6 +18,8 @@ export NODES_IPMI=${NODES_IPMI:-'10.10.170.12 10.10.170.13 10.10.170.14 10.10.17
 export GERRIT_REFSPEC=${GERRIT_REFSPEC:-master}
 export SITE_DEF=${SITE_DEF:-airship/site/intel-pod17/site-definition.yaml}
 
+export TERM_OPTS=${TERM_OPTS:-" "}
+
 TMP_DIR=$(mktemp -d)
 cd $TMP_DIR
 
