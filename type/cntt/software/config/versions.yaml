@@ -1,0 +1,22 @@
+---
+schema: pegleg/SoftwareVersions/v1
+metadata:
+  schema: metadata/Document/v1
+  replacement: true
+  name: software-versions
+  layeringDefinition:
+    abstract: false
+    layer: type
+    parentSelector:
+      name: software-versions-global
+    actions:
+      - method: merge
+        path: .
+  storagePolicy: cleartext
+data:
+  kernel_drivers:
+    i40e_driver:
+      type: tar
+      location: https://sourceforge.net/projects/e1000/files/i40e%20stable/2.9.21/i40e-2.9.21.tar.gz
+...
+
