@@ -71,6 +71,18 @@ data:
               mountpoint: '/boot'
               fstype: 'ext4'
               mount_options: 'defaults'
+          - name: 'cephj'
+            size: '10g'
+            filesystem:
+              mountpoint: '/var/lib/ceph/journal'
+              fstype: 'ext4'
+              mount_options: 'defaults'
+          - name: 'cephd'
+            size: '100g'
+            filesystem:
+              mountpoint: '/var/lib/ceph/osd'
+              fstype: 'ext4'
+              mount_options: 'defaults'
           - name: 'var_log'
             size: '100g'
             filesystem:
