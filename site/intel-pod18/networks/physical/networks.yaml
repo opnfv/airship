@@ -337,7 +337,7 @@ metadata:
   storagePolicy: cleartext
 data:
   # NEWSITE-CHANGEME: Set the VLAN ID which the storage network is on
-  vlan: '0'
+  vlan: '183'
   mtu: 1500
   # NEWSITE-CHANGEME: Set the CIDR for the storage network
   # NOTE: The CIDR minimum size = number of nodes + 10
