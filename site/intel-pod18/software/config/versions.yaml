@@ -1,0 +1,21 @@
+---
+schema: pegleg/SoftwareVersions/v1
+metadata:
+  schema: metadata/Document/v1
+  replacement: true
+  name: software-versions
+  layeringDefinition:
+    abstract: false
+    layer: site
+    parentSelector:
+      name: software-versions-global
+    actions:
+      - method: merge
+        path: .
+  storagePolicy: cleartext
+data:
+    osh:
+      openvswitch:
+        openvswitch_db_server: "docker.io/openstackhelm/openvswitch:latest-ubuntu_bionic-dpdk"
+        openvswitch_vswitchd: "docker.io/openstackhelm/openvswitch:latest-ubuntu_bionic-dpdk"
+...

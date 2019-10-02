@@ -12,6 +12,9 @@ schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
   name: nova
+  labels:
+    name: nova-cntt
+    component: nova
   layeringDefinition:
     abstract: false
     layer: type
