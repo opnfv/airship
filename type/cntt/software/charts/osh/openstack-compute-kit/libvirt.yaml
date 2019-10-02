@@ -6,7 +6,7 @@ metadata:
   replacement: true
   layeringDefinition:
     abstract: false
-    layer: site
+    layer: type
     parentSelector:
       name: libvirt-global
     actions:

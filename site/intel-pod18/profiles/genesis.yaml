@@ -7,13 +7,12 @@ schema: promenade/Genesis/v1
 metadata:
   schema: metadata/Document/v1
   name: genesis
-  labels:
-    name: genesis-cntt
+  replacement: true
   layeringDefinition:
     abstract: false
-    layer: type
+    layer: site
     parentSelector:
-      name: genesis-global
+      name: genesis-cntt
     actions:
       - method: merge
         path: .
@@ -48,4 +47,5 @@ data:
       - openvswitch=enabled
       - openstack-l3-agent=enabled
       - node-exporter=enabled
+      - sriov=enabled
 ...
