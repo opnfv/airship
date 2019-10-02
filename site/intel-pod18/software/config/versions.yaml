@@ -1,0 +1,54 @@
+---
+schema: pegleg/SoftwareVersions/v1
+metadata:
+  schema: metadata/Document/v1
+  replacement: true
+  name: software-versions
+  layeringDefinition:
+    abstract: false
+    layer: site
+    parentSelector:
+      name: software-versions-global
+    actions:
+      - method: merge
+        path: .
+  storagePolicy: cleartext
+data:
+  charts:
+    osh:
+      neutron:
+        location: https://opendev.org/openstack/openstack-helm
+        reference: d2abe39d498f48c4721e26aca19e81189bc8891b
+        subpath: neutron
+        type: git
+      neutron-htk:
+        location: https://opendev.org/openstack/openstack-helm-infra
+        reference: d0b32ed88ad652d9c2226466a13bac8b28038399
+        subpath: helm-toolkit
+        type: git
+      nova:
+        location: https://opendev.org/openstack/openstack-helm
+        reference: d2abe39d498f48c4721e26aca19e81189bc8891b
+        subpath: nova
+        type: git
+      nova-htk:
+        location: https://opendev.org/openstack/openstack-helm-infra
+        reference: d0b32ed88ad652d9c2226466a13bac8b28038399
+        subpath: helm-toolkit
+        type: git
+      openvswitch:
+        location: https://opendev.org/openstack/openstack-helm-infra
+        reference: d0b32ed88ad652d9c2226466a13bac8b28038399
+        subpath: openvswitch
+        type: git
+      openvswitch-htk:
+        location: https://opendev.org/openstack/openstack-helm-infra
+        reference: d0b32ed88ad652d9c2226466a13bac8b28038399
+        subpath: helm-toolkit
+        type: git
+  images:
+    osh:
+      openvswitch:
+        openvswitch_db_server: "docker.io/openstackhelm/openvswitch:latest-ubuntu_bionic-dpdk"
+        openvswitch_vswitchd: "docker.io/openstackhelm/openvswitch:latest-ubuntu_bionic-dpdk"
+...
