@@ -327,6 +327,31 @@ data:
     - public
 ...
 ---
+schema: 'drydock/NetworkLink/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  name: data3
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  bonding:
+    mode: disabled
+  # NEWSITE-CHANGEME: Ensure the network switches in the environment are
+  # configured for this MTU or greater. Even if switches are configured for or
+  # can support a slightly higher MTU, there is no need (and negliable benefit)
+  # to squeeze every last byte into the MTU (e.g., 9216 vs 9100). Leave MTU at
+  # 9100 for maximum compatibility.
+  mtu: 1500
+  linkspeed: auto
+  trunking:
+    mode: 802.1q
+    default_network: storage
+  allowed_networks:
+    - storage
+...
+---
 schema: 'drydock/Network/v1'
 metadata:
   schema: 'metadata/Document/v1'
@@ -337,7 +362,7 @@ metadata:
   storagePolicy: cleartext
 data:
   # NEWSITE-CHANGEME: Set the VLAN ID which the storage network is on
-  vlan: '0'
+  vlan: '183'
   mtu: 1500
   # NEWSITE-CHANGEME: Set the CIDR for the storage network
   # NOTE: The CIDR minimum size = number of nodes + 10
