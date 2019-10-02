@@ -107,9 +107,27 @@ data:
       dev_type: 'ST91000640NS'
       bus_type: 'scsi'
   cpu_sets:
+    # CPUS pinning 
+    # Host OS CPUs are inferred, and will be the remaining cores
     kvm: '4-43,48-87'
+    # Kernel config
+    # Reduce OS jitter on the offloaded CPUs.
+    rcu_nocbs: '4-43,48-87'
+    # Nova config
+    # CPUs dedicated to tenant workload.
+    vcpu_pin_set: '8-43,52-87'
+    # OVS config
+    # CPUs used by OVS-DPDK processes, same as CPUs used by host OS.
+    # VCPUs 0,44,1,45,2,46,3,47 = first 4 CPU cores
+    dpdk-lcore-mask: '0xF0000000000F'
+    # OVS config
+    # CPUs used by dpdk Poll Mode Drivers (PMD)
+    # OVS configu paramter for DPDK.
+    # VCPUs 4,48,5,49,6,50,7,51 = CPU cores 4-7
+    pmd-cpu-mask: '0x0F0000000000F0'
   hugepages:
     dpdk:
       size: '1G'
       count: 32
+      socket-mem: '4096,4096'
 ...
