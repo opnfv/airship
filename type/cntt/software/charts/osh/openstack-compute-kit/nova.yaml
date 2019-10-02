@@ -12,11 +12,15 @@ schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
   name: nova
+  labels:
+    name: nova-cntt
+    component: nova
   layeringDefinition:
     abstract: false
-    layer: site
+    layer: type
     parentSelector:
       name: nova-global
+      component: nova
     actions:
       - method: merge
         path: .
