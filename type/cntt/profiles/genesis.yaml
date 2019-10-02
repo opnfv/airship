@@ -6,10 +6,10 @@
 schema: promenade/Genesis/v1
 metadata:
   schema: metadata/Document/v1
-  name: genesis-site
+  name: genesis-cntt
   layeringDefinition:
     abstract: false
-    layer: site
+    layer: type
     parentSelector:
       name: genesis-global
     actions:
