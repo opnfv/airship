@@ -146,10 +146,14 @@ data:
     # with the bond assigned to the overlay network in
     # networks/physical/networks.yaml
     external_iface: 'ens785f1.1183'
+    # TODO: Update comment
+    tunnel_device_dpdk: 'br-phy-bond0'
 
   openvswitch:
     # bond which the overlay is a member of. Ensure the bond name is consistent
     # with the bond assigned to the overlay network in
     # networks/physical/networks.yaml
     external_iface: 'ens785f1.1183'
+    # TODO: Update comment
+    external_iface_dpdk: 'br-phy-bond0'
 ...
