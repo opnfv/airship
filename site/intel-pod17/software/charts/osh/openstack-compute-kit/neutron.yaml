@@ -9,8 +9,8 @@
 schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
-  replacement: true
   name: neutron
+  replacement: true
   layeringDefinition:
     abstract: false
     layer: site
