@@ -9,17 +9,56 @@
 schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
-  replacement: true
   name: neutron
+  replacement: true
+  labels:
+    name: neutron-cntt
+    component: neutron
   layeringDefinition:
     abstract: false
-    layer: site
+    layer: type
     parentSelector:
       name: neutron-global
+      component: neutron
     actions:
       - method: merge
         path: .
   storagePolicy: cleartext
+  substitutions:
+    # OVS-DPDK settings for neutron
+    - src:
+        schema: pegleg/CommonAddresses/v1
+        name: common-addresses
+        path: .neutron.tunnel_device_dpdk
+      dest:
+        - path: .values.conf.ovs_dpdk.bridges[0].name
+          pattern: TUNNEL_BRIDGE
+        - path: .values.conf.ovs_dpdk.bonds[0].bridge
+          pattern: TUNNEL_BRIDGE
+        - path: .values.conf.plugins.openvswitch_agent.ovs.bridge_mappings
+          pattern: TUNNEL_BRIDGE
+        - path: .values.network.interface.tunnel
+          pattern: TUNNEL_BRIDGE
+    ## NOTE: Using storage network for dpdk work for now
+    - src:
+#        schema: pegleg/NetworkSettings/v1
+        schema: drydock/Network/v1
+        name: storage
+        path: .mtu
+      dest:
+        path: .values.conf.ovs_dpdk.bonds[0].mtu
+    - src:
+        schema: drydock/HardwareProfile/v1
+        name: intel-s2600wt
+        path: .device_aliases.data_nic2.address
+      dest:
+        path: .values.conf.ovs_dpdk.bonds[0].nics[0].pci_id
+    - src:
+        schema: drydock/HardwareProfile/v1
+        name: intel-s2600wt
+        path: .device_aliases.data_nic3.address
+      dest:
+        path: .values.conf.ovs_dpdk.bonds[0].nics[1].pci_id
 data:
   wait:
     timeout: 1800
@@ -49,17 +88,58 @@ data:
           - device: ens785f1
             num_vfs: 32
             promisc: false
+          - device: ens785f2
+            num_vfs: 32
+            promisc: false
+        tunnel: TUNNEL_BRIDGE
+      ovs-dpdk:
+        node_selector_key: ovs-dpdk
+        node_selector_value: enabled
       backend:
         - openvswitch
         - sriov
     conf:
+      ovs_dpdk:
+        enabled: true
+        driver: vfio-pci
+        nics: []
+        bridges:
+          - name: TUNNEL_BRIDGE
+        bonds:
+          - name: dpdkbond0
+            bridge: TUNNEL_BRIDGE
+            # The IP from the first nic in nics list shall be used
+            migrate_ip: false
+            n_rxq: 4
+            n_rxq_size: 1024
+            n_txq_size: 1024
+            ovs_options: "bond_mode=active-backup"
+            nics:
+              - name: dpdk_b0s0
+                vf_index: 0
+              - name: dpdk_b0s1
+                vf_index: 0
       plugins:
+        openvswitch_agent:
+          default:
+            ovs_vsctl_timeout: 30
+          agent:
+            tunnel_types: ""
+          securitygroup:
+            enable_security_group: False
+            firewall_driver: neutron.agent.firewall.NoopFirewallDriver
+          ovs:
+            bridge_mappings: ovsnet:TUNNEL_BRIDGE
+            datapath_type: netdev
+            of_connect_timeout: 60
+            of_request_timeout: 30
+            vhostuser_socket_dir: /var/run/openvswitch/vhostuser
         ml2_conf:
           ml2:
             mechanism_drivers: l2population,openvswitch,sriovnicswitch
           ml2_type_vlan:
             ## NOTE: Must have at least 1 sriov network defined
-            network_vlan_ranges: external,sriovnet1:100:4000
+            network_vlan_ranges: external,sriovnet1:100:4000,sriovnet2:100:4000,ovsnet:2:4094
         sriov_agent:
           securitygroup:
             firewall_driver: neutron.agent.firewall.NoopFirewallDriver
@@ -67,6 +147,17 @@ data:
             ## NOTE: Must have at least 1 sriov network to physical device
             ##       mapping, otherwise sriov agent readiness check
             ##       will fail.
-            physical_device_mappings: sriovnet1:ens785f1
-            exclude_devices: ""
+            physical_device_mappings: sriovnet1:ens785f1;sriovnet2:ens785f2
+            exclude_devices: ens785f1:0000:05:06.0,ens785f2:05:0a.0
+    # Need to wait for sriov agent to come up and configure VFs first
+    dependencies:
+      dynamic:
+        targeted:
+          openvswitch:
+            ovs_agent:
+              pod:
+                - requireSameNode: true
+                  labels:
+                    application: neutron
+                    component: neutron-sriov-agent
 ...
