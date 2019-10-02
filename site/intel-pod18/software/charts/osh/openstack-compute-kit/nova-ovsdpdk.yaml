@@ -1,14 +1,17 @@
 ---
+## NOTE: this file created to test ovs-dpdk
 schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
-  name: libvirt-ovsdpdk
+  name: nova-ovsdpdk
+  labels:
+    component: nova
 #  replacement: true
   layeringDefinition:
     abstract: false
     layer: site
     parentSelector:
-      name: libvirt-global
+      name: nova-cntt
     actions:
       - method: merge
         path: .
@@ -18,30 +21,32 @@ metadata:
     - src:
         schema: pegleg/SoftwareVersions/v1
         name: software-versions-ovsdpdk
-        path: .charts.osh.libvirt
+        path: .charts.osh.nova
       dest:
         path: .source
     # Images
     - src:
         schema: pegleg/SoftwareVersions/v1
         name: software-versions-ovsdpdk
-        path: .images.osh.libvirt
+        path: .images.osh.nova
       dest:
         path: .values.images.tags
 data:
   values:
-    network:
-      backend:
-        - openvswitch
-        - sriov
+    conf:
+      nova:
+        pci:
+          ## NOTE: Exclude vf0 from each of the sriov nic
+          passthrough_whitelist: |
+              [{"address": {"domain":"0000","bus":"05","slot":"06","function":"[1-7]"}, "physical_network": "sriovnet1"},{"address": "0000:05:07.*", "physical_network": "sriovnet1"},{"address": "0000:05:08.*", "physical_network": "sriovnet1"},{"address": "0000:05:09.*", "physical_network": "sriovnet1"}]
   dependencies:
-    - libvirt-htk-ovsdpdk
+    - nova-htk-ovsdpdk
 ...
 ---
 schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
-  name: libvirt-htk-ovsdpdk
+  name: nova-htk-ovsdpdk
   layeringDefinition:
     abstract: false
     layer: site
@@ -50,13 +55,13 @@ metadata:
     - src:
         schema: pegleg/SoftwareVersions/v1
         name: software-versions-ovsdpdk
-        path: .charts.osh.libvirt-htk
+        path: .charts.osh.nova-htk
       dest:
         path: .source
 data:
-  chart_name: libvirt-htk
-  release: libvirt-htk
-  namespace: libvirt-htk
+  chart_name: nova-htk
+  release: nova-htk
+  namespace: nova-htk
   values: {}
   dependencies: []
 ...

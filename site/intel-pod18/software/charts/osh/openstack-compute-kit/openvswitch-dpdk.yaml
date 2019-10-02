@@ -1,0 +1,106 @@
+---
+schema: armada/Chart/v1
+metadata:
+  schema: metadata/Document/v1
+  name: openvswitch-dpdk
+  #replacement: true
+  layeringDefinition:
+    abstract: false
+    layer: site
+    parentSelector:
+      name: openvswitch-global
+    actions:
+      - method: merge
+        path: .
+  storagePolicy: cleartext
+  substitutions:
+    # Chart source
+    - src:
+        schema: pegleg/SoftwareVersions/v1
+        name: software-versions-ovsdpdk
+        path: .charts.osh.openvswitch
+      dest:
+        path: .source
+    # Images
+    - src:
+        schema: pegleg/SoftwareVersions/v1
+        name: software-versions-ovsdpdk
+        path: .images.osh.openvswitch
+      dest:
+        path: .values.images.tags
+    # OVS-DPDK config
+    - src:
+        schema: drydock/HardwareProfile/v1
+        name: intel-s2600wt
+        path: .cpu_sets.dpdk-lcore-mask
+      dest:
+        path: .values.conf.ovs_dpdk.lcore_mask
+    - src:
+        schema: drydock/HardwareProfile/v1
+        name: intel-s2600wt
+        path: .cpu_sets.pmd-cpu-mask
+      dest:
+        path: .values.conf.ovs_dpdk.pmd_cpu_mask
+    - src:
+        schema: pegleg/CommonAddresses/v1
+        name: common-addresses
+        path: .openvswitch.external_iface_dpdk
+      dest:
+        - path: .values.network.external_bridge
+        - path: .values.network.interface.external
+data:
+  values:
+    pod:
+      resources:
+        enabled: true
+        ovs:
+          vswitchd_dpdk:
+            requests:
+              memory: "2Gi"
+              cpu: "2"
+            limits:
+              memory: "2Gi"
+              cpu: "2"
+              hugepages-1Gi: "1Gi"
+    conf:
+      ovs_dpdk:
+        enabled: true
+        socket_memory: 4096,4096
+        vhostuser_socket_dir: vhostuser
+        hugepages_mountpath: /dev/hugepages
+    # Need to wait for sriov agent to come up and configure VFs first
+    dependencies:
+      static:
+        vswitchd:
+          pod:
+            - requireSameNode: true
+              labels:
+                application: neutron
+                component: neutron-sriov-agent
+  dependencies:
+    - openvswitch-htk-ovsdpdk
+...
+---
+schema: armada/Chart/v1
+metadata:
+  schema: metadata/Document/v1
+  name: openvswitch-htk-ovsdpdk
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+  substitutions:
+    - src:
+        schema: pegleg/SoftwareVersions/v1
+        name: software-versions-ovsdpdk
+        path: .charts.osh.openvswitch-htk
+      dest:
+        path: .source
+data:
+  chart_name: openvswitch-htk
+  release: openvswitch-htk
+  namespace: openvswitch-htk
+  values: {}
+  dependencies: []
+...
+
