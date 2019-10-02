@@ -1,0 +1,21 @@
+---
+# The purpose of this file is to apply sriov label to Genesis node
+# to support ovs-dpdk.
+schema: promenade/Genesis/v1
+metadata:
+  schema: metadata/Document/v1
+  name: genesis-site
+  layeringDefinition:
+    abstract: false
+    layer: site
+    parentSelector:
+      name: genesis-cntt
+    actions:
+      - method: merge
+        path: .
+  storagePolicy: cleartext
+data:
+  labels:
+    dynamic:
+      - sriov=true
+...
