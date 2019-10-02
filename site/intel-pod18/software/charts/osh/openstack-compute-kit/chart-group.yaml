@@ -1,0 +1,23 @@
+---
+schema: armada/ChartGroup/v1
+metadata:
+  schema: metadata/Document/v1
+  name: openstack-compute-kit
+  replacement: true
+  layeringDefinition:
+    abstract: false
+    layer: site
+    parentSelector:
+      name: openstack-compute-kit-chart-group-global
+    actions:
+      - method: merge
+        path: .
+  storagePolicy: cleartext
+data:
+  description: Deploy Nova, Neutron, Openvswitch, and Libvirt for DPDK
+  chart_group:
+    - libvirt
+    - openvswitch-dpdk
+    - neutron-ovsdpdk
+    - nova-ovsdpdk
+...
