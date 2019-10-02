@@ -12,6 +12,7 @@ data:
 
   repositories:
     global:
+#      revision: 34babe6a095bcc67a14544ce7db65177ac4a54dd
       revision: v1.4
       url: https://opendev.org/airship/treasuremap.git
 ...
