@@ -23,11 +23,11 @@ parameters:
 
   subnet_gateway:
     type: string
-    default: 10.10.175.1
+    default: 10.10.175.20
 
   subnet_pool_start:
     type: string
-    default: 10.10.175.11
+    default: 10.10.175.29
 
   subnet_pool_end:
     type: string
