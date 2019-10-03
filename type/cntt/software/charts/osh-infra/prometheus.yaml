@@ -29,5 +29,5 @@ data:
             cpu: "1000m"
     storage:
       requests:
-        storage: 40Gi
+        storage: 10Gi
 ...

@@ -59,7 +59,7 @@ data:
 
     storage:
       requests:
-        storage: 40Gi
+        storage: 10Gi
     conf:
       elasticsearch:
         env:
