@@ -1,0 +1,164 @@
+---
+# The purpose of this file is to define network related paramters that are
+# referenced (substituted) elsewhere in the manifests for this site.
+#
+schema: pegleg/CommonAddresses/v1
+metadata:
+  schema: metadata/Document/v1
+  name: common-addresses
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  calico:
+    # NEWSITE-CHANGEME: The interface that Calico will use. Update if your
+    # logical interface name or Calico VLAN have changed from the reference
+    # site design.
+    # This should be whichever interface (or bond) and VLAN number specified in
+    # networks/physical/networks.yaml for the Calico network.
+    # E.g. you would set "interface=ens785f0" as shown here.
+    ip_autodetection_method: interface=eno3
+    etcd:
+      # The etcd service IP address.
+      # This address must be within data.kubernetes.service_cidr range
+      service_ip: 10.96.232.136
+
+  # NEWSITE-CHANGEME: Update virtual IPs to be used for deployment.
+  # These IPs are imporant and tied to FQDN/DNS registration for the site, see more at
+  # https://airship-treasuremap.readthedocs.io/en/latest/authoring_and_deployment.html#register-dns-names
+  vip:
+    # Used for accessing Airship/OpenStack APIs (ingress of kube-system)
+    # The address is selected from DMZ network specified in
+    # networks/physical/networks.yaml
+    ingress_vip: '10.10.100.100/32'
+    # Used for bare-metal deployment (PXE boot, fetching Drydock bootactions)
+    # The address is selected from Admin network specified in
+    # networks/physical/networks.yaml
+    maas_vip: '10.10.101.100/32'
+
+  dns:
+    # Kubernetes cluster domain. Do not change. This is internal to the cluster.
+    cluster_domain: cluster.local
+    # DNS service ip
+    service_ip: 10.96.0.10
+    # List of upstream DNS forwards. Verify you can reach them from your
+    # environment. If so, you should not need to change them.
+    upstream_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+    # Repeat the same values as above, but formatted as a common separated
+    # string
+    upstream_servers_joined: 8.8.8.8,8.8.4.4
+    # NEWSITE-CHANGEME: FQDN for ingress (i.e. "publicly facing" access point)
+    # Choose FQDN according to the ingress/public FQDN naming conventions at
+    # the top of this document.
+    ingress_domain: intel-pod10.opnfv.org
+
+  genesis:
+    # NEWSITE-CHANGEME: Update with the hostname for the node which will take on
+    # the Genesis role. Refer to the hostname naming stardards in
+    # networks/physical/networks.yaml
+    # NOTE: Ensure that the genesis node is manually configured with this
+    # hostname before running `genesis.sh` on the node, see
+    # https://airship-treasuremap.readthedocs.io/en/latest/authoring_and_deployment.html#genesis-node
+    hostname: pod10-node1
+    # NEWSITE-CHANGEME: Address defined for Calico network in
+    # networks/physical/networks.yaml
+    ip: 10.10.102.21
+
+  bootstrap:
+    # NEWSITE-CHANGEME: Address defined for the Admin (PXE) network in
+    # networks/physical/networks.yaml
+    ip: 10.10.101.21
+
+  kubernetes:
+    # K8s API service IP
+    api_service_ip: 10.96.0.1
+    # etcd service IP
+    etcd_service_ip: 10.96.0.2
+    # k8s pod CIDR (network which pod traffic will traverse)
+    pod_cidr: 10.97.0.0/16
+    # k8s service CIDR (network which k8s API traffic will traverse)
+    service_cidr: 10.96.0.0/16
+    # misc k8s port settings
+    apiserver_port: 6443
+    haproxy_port: 6553
+    service_node_port_range: 30000-32767
+
+  # etcd port settings
+  etcd:
+    container_port: 2379
+    haproxy_port: 2378
+
+  # NEWSITE-CHANGEME: A list of nodes (excluding Genesis) which act as the
+  # control plane servers. Ensure that this matches the nodes with the 'masters'
+  # tags applied in baremetal/nodes.yaml
+  masters:
+    - hostname: pod10-node2
+    - hostname: pod10-node3
+
+  # NEWSITE-CHANGEME: Environment proxy information.
+  # NOTE: Reference Airship sites do not deploy behind a proxy, so this proxy section
+  # should be commented out.
+  # However if you are in a lab that requires proxy, ensure that these proxy
+  # settings are correct and reachable in your environment; otherwise update
+  # them with the correct values for your environment.
+  proxy:
+    http: ""
+    https: ""
+    no_proxy: []
+
+  node_ports:
+    drydock_api: 30000
+    maas_api: 30001
+
+  ntp:
+    # comma separated NTP server list. Verify that these upstream NTP servers are
+    # reachable in your environment; otherwise update them with the correct
+    # values for your environment.
+    servers_joined: '0.ubuntu.pool.ntp.org,1.ubuntu.pool.ntp.org,2.ubuntu.pool.ntp.org,4.ubuntu.pool.ntp.org'
+
+  # An example for Openstack Helm Infra LDAP
+  ldap:
+    # NEWSITE-CHANGEME: FQDN for LDAP. Update to the FQDN that is
+    # relevant for your type of deployment (test vs prod values, etc).
+    base_url: 'ldap.example.com'
+    # NEWSITE-CHANGEME: As above, with the protocol included to create a full URI
+    url: 'ldap://ldap.example.com'
+    # NEWSITE-CHANGEME: Update to the correct expression relevant for this
+    # deployment (test vs prod values, etc)
+    auth_path: DC=test,DC=test,DC=com?sAMAccountName?sub?memberof=CN=test,OU=Application,OU=Groups,DC=test,DC=test,DC=com
+    # NEWSITE-CHANGEME: Update to the correct AD group that contains the users
+    # relevant for this deployment (test users vs prod users/values, etc)
+    common_name: test
+    # NEWSITE-CHANGEME: Update to the correct subdomain for your type of
+    # deployment (test vs prod values, etc)
+    subdomain: test
+    # NEWSITE-CHANGEME: Update to the correct domain for your type of
+    # deployment (test vs prod values, etc)
+    domain: example
+
+  storage:
+    ceph:
+      # NEWSITE-CHANGEME: CIDRs for Ceph. Update to match the network CIDR
+      # used for the Storage network in networks/physical/networks.yaml
+      public_cidr: '10.10.103.0/24'
+      cluster_cidr: '10.10.103.0/24'
+
+  neutron:
+    # NEWSITE-CHANGEME: Overlay network for VM traffic. Ensure the interface name and
+    # VLAN number are consistent with what's defined for the Private network in
+    # networks/physical/networks.yaml
+    tunnel_device: 'eno3'
+    # Interface for the OpenStack external network. Ensure the interface name is
+    # consistent with the interface and VLAN assigned to the Public network in
+    # networks/physical/networks.yaml
+    external_iface: 'eno4.1103'
+
+  openvswitch:
+    # Interface for the OpenStack external network. Ensure the interface name is
+    # consistent with the interface and VLAN assigned to the Public network in
+    # networks/physical/networks.yaml
+    external_iface: 'eno4.1103'
+...
