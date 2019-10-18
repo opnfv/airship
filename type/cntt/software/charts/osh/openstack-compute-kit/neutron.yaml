@@ -46,7 +46,7 @@ data:
     network:
       interface:
         sriov:
-          - device: ens785f1
+          - device: eno4
             num_vfs: 32
             promisc: false
       backend:
@@ -67,6 +67,6 @@ data:
             ## NOTE: Must have at least 1 sriov network to physical device
             ##       mapping, otherwise sriov agent readiness check
             ##       will fail.
-            physical_device_mappings: sriovnet1:ens785f1
+            physical_device_mappings: sriovnet1:eno4
             exclude_devices: ""
 ...

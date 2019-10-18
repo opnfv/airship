@@ -22,8 +22,8 @@ data:
       storage:
         osd:
           - data:
-              type: directory
-              location: /var/lib/ceph/osd/osd-one
+              type: block-logical
+              location: /dev/sdb
             journal:
               type: directory
               location: /var/lib/ceph/journal/osd-one
