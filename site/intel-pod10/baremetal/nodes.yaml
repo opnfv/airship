@@ -1,0 +1,193 @@
+---
+# Drydock BaremetalNode resources for a specific rack are stored in this file.
+#
+# NOTE: For new sites, you should complete the networks/physical/networks.yaml
+# file before working on this file.
+#
+# In this file, you should make the number of `drydock/BaremetalNode/v1`
+# resources equal the number of bare metal nodes you have, either by deleting
+# excess BaremetalNode definitions (if there are too many), or by copying and
+# pasting the last BaremetalNode in the file until you have the correct number
+# of baremetal nodes (if there are too few).
+#
+# Then in each file, address all additional NEWSITE-CHANGEME markers to update
+# the data in these files with the right values for your new site.
+#
+# *NOTE: The Genesis node is counted as one of the control plane nodes. Note
+# that the Genesis node does not appear on this bare metal list, because the
+# procedure to reprovision the Genesis host with MaaS has not yet been
+# implemented. Therefore there will be only two bare metal nodes in this file
+# with the 'masters' tag, as the genesis roles are assigned in a different
+# place (type/cntt/profiles/genesis.yaml).
+#
+schema: 'drydock/BaremetalNode/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  # NEWSITE-CHANGEME: Replace with the hostname of the first node in the rack,
+  # after (excluding) genesis.
+  name: pod10-node2
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  # NEWSITE-CHANGEME: The IPv4 address assigned to each logical network on this
+  # node. In the reference Airship deployment, this is all logical Networks defined
+  # in networks/physical/networks.yaml. IP addresses are manually assigned, by-hand.
+  # (what could possibly go wrong!) The instructions differ for each logical
+  # network, which are laid out below.
+  addressing:
+    # The iDrac/iLo IP of the node. It's important that this match up with the
+    # node's hostname above, so that the rack number and node position encoded
+    # in the hostname are accurate and matching the node that IPMI operations
+    # will be performed against (for poweron, poweroff, PXE boot to wipe disk or
+    # reconfigure identity, etc - very important to get right for these reasons).
+    # These addresses should already be assigned to nodes racked and stacked in
+    # the environment; these are not addresses which MaaS assigns.
+    - network: oob
+      address: 10.10.100.12
+    # The IP of the node on the DMZ network. Refer to the static IP range
+    # defined for the Admin network in networks/physical/networks.yaml.
+    - network: dmz
+      address: 10.10.100.22
+    # The IP of the node on the Admin network. Refer to the static IP range
+    # defined for the Admin network in networks/physical/networks.yaml.
+    # This network is used for PXE bootstrapping of the bare-metal servers.
+    - network: admin
+      address: 10.10.101.22
+    # The IP of the node on the Private network. Refer to the static IP range
+    # defined for the Private network in networks/physical/networks.yaml.
+    - network: private
+      address: 10.10.102.22
+    # The IP of the node on the Storage network. Refer to the static IP range
+    # defined for the Storage network in networks/physical/networks.yaml.
+    - network: storage
+      address: 10.10.103.22
+    # The IP of the node on the Management network. Refer to the static IP range
+    # defined for the Management network in networks/physical/networks.yaml.
+    - network: management
+      address: 10.10.104.22
+  # NEWSITE-CHANGEME: Set the host profile for the node.
+  # Note that there are different host profiles depending if this is a control
+  # plane vs data plane node, and different profiles that map to different types
+  # hardware. Select the host profile that matches up to your type of
+  # hardware and function. E.g., the r720 here refers to Dell R720 hardware, the
+  # 'cp' refers to a control plane profile. Refer to profiles/host/ for the list
+  # of available host profiles specific to this site (otherwise, you may find
+  # a general set of host profiles at the "type" or "global" layers/folders.
+  # If you have hardware that is not on this list of profiles, you may need to
+  # create a new host profile for that hardware.
+  host_profile: cp-intel-pod10
+  metadata:
+    tags:
+      # NEWSITE-CHANGEME: See previous comment. Apply 'masters' tag for control
+      # plane node, and 'workers' tag for data plane hosts.
+      - 'masters'
+    # NEWSITE-CHANGEME: Refer to site engineering package or other supporting
+    # documentation for the specific rack name. This should be a rack name that
+    # is meaningful to data center personnel (i.e. a rack they could locate if
+    # you gave them this rack designation).
+    rack: pod10-rack
+...
+---
+schema: 'drydock/BaremetalNode/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  # NEWSITE-CHANGEME: The next node's hostname
+  name: pod10-node3
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  # NEWSITE-CHANGEME: The next node's IPv4 addressing
+  addressing:
+    - network: oob
+      address: 10.10.100.13
+    - network: dmz
+      address: 10.10.100.23
+    - network: admin
+      address: 10.10.101.23
+    - network: private
+      address: 10.10.102.23
+    - network: storage
+      address: 10.10.103.23
+    - network: management
+      address: 10.10.104.23
+  # NEWSITE-CHANGEME: The next node's host profile
+  host_profile: cp-intel-pod10
+  metadata:
+    # NEWSITE-CHANGEME: The next node's rack designation
+    rack: pod10-rack
+    # NEWSITE-CHANGEME: The next node's role desigatnion
+    tags:
+      - 'masters'
+...
+---
+schema: 'drydock/BaremetalNode/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  # NEWSITE-CHANGEME: The next node's hostname
+  name: pod10-node4
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  # NEWSITE-CHANGEME: The next node's IPv4 addressing
+  addressing:
+    - network: oob
+      address: 10.10.100.14
+    - network: dmz
+      address: 10.10.100.24
+    - network: admin
+      address: 10.10.101.24
+    - network: private
+      address: 10.10.102.24
+    - network: storage
+      address: 10.10.103.24
+    - network: management
+      address: 10.10.104.24
+  # NEWSITE-CHANGEME: The next node's host profile
+  host_profile: dp-intel-pod10
+  metadata:
+    # NEWSITE-CHANGEME: The next node's rack designation
+    rack: pod10-rack
+    # NEWSITE-CHANGEME: The next node's role desigatnion
+    tags:
+      - 'workers'
+...
+---
+schema: 'drydock/BaremetalNode/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  # NEWSITE-CHANGEME: The next node's hostname
+  name: pod10-node5
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  # NEWSITE-CHANGEME: The next node's IPv4 addressing
+  addressing:
+    - network: oob
+      address: 10.10.100.15
+    - network: dmz
+      address: 10.10.100.25
+    - network: admin
+      address: 10.10.101.25
+    - network: private
+      address: 10.10.102.25
+    - network: storage
+      address: 10.10.103.25
+    - network: management
+      address: 10.10.104.25
+  # NEWSITE-CHANGEME: The next node's host profile
+  host_profile: dp-intel-pod10
+  metadata:
+    # NEWSITE-CHANGEME: The next node's rack designation
+    rack: pod10-rack
+    # NEWSITE-CHANGEME: The next node's role desigatnion
+    tags:
+      - 'workers'
+...
