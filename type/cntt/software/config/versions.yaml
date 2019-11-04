@@ -18,5 +18,8 @@ data:
     i40e_driver:
       type: tar
       location: https://sourceforge.net/projects/e1000/files/i40e%20stable/2.9.21/i40e-2.9.21.tar.gz
+    ixgbe_driver:
+      type: tar
+      location: https://sourceforge.net/projects/e1000/files/ixgbe%20stable/5.6.3/ixgbe-5.6.3.tar.gz
 ...
 
