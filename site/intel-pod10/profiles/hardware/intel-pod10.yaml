@@ -29,13 +29,10 @@ data:
   device_aliases:
     ## network
     # $ sudo lspci |grep -i ethernet
-    # 03:00.0 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
-    # 03:00.3 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
-    # 05:00.0 Ethernet controller: Intel Corporation Ethernet Controller X710 for 10GbE SFP+ (rev 01)
-    # 05:00.1 Ethernet controller: Intel Corporation Ethernet Controller X710 for 10GbE SFP+ (rev 01)
-    # 05:00.2 Ethernet controller: Intel Corporation Ethernet Controller X710 for 10GbE SFP+ (rev 01)
-    # 05:00.3 Ethernet controller: Intel Corporation Ethernet Controller X710 for 10GbE SFP+ (rev 01)
-
+    # 02:00.0 Ethernet controller: Intel Corporation 82599ES 10-Gigabit SFI/SFP+ Network Connection (rev 01)
+    # 02:00.1 Ethernet controller: Intel Corporation 82599ES 10-Gigabit SFI/SFP+ Network Connection (rev 01)
+    # 04:00.0 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
+    # 04:00.3 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
     # control networks
     # eno1
     ctrl_nic1:
@@ -62,30 +59,29 @@ data:
 
     ## storage
     # $ sudo lshw -c disk
-    #   *-disk                  
-    #        description: ATA Disk
-    #        product: INTEL SSDSC2BB48
-    #        physical id: 0.0.0
-    #        bus info: scsi@4:0.0.0
-    #        logical name: /dev/sda
-    #        version: 0101
-    #        serial: PHDV637602LL480BGN
-    #        size: 447GiB (480GB)
-    #        capabilities: gpt-1.00 partitioned partitioned:gpt
-    #        configuration: ansiversion=5 guid=ea7d0b6a-c105-4409-8d4c-dc104cb38737 logicalsectorsize=512 sectorsize=4096
-    #   *-disk
-    #        description: ATA Disk
-    #        product: ST91000640NS
-    #        vendor: Seagate
-    #        physical id: 0.0.0
-    #        bus info: scsi@5:0.0.0
-    #        logical name: /dev/sdb
-    #        version: SN03
-    #        serial: 9XG6LX48
-    #        size: 931GiB (1TB)
-    #        capabilities: gpt-1.00 partitioned partitioned:gpt
-    #        configuration: ansiversion=5 guid=27f17348-e081-4b00-8d4c-5960513a40cd logicalsectorsize=512 sectorsize=512
-
+    # *-disk                  
+    #   description: ATA Disk
+    #   product: ST3000NM0033-9ZM
+    #   vendor: Seagate
+    #   physical id: 0.0.0
+    #   bus info: scsi@0:0.0.0
+    #   logical name: /dev/sda
+    #   version: SN04
+    #   serial: S1Z1NT3V
+    #   size: 2794GiB (3TB)
+    #   capabilities: gpt-1.00 partitioned partitioned:gpt
+    #    configuration: ansiversion=5 guid=911eca8f-824e-4dc4-bcce-9005cc9a24d7 logicalsectorsize=512 sectorsize=512
+    # *-disk
+    #   description: ATA Disk
+    #   product: INTEL SSDSC2BW18
+    #   physical id: 0.0.0
+    #   bus info: scsi@1:0.0.0
+    #   logical name: /dev/sdb
+    #   version: RG20
+    #   serial: CVTR517302RG180BGN
+    #   size: 167GiB (180GB)
+    #   capabilities: gpt-1.00 partitioned partitioned:gpt
+    #   configuration: ansiversion=5 guid=a4963ed8-81e6-415f-a3cf-4254da4fb3ca logicalsectorsize=512 sectorsize=512
     # /dev/sda
     bootdisk:
       address: '0:0.0.0'
