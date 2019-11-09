@@ -2,21 +2,13 @@
 
 set -x
 
-export OS_AUTH_URL=${OS_AUTH_URL:-http://iam-airship.intel-pod17.opnfv.org:80/v3}
 export OS_USERNAME=${OS_USERNAME:-shipyard}
 export OS_PASSWORD=${OS_PASSWORD:-password123}
 
 export IPMI_USER=${IPMI_USER:-root}
 export IPMI_PASS=${IPMI_PASS:-root}
 
-export GEN_SSH=${GEN_SSH:-intel-pod17-genesis}
-export SITE_NAME=${SITE_NAME:-intel-pod17}
-
-export GEN_IPMI=${GEN_IPMI:-10.10.170.11}
-export NODES_IPMI=${NODES_IPMI:-'10.10.170.12 10.10.170.13 10.10.170.14 10.10.170.15'}
-
 export GERRIT_REFSPEC=${GERRIT_REFSPEC:-master}
-export SITE_DEF=${SITE_DEF:-airship/site/intel-pod17/site-definition.yaml}
 
 export TERM_OPTS=${TERM_OPTS:-" "}
 
@@ -25,6 +17,19 @@ cd $TMP_DIR
 
 trap "{ sudo rm -rf $TMP_DIR; }" EXIT
 
+help() {
+  echo "Usage: deploy.sh <site_name> <deploy_site|update_site>"
+}
+
+## Source Environment Variables.
+
+if [[ $# -ne 2 ]]
+  then
+    help
+    exit 1
+fi
+
+source ../site/$1/$1.env
 
 ## Deps
 
@@ -35,9 +40,6 @@ pkg_check() {
 }
 pkg_check docker.io git ipmitool python3-yaml
 
-help() {
-  echo "Usage: deploy.sh <deploy_site|update_site>"
-}
 
 
 ## Cleanup
@@ -143,7 +145,7 @@ site_action() {
 }
 
 create_public_network() {
-  export OS_AUTH_URL=${OS_AUTH_URL:-http://identity-airship.intel-pod17.opnfv.org:80/v3}
+  export OS_AUTH_URL=${OS_AUTH_URL_IDENTITY}
   sudo -E treasuremap/tools/openstack stack create --wait \
     -t /target/airship/tools/files/heat-public-net-deployment.yaml \
     public-network
