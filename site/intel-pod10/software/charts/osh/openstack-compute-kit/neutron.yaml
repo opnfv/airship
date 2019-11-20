@@ -53,6 +53,8 @@ data:
         - openvswitch
         - sriov
     conf:
+      sriov_init:
+        - besteffort
       plugins:
         ml2_conf:
           ml2:
