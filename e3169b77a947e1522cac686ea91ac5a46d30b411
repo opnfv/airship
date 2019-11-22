@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f5ac56f_5d3aa2e5",
+        "filename": "tools/gen-certs.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7535
+      },
+      "writtenOn": "2019-11-22T21:59:09Z",
+      "side": 1,
+      "message": "Whitespaces",
+      "revId": "e3169b77a947e1522cac686ea91ac5a46d30b411",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82120460_febc6b71",
+        "filename": "tools/gen-certs.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 7535
+      },
+      "writtenOn": "2019-11-22T21:59:09Z",
+      "side": 1,
+      "message": "Do we really need a new branch? I\u0027ve been so far using master.. but perhaps this is more of a best practice.",
+      "revId": "e3169b77a947e1522cac686ea91ac5a46d30b411",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5c77422_78731b61",
+        "filename": "tools/gen-certs.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7535
+      },
+      "writtenOn": "2019-11-22T21:59:09Z",
+      "side": 1,
+      "message": "I would be a bit more specific.\nAs we are only cleaning up certificates.yaml - not really \"any certs\".",
+      "revId": "e3169b77a947e1522cac686ea91ac5a46d30b411",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a365d8d8_f68cca21",
+        "filename": "tools/gen-certs.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7535
+      },
+      "writtenOn": "2019-11-22T21:59:09Z",
+      "side": 1,
+      "message": "Add some endline here.",
+      "revId": "e3169b77a947e1522cac686ea91ac5a46d30b411",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
