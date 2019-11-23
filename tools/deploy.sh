@@ -12,15 +12,6 @@ export GERRIT_REFSPEC=${GERRIT_REFSPEC:-master}
 
 export TERM_OPTS=${TERM_OPTS:-" "}
 
-TMP_DIR=$(mktemp -d)
-cd $TMP_DIR
-
-trap "{ sudo rm -rf $TMP_DIR; }" EXIT
-
-help() {
-  echo "Usage: deploy.sh <site_name> <deploy_site|update_site>"
-}
-
 ## Source Environment Variables.
 
 if [[ $# -ne 2 ]]
@@ -29,7 +20,16 @@ if [[ $# -ne 2 ]]
     exit 1
 fi
 
-source ../site/$1/$1.env
+source $(dirname "$(realpath $0)")/../site/$1/$1.env
+
+TMP_DIR=$(mktemp -d)
+cd $TMP_DIR
+
+trap "{ sudo rm -rf $TMP_DIR; }" EXIT
+
+help() {
+  echo "Usage: deploy.sh <site_name> <deploy_site|update_site>"
+}
 
 ## Deps
 
