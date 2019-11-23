@@ -29,7 +29,7 @@ if [[ $# -ne 2 ]]
     exit 1
 fi
 
-source ../site/$1/$1.env
+source $(dirname "$(realpath $0)")/../site/$1/$1.env
 
 ## Deps
 
