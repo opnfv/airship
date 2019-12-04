@@ -107,9 +107,31 @@ data:
       dev_type: 'ST91000640NS'
       bus_type: 'scsi'
   cpu_sets:
-    kvm: '4-43,48-87'
+    # CPUS pinning
+    # Host OS CPUs are inferred, and will be the remaining cores
+    kvm: '2-21,24-43,46-65,68-87'
+    # Kernel config
+    # Reduce OS jitter on the offloaded CPUs.
+    rcu_nocbs: '2-21,24-43,46-65,68-87'
+    # Nova config
+    # CPUs dedicated to tenant workload.
+    vcpu_pin_set: '4-21,26-43,48-65,70-87'
+    # OVS config
+    # CPUs used by OVS-DPDK processes, same as CPUs used by host OS.
+    # For this lab, the CPU/Numa allocation is as followed:
+    #   NUMA node0 CPU(s):     0-21,44-65
+    #   NUMA node1 CPU(s):     22-43,66-87
+    # So to spread them about both numa, the following is assigned:
+    # VCPUs 0,44,1,45,22,66,23,67 = first 4 CPU cores
+    dpdk-lcore-mask: '0x0C0000300000C00003'
+    # OVS config
+    # CPUs used by dpdk Poll Mode Drivers (PMD)
+    # OVS configu paramter for DPDK.
+    # VCPUs 2,46,3,47,24,68,25,69 CPU cores 4-7
+    pmd-cpu-mask: '0x300000C0000300000C'
   hugepages:
     dpdk:
       size: '1G'
       count: 32
+      socket-mem: '4096,4096'
 ...

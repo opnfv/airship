@@ -1,4 +1,8 @@
 ---
+# OVS-DPDK NOTE:
+#   Add ovs-dpdk section to specify images and charts needed
+#   to support deployment of ovs-dpdk
+
 schema: pegleg/SoftwareVersions/v1
 metadata:
   schema: metadata/Document/v1
@@ -14,6 +18,81 @@ metadata:
         path: .
   storagePolicy: cleartext
 data:
+  ovs-dpdk:
+    charts:
+      osh:
+        neutron:
+          location: https://opendev.org/openstack/openstack-helm
+          reference: d2abe39d498f48c4721e26aca19e81189bc8891b
+          subpath: neutron
+          type: git
+        neutron-htk:
+          location: https://opendev.org/openstack/openstack-helm-infra
+          reference: d0b32ed88ad652d9c2226466a13bac8b28038399
+          subpath: helm-toolkit
+          type: git
+        nova:
+          location: https://opendev.org/openstack/openstack-helm
+          reference: d2abe39d498f48c4721e26aca19e81189bc8891b
+          subpath: nova
+          type: git
+        nova-htk:
+          location: https://opendev.org/openstack/openstack-helm-infra
+          reference: d0b32ed88ad652d9c2226466a13bac8b28038399
+          subpath: helm-toolkit
+          type: git
+        openvswitch:
+          location: https://opendev.org/openstack/openstack-helm-infra
+          reference: d0b32ed88ad652d9c2226466a13bac8b28038399
+          subpath: openvswitch
+          type: git
+        openvswitch-htk:
+          location: https://opendev.org/openstack/openstack-helm-infra
+          reference: d0b32ed88ad652d9c2226466a13bac8b28038399
+          subpath: helm-toolkit
+          type: git
+    images:
+      osh:
+        nova:
+          bootstrap: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          db_drop: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          db_init: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          ks_user: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          ks_service: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          ks_endpoints: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          nova_api: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+          nova_cell_setup: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+          nova_cell_setup_init: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          nova_compute: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+          nova_compute_ssh: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+          nova_conductor: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+          nova_consoleauth: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+          nova_db_sync: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+          nova_novncproxy: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+          nova_novncproxy_assets: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+          nova_placement: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+          nova_scheduler: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+          nova_spiceproxy: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+          nova_spiceproxy_assets: "docker.io/openstackhelm/nova:stein-ubuntu_bionic"
+        neutron:
+          bootstrap: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          db_init: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          db_drop: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          ks_user: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          ks_service: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          ks_endpoints: "docker.io/openstackhelm/heat:stein-ubuntu_bionic"
+          neutron_db_sync: "docker.io/openstackhelm/neutron:stein-ubuntu_bionic"
+          neutron_dhcp: "docker.io/openstackhelm/neutron:stein-ubuntu_bionic"
+          neutron_l3: "docker.io/openstackhelm/neutron:stein-ubuntu_bionic"
+          neutron_linuxbridge_agent: "docker.io/openstackhelm/neutron:stein-ubuntu_bionic"
+          neutron_metadata: "docker.io/openstackhelm/neutron:stein-ubuntu_bionic"
+          neutron_openvswitch_agent: "docker.io/openstackhelm/neutron:stein-ubuntu_bionic"
+          neutron_server: "docker.io/openstackhelm/neutron:stein-ubuntu_bionic"
+        openvswitch:
+          openvswitch_db_server: docker.io/openstackhelm/openvswitch:latest-ubuntu_bionic-dpdk
+          openvswitch_vswitchd: docker.io/openstackhelm/openvswitch:latest-ubuntu_bionic-dpdk
+        libvirt:
+          libvirt: docker.io/openstackhelm/libvirt:latest-ubuntu_bionic
   kernel_drivers:
     i40e_driver:
       type: tar
@@ -22,4 +101,3 @@ data:
       type: tar
       location: https://sourceforge.net/projects/e1000/files/ixgbe%20stable/5.6.3/ixgbe-5.6.3.tar.gz
 ...
-

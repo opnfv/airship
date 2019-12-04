@@ -1,0 +1,15 @@
+---
+# OVS-DPDK NOTE:
+#   This file provides common network config needed for ovs-dpdk
+#
+schema: pegleg/CommonAddresses/v1
+metadata:
+  schema: metadata/Document/v1
+  name: common-addresses-ovsdpdk
+  layeringDefinition:
+    abstract: false
+    layer: type
+  storagePolicy: cleartext
+data:
+  bridge_for_ovsdpdk: 'br-phy-bond0'
+...
