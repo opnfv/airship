@@ -728,7 +728,7 @@ data:
         admin:
           host: compute-airship.DOMAIN
       path:
-        default: "/v2/%(tenant_id)s"
+        default: "/v2.1/%(tenant_id)s"
       scheme:
         default: "http"
         internal: "http"
