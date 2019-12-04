@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d78bacd9_f6494f72",
+        "filename": "type/cntt/profiles/hardware/intel-s2600wt.yaml",
+        "patchSetId": 40
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7551
+      },
+      "writtenOn": "2019-12-04T18:47:07Z",
+      "side": 1,
+      "message": "fixed.",
+      "parentUuid": "2caf7a4b_d215427a",
+      "revId": "1463817b02e7f034eb6263cf4317f31feddb5fbe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "267167bb_5c055922",
         "filename": "type/cntt/software/charts/osh/openstack-compute-kit/openvswitch-dpdk.yaml",
         "patchSetId": 40
@@ -30,6 +48,24 @@
       "writtenOn": "2019-12-04T18:03:40Z",
       "side": 1,
       "message": ".. instead of .",
+      "revId": "1463817b02e7f034eb6263cf4317f31feddb5fbe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa068886_2fb1731b",
+        "filename": "type/cntt/software/charts/osh/openstack-compute-kit/openvswitch-dpdk.yaml",
+        "patchSetId": 40
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7551
+      },
+      "writtenOn": "2019-12-04T18:47:07Z",
+      "side": 1,
+      "message": "fix",
+      "parentUuid": "267167bb_5c055922",
       "revId": "1463817b02e7f034eb6263cf4317f31feddb5fbe",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
