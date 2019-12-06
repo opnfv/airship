@@ -17,6 +17,10 @@ metadata:
   storagePolicy: cleartext
 data:
   values:
+    pod:
+      replicas:
+        api: 3
+        registry: 3
     conf:
       rally_tests:
         run_tempest: false

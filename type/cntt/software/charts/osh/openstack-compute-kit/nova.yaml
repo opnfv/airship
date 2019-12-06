@@ -34,6 +34,17 @@ metadata:
         path: .values.conf.nova.DEFAULT.vcpu_pin_set
 data:
   values:
+    pod:
+      replicas:
+        api_metadata: 3
+        compute_ironic: 3
+        placement: 3
+        osapi: 3
+        conductor: 3
+        consoleauth: 3
+        scheduler: 3
+        novncproxy: 3
+        spiceproxy: 3
     network:
       backend:
        - openvswitch
