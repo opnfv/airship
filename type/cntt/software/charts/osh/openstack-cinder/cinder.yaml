@@ -3,26 +3,24 @@ schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
   replacement: true
-  name: heat
+  name: cinder
   labels:
-    name: heat-type
+    name: cinder-type
   layeringDefinition:
     abstract: false
     layer: type
     parentSelector:
-      name: heat-global
+      name: cinder-global
     actions:
       - method: merge
         path: .
   storagePolicy: cleartext
 data:
-  test:
-    timeout: 600
   values:
     pod:
       replicas:
         api: 3
-        cfn: 3
-        cloudwatch: 3
-        engine: 6
+        volume: 3
+        scheduler: 3
+        backup: 3
 ...

@@ -88,6 +88,8 @@ data:
         node_selector_key: sriov
         node_selector_value: enabled
     pod:
+      replicas:
+        server: 9
       security_context:
         neutron_sriov_agent:
           pod:

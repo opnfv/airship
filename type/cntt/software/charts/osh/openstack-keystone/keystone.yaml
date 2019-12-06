@@ -3,26 +3,21 @@ schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
   replacement: true
-  name: heat
+  name: keystone
   labels:
-    name: heat-type
+    name: keystone-type
   layeringDefinition:
     abstract: false
     layer: type
     parentSelector:
-      name: heat-global
+      name: keystone-global
     actions:
       - method: merge
         path: .
   storagePolicy: cleartext
 data:
-  test:
-    timeout: 600
   values:
     pod:
       replicas:
-        api: 3
-        cfn: 3
-        cloudwatch: 3
-        engine: 6
+        api: 6
 ...
