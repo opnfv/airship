@@ -9,12 +9,13 @@
 schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
+  replacement: true
   name: neutron
   layeringDefinition:
     abstract: false
     layer: site
     parentSelector:
-      name: neutron-global
+      name: neutron-type
     actions:
       - method: merge
         path: .
