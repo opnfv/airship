@@ -71,6 +71,8 @@ genesis_cleanup() {
   ssh $GEN_SSH sudo parted -s /dev/sdb mklabel gpt
   ssh $GEN_SSH sudo rm -rf /var/lib/ceph
   ssh $GEN_SSH sudo rm -rf /var/lib/docker
+
+  ssh $GEN_SSH sudo /etc/init.d/docker restart
 }
 
 
