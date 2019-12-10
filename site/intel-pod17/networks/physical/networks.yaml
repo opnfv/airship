@@ -4,21 +4,26 @@
 #
 # The following is reference configuration for Intel hosted POD17
 # https://wiki.opnfv.org/display/pharos/Intel+POD17
-# +--------+------------+-----------------------------------+----------+----------+----------------+
-# |        |            |                                   |          |          |                |
-# +--------+------------+-----------------------------------+----------+----------+----------------+
-# |IF0 1G  | dmz        | OoB & OAM (default route)         | VLAN 170 | untagged | 10.10.170.0/24 |
-# |IF1 1G  | admin      | PXE boot network                  | VLAN 171 | untagged | 10.10.171.0/24 |
-# |IF2 10G | private    | Underlay calico and ovs overlay   | VLAN 172 | untagged | 10.10.172.0/24 |
-# |        | management | Management (unused for now)       | VLAN 174 | tagged   | 10.10.174.0/24 |
-# |IF3 10G | storage    | Storage network                   | VLAN 173 | untagged | 10.10.173.0/24 |
-# |        | public     | Public network for VMs            | VLAN 175 | tagged   | 10.10.175.0/24 |
-# +--------+------------+-----------------------------------+----------+----------+----------------+
+# +--------+------------+-----------------------------------+-----------+----------+----------------+
+# |        |            |                                   |           |          |                |
+# +--------+------------+-----------------------------------+-----------+----------+----------------+
+# |IF0 1G  | dmz        | OoB & OAM (default route)         | VLAN  170 | untagged | 10.10.170.0/24 |
+# |IF1 1G  | admin      | PXE boot network                  | VLAN  171 | untagged | 10.10.171.0/24 |
+# |IF2 10G | private    | Underlay calico and ovs overlay   | VLAN  172 | untagged | 10.10.172.0/24 |
+# |        | management | Management (unused for now)       | VLAN  174 | tagged   | 10.10.174.0/24 |
+# |IF3 10G | storage    | Storage network                   | VLAN  173 | untagged | 10.10.173.0/24 |
+# |        | public     | Public network for VMs            | VLAN 1173 | tagged   | 10.10.175.0/24 |
+# +--------+------------+-----------------------------------+-----------+----------+----------------+
 #
-# For standard Airship deployments, you should not need to modify the number of
-# NetworkLinks and Networks in this file. Only the IP addresses and CIDRs should
-# need editing.
+# For standard Airshipi/OPNFV deployments, you should not need to modify the
+# number of NetworkLinks and Networks in this file. Only the IP addresses and
+# CIDRs should need editing.
 #
+# The general Drydock documentation contains additional details, exmaples
+# and how-tos on working with Drydock/YAMLs in more generic way and enabling
+# custom/additional features not represented here  (such as bonded networks).
+# https://airship-drydock.readthedocs.io/en/latest/topology.html#defining-networking
+
 schema: 'drydock/NetworkLink/v1'
 metadata:
   schema: 'metadata/Document/v1'
