@@ -6,4 +6,4 @@
 Deploy NFVi with Airship Installer
 ==================================
 
-<Content is coming sooon>
+<Content is coming soon>
