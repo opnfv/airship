@@ -12,11 +12,12 @@ schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
   name: nova
+  replacement: true
   layeringDefinition:
     abstract: false
     layer: site
     parentSelector:
-      name: nova-global
+      name: nova-cntt
     actions:
       - method: merge
         path: .
