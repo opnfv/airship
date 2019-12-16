@@ -63,6 +63,12 @@ metadata:
         schema: deckhand/PublicKey/v1
         name: trungdt_ssh_public_key
         path: .
+    - dest:
+        path: .values.conf.uamlite.users[5].user_sshkeys[0]
+      src:
+        schema: deckhand/PublicKey/v1
+        name: jamesg_ssh_public_key
+        path: .
 data:
   values:
     conf:
@@ -81,6 +87,9 @@ data:
             user_sudo: true
             user_sshkeys: []
           - user_name: trungdt
+            user_sudo: true
+            user_sshkeys: []
+          - user_name: jamesg
             user_sudo: true
             user_sshkeys: []
 ...
