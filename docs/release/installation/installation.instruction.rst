@@ -6,4 +6,6 @@
 Deploy NFVi with Airship Installer
 ==================================
 
-<Content is coming soon>
+Please visit https://wiki.opnfv.org/display/AIR/Airship+Installer+Deployment+Guide
+for how to deploy NFVi with Airship Installer.
+
