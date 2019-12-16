@@ -32,7 +32,7 @@ Release Data
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Iruya 9.0                            |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | December 13, 2019                    |
+| **Release date**                     | January 10, 2020                     |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | OPNFV Iruya 9.0 Release              |
 +--------------------------------------+--------------------------------------+
@@ -40,7 +40,7 @@ Release Data
 Important Notes
 ---------------
 
-<Coming soon>
+Please visit https://www.airshipit.org/ for upstream Airship Project.
 
 Summary
 -------
