@@ -1,5 +1,5 @@
 ---
-# The purpose of this file is to define the drydock Region, which in turn drives
+# The purpose of this file is to define the Drydock Region, which in turn drives
 # the MaaS region.
 schema: 'drydock/Region/v1'
 metadata:
@@ -17,7 +17,7 @@ metadata:
         schema: pegleg/SoftwareVersions/v1
         name: software-versions
         path: .packages.repositories.main_archive
-    # NEWSITE-CHANGEME: Substitutions from deckhand SSH public keys into the
+    # NEWSITE-CHANGEME: Substitutions from Deckhand SSH public keys into the
     # list of authorized keys which MaaS will register for the build-in "ubuntu"
     # account during the PXE process. Create a substitution rule for each SSH
     # key that should have access to the "ubuntu" account (useful for trouble-
