@@ -9,20 +9,20 @@
 # +--------+------------+-----------------------------------+-----------+----------+----------------+
 # |IF0 1G  | dmz        | OoB & OAM (default route)         | VLAN  170 | untagged | 10.10.170.0/24 |
 # |IF1 1G  | admin      | PXE boot network                  | VLAN  171 | untagged | 10.10.171.0/24 |
-# |IF2 10G | private    | Underlay calico and ovs overlay   | VLAN  172 | untagged | 10.10.172.0/24 |
+# |IF2 10G | private    | Underlay Calico and OVS overlay   | VLAN  172 | untagged | 10.10.172.0/24 |
 # |        | management | Management (unused for now)       | VLAN  174 | tagged   | 10.10.174.0/24 |
 # |IF3 10G | storage    | Storage network                   | VLAN  173 | untagged | 10.10.173.0/24 |
 # |        | public     | Public network for VMs            | VLAN 1173 | tagged   | 10.10.175.0/24 |
 # +--------+------------+-----------------------------------+-----------+----------+----------------+
 #
-# For standard Airshipi/OPNFV deployments, you should not need to modify the
+# For standard Airship/OPNFV deployments, you should not need to modify the
 # number of NetworkLinks and Networks in this file. Only the IP addresses and
 # CIDRs should need editing.
 #
 # The general Drydock documentation contains additional details, exmaples
 # and how-tos on working with Drydock/YAMLs in more generic way and enabling
 # custom/additional features not represented here  (such as bonded networks).
-# https://airship-drydock.readthedocs.io/en/latest/topology.html#defining-networking
+# See https://airship-drydock.readthedocs.io/en/latest/topology.html#defining-networking
 
 schema: 'drydock/NetworkLink/v1'
 metadata:
@@ -33,7 +33,7 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
-  # MaaS doesnt own this network like it does the others,
+  # MaaS doesn't own this network like it does the others,
   # so the noconfig label is specified.
   labels:
     noconfig: enabled
@@ -227,6 +227,7 @@ metadata:
   storagePolicy: cleartext
 data:
   # NEWSITE-CHANGEME: Set the VLAN ID which the Private network is on
+  # use '0' if the vlan is untagged
   vlan: '0'
   mtu: 1500
   # NEWSITE-CHANGEME: Set the CIDR for the Private network
@@ -296,6 +297,7 @@ metadata:
   storagePolicy: cleartext
 data:
   # NEWSITE-CHANGEME: Set the VLAN ID which the Storage network is on
+  # use '0' if the vlan is untagged
   vlan: '0'
   # NEWSITE-CHANGEME: Ensure the network switches in the environment are
   # configured for this MTU or greater.
