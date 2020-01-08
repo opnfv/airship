@@ -149,7 +149,7 @@ site_action() {
 create_public_network() {
   export OS_AUTH_URL=${OS_AUTH_URL_IDENTITY}
   sudo -E treasuremap/tools/openstack stack create --wait \
-    -t /target/airship/tools/files/heat-public-net-deployment.yaml \
+    -t /target/airship/tools/files/heat-public-net-deployment-$SITE_NAME.yaml \
     public-network
 }
 

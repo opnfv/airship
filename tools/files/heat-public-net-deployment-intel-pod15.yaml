@@ -1,0 +1,70 @@
+heat_template_version: ocata
+
+parameters:
+  network_name:
+    type: string
+    default: public
+
+  physical_network_name:
+    type: string
+    default: public
+
+  physical_network_interface:
+    type: string
+    default: external
+
+  subnet_name:
+    type: string
+    default: public
+
+  subnet_cidr:
+    type: string
+    default: 10.10.155.0/24
+
+  subnet_gateway:
+    type: string
+    default: 10.10.155.20
+
+  subnet_pool_start:
+    type: string
+    default: 10.10.155.29
+
+  subnet_pool_end:
+    type: string
+    default: 10.10.155.99
+
+resources:
+  public_net:
+    type: OS::Neutron::ProviderNet
+    properties:
+      admin_state_up: true
+      name:
+        get_param: network_name
+      network_type: flat
+      physical_network:
+        get_param: physical_network_interface
+      port_security_enabled: true
+      router_external: true
+      shared: true
+
+  private_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      name:
+        get_param: subnet_name
+      network:
+        get_resource: public_net
+      cidr:
+        get_param: subnet_cidr
+      gateway_ip:
+        get_param: subnet_gateway
+      enable_dhcp: true
+      allocation_pools:
+        - start:
+            get_param: subnet_pool_start
+          end:
+            get_param: subnet_pool_end
+      dns_nameservers:
+        - 8.8.8.8
+        - 8.8.4.4
+
