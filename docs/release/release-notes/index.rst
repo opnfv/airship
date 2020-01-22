@@ -4,11 +4,7 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) Bin Hu and Kaspars Skels (AT&T)
 
-=============================================
-OPNFV Airship Installer Project Release Notes
-=============================================
-
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
-   ./release-notes
+   release-notes
