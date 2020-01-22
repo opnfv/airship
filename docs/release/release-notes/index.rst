@@ -11,4 +11,4 @@ OPNFV Airship Installer Project Release Notes
 .. toctree::
    :maxdepth: 1
 
-   ./release-notes
+   release-notes
