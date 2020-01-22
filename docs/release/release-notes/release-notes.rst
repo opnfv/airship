@@ -8,11 +8,6 @@ OPNFV Airship Installer Project Release Notes
 
 This document provides the release notes for Airship Installer Project.
 
-.. contents::
-   :depth: 3
-   :local:
-
-
 Version History
 ---------------
 
