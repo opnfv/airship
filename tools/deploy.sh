@@ -26,10 +26,14 @@ fi
 
 source $(dirname "$(realpath $0)")/../site/$1/$1.env
 
-TMP_DIR=$(mktemp -d)
-cd $TMP_DIR
+if [ -z "$AS_HOME" ]; then
+  WORK_DIR=$(mktemp -d)
+  trap "{ sudo rm -rf $WORK_DIR; }" EXIT
+else
+  WORK_DIR=$AS_HOME
+fi
 
-trap "{ sudo rm -rf $TMP_DIR; }" EXIT
+cd ${WORK_DIR}
 
 ## Deps
 
@@ -96,22 +100,28 @@ git_checkout() {
   fi
 
   git log -1
-  cd $TMP_DIR
+  cd $WORK_DIR
 }
 
 clone_repos() {
+  if [ -d "airship" ]; then
+    echo "Found existing airship folder. Skip repo clone."
+  else
+    # clone/checkout site manifests
+    git_checkout 'https://gerrit.opnfv.org/gerrit/airship' $GERRIT_REFSPEC
+  fi
 
-  # clone/checkout site manifests
-  git_checkout 'https://gerrit.opnfv.org/gerrit/airship' $GERRIT_REFSPEC
-
-  # clone treasuremap (only required for tools/airship)
-  # match treasuremap to global from site-definition
-  SITE_DEF_KEY="['data']['repositories']['global']['revision']"
-  TREASUREMAP_REF=$(read_yaml $SITE_DEF "$SITE_DEF_KEY")
-
-  git_checkout 'https://review.opendev.org/airship/treasuremap' $TREASUREMAP_REF
+  if [ -d "treasuremap" ]; then
+    echo "Found existing treasuremap folder in the working directory. Skip repo clone."
+  else
+    # clone treasuremap (only required for tools/airship)
+    # match treasuremap to global from site-definition
+    SITE_DEF_KEY="['data']['repositories']['global']['revision']"
+    TREASUREMAP_REF=$(read_yaml $SITE_DEF "$SITE_DEF_KEY")
+    echo "TREASUREMAP_REF $TREASUREMAP_REF"
+    git_checkout 'https://review.opendev.org/airship/treasuremap' $TREASUREMAP_REF
+  fi
 }
-
 
 ## Deployment
 
