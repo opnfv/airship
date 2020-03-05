@@ -19,4 +19,8 @@ data:
     pod:
       replicas:
         server: 9
+    conf:
+      neutron:
+        DEFAULT:
+          service_plugins: router,trunk
 ...

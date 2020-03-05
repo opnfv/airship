@@ -169,6 +169,9 @@ data:
                 vf_index: 0
               - name: dpdk_b0s1
                 vf_index: 0
+      neutron:
+        DEFAULT:
+          service_plugins: router,trunk
       plugins:
         openvswitch_agent:
           default:
