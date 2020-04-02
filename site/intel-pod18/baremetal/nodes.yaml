@@ -106,7 +106,7 @@ data:
   # including Genesis. Note Genesis won't actually be listed in this file as a
   # BaremetalNode, but the rest are.
   # This is the second "primary" control plane node after Genesis.
-  host_profile: cp-intel-s2600wt-dpdk
+  host_profile: cp-intel-s2600wt
   metadata:
     tags:
       # NEWSITE-CHANGEME: See previous comment. Apply 'masters' tag for control
@@ -145,7 +145,7 @@ data:
       address: 10.10.184.23
   # NEWSITE-CHANGEME: The next node's host profile
   # This is the third "primary" control plane profile after genesis
-  host_profile: cp-intel-s2600wt-dpdk
+  host_profile: cp-intel-s2600wt
   metadata:
     # NEWSITE-CHANGEME: The next node's rack designation
     rack: pod18-rack
@@ -180,7 +180,7 @@ data:
       address: 10.10.184.24
   # NEWSITE-CHANGEME: The next node's host profile
   # This is the one and only appearance of the "secondary" control plane profile
-  host_profile: dp-intel-s2600wt-dpdk
+  host_profile: dp-intel-s2600wt
   metadata:
     # NEWSITE-CHANGEME: The next node's rack designation
     rack: pod18-rack
@@ -214,7 +214,7 @@ data:
     - network: management
       address: 10.10.184.25
   # NEWSITE-CHANGEME: The next node's host profile
-  host_profile: dp-intel-s2600wt-dpdk
+  host_profile: dp-intel-s2600wt
   metadata:
     # NEWSITE-CHANGEME: The next node's rack designation
     rack: pod18-rack
