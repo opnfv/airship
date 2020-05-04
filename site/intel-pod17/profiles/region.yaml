@@ -38,7 +38,7 @@ metadata:
       src:
         schema: deckhand/PublicKey/v1
         # your ssh key
-        name: kasparss_ssh_public_key
+        name: jamesg_ssh_public_key
         path: .
 data:
   tag_definitions: []
