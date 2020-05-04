@@ -45,7 +45,7 @@ object-storage-feature-enabled:
 EOF
 
 cat > openstack.creds << EOF
-export OS_AUTH_URL=http://identity-airship.intel-pod17.opnfv.org/v3
+export OS_AUTH_URL=http://identity-nc.intel-pod17.opnfv.org/v3
 export OS_USER_DOMAIN_NAME=default
 export OS_PROJECT_DOMAIN_NAME=default
 export OS_USERNAME=admin

@@ -170,7 +170,7 @@ Setup the needed environment variables, and execute the script as OpenStack CLI
 
 .. code-block:: console
 
-   $ export OSH_KEYSTONE_URL='http://identity-airship.intel-pod17.opnfv.org/v3'
+   $ export OSH_KEYSTONE_URL='http://identity-nc.intel-pod17.opnfv.org/v3'
    $ export OS_REGION_NAME=intel-pod17
    $ treasuremap/tools/openstack image list
 
