@@ -1,0 +1,135 @@
+---
+schema: nc/Policy/v1
+metadata:
+  schema: metadata/Document/v1
+  name: site-policy
+  labels:
+    name: site-policy
+  layeringDefinition:
+    abstract: false
+    layer: site
+    parentSelector:
+      name: type-policy
+    actions:
+    - method: merge
+      path: .
+  storagePolicy: cleartext
+data:
+  policy:
+    sitelevel:
+      priority: 5
+      rules: []
+    hostendpoints:
+      priority: 9
+      rules:
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: pod17-node1-oam
+          labels:
+            host: nc-control
+            intf-alias: oam
+        spec:
+          interfaceName: dmz.170
+          node: pod17-node1
+          expectedIPs:
+          - 10.10.170.21
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: pod17-node1-ksn
+          labels:
+            host: nc-control
+            intf-alias: ksn
+        spec:
+          interfaceName: data1.172
+          node: pod17-node1
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: pod17-node2-oam
+          labels:
+            host: nc-control
+            intf-alias: oam
+        spec:
+          interfaceName: dmz.170
+          node: pod17-node2
+          expectedIPs:
+          - 10.10.170.22
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: pod17-node2-ksn
+          labels:
+            host: nc-control
+            intf-alias: ksn
+        spec:
+          interfaceName: data1.172
+          node: pod17-node2
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: pod17-node3-oam
+          labels:
+            host: nc-control
+            intf-alias: oam
+        spec:
+          interfaceName: dmz.170
+          node: pod17-node3
+          expectedIPs:
+          - 10.10.170.23
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: pod17-node3-ksn
+          labels:
+            host: nc-control
+            intf-alias: ksn
+        spec:
+          interfaceName: data1.172
+          node: pod17-node3
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: pod17-node4-oam
+          labels:
+            host: nc-compute
+            intf-alias: oam
+        spec:
+          interfaceName: dmz.170
+          node: pod17-node4
+          expectedIPs:
+          - 10.10.170.24
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: pod17-node4-ksn
+          labels:
+            host: nc-compute
+            intf-alias: ksn
+        spec:
+          interfaceName: data1.172
+          node: pod17-node4
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: pod17-node5-oam
+          labels:
+            host: nc-compute
+            intf-alias: oam
+        spec:
+          interfaceName: dmz.170
+          node: pod17-node5
+          expectedIPs:
+          - 10.10.170.25
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: pod17-node5-ksn
+          labels:
+            host: nc-compute
+            intf-alias: ksn
+        spec:
+          interfaceName: data1.172
+          node: pod17-node5
+...
