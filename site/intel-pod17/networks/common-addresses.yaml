@@ -5,10 +5,16 @@
 schema: pegleg/CommonAddresses/v1
 metadata:
   schema: metadata/Document/v1
+  replacement: true
   name: common-addresses
   layeringDefinition:
     abstract: false
     layer: site
+    parentSelector:
+      name: common-addresses-global
+    actions:
+      - method: merge
+        path: .
   storagePolicy: cleartext
 data:
   calico:

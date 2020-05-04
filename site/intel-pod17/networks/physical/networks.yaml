@@ -24,30 +24,6 @@
 # custom/additional features not represented here  (such as bonded networks).
 # See https://airship-drydock.readthedocs.io/en/latest/topology.html#defining-networking
 
-schema: 'drydock/NetworkLink/v1'
-metadata:
-  schema: 'metadata/Document/v1'
-  name: oob
-  layeringDefinition:
-    abstract: false
-    layer: site
-  storagePolicy: cleartext
-data:
-  # MaaS doesn't own this network like it does the others,
-  # so the noconfig label is specified.
-  labels:
-    noconfig: enabled
-  bonding:
-    mode: disabled
-  mtu: 1500
-  linkspeed: auto
-  trunking:
-    mode: disabled
-    default_network: oob
-  allowed_networks:
-    - oob
-...
----
 schema: 'drydock/Network/v1'
 metadata:
   schema: 'metadata/Document/v1'

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+set -ex
 
 export OS_USERNAME=${OS_USERNAME:-shipyard}
 export OS_PASSWORD=${OS_PASSWORD:-password123}
@@ -130,8 +130,14 @@ pegleg_collect() {
     -r /target/airship collect -s collect $SITE_NAME
 }
 
+pre_genesis() {
+  sudo mkdir -p /target/render/$SITE_NAME
+  sudo -E treasuremap/tools/airship pegleg site -r /target/airship render $SITE_NAME -s /target/render/$SITE_NAME/manifest.yaml
+#  sudo -E treasuremap/tools/genesis-setup/pre-genesis.sh render/$SITE_NAME/manifest.yaml
+}
+
 promenade_bundle() {
-  mkdir bundle
+  mkdir -p bundle
   sudo -E treasuremap/tools/airship promenade build-all \
     --validators -o /target/bundle /target/collect/*.yaml
 }
@@ -165,13 +171,14 @@ create_public_network() {
 
 case "$2" in
 'deploy_site')
-  genesis_cleanup
-  clone_repos
+#  genesis_cleanup
+#  clone_repos
   pegleg_collect
   promenade_bundle
+  pre_genesis
   genesis_deploy
-  site_action $2
-  create_public_network
+#  site_action $2
+#  create_public_network
   ;;
 'update_site')
   clone_repos
