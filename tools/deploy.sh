@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+set -ex
 
 export OS_USERNAME=${OS_USERNAME:-shipyard}
 export OS_PASSWORD=${OS_PASSWORD:-password123}
@@ -18,7 +18,7 @@ help() {
   echo "Usage: deploy.sh <site_name> <deploy_site|update_site>"
 }
 
-if [[ $# -ne 2 ]]
+if [[ $# -lt 2 ]]
   then
     help
     exit 1
@@ -35,6 +35,8 @@ fi
 
 cd ${WORK_DIR}
 
+AIRSHIP_CMD=treasuremap/tools/airship
+
 ## Deps
 
 pkg_check() {
@@ -42,17 +44,42 @@ pkg_check() {
     sudo dpkg -s $pkg &> /dev/null || sudo apt -y install $pkg
   done
 }
-pkg_check docker.io git ipmitool python3-yaml
 
+pkg_check docker.io git ipmitool python3-yaml
 
 
 ## Cleanup
 
 genesis_cleanup() {
 
-  ssh $GEN_SSH sudo systemctl disable kubelet
-  ssh $GEN_SSH sudo systemctl disable docker
-  ssh $GEN_SSH sudo touch /forcefsck
+  # reset bare-metal servers
+  ALL_NODES="${GEN_IPMI} ${NODES_IPMI}"
+  for node in $ALL_NODES; do
+    ipmitool -I lanplus -H $node -U $IPMI_USER -P $IPMI_PASS chassis power off
+  done
+
+  sleep 11 # wait for genesis node to power-off
+  ipmitool -I lanplus -H $GEN_IPMI -U $IPMI_USER -P $IPMI_PASS chassis power on
+
+  while ! ssh $GEN_SSH hostname; do :; done
+
+  scp $WORK_DIR/airship/tools/clean-genesis.sh $GEN_SSH:
+  ssh $GEN_SSH chmod a+x clean-genesis.sh
+  ssh $GEN_SSH sudo ./clean-genesis.sh -fk 
+
+  # cleanup previous k8s/airship install
+
+#  ssh $GEN_SSH rm -rf promenade genesis.sh
+#  ssh $GEN_SSH git clone https://review.opendev.org/airship/promenade
+#  ssh $GEN_SSH 'sudo promenade/tools/cleanup.sh -f > /dev/null' || true
+}
+
+
+genesis_cleanup_old() {
+
+  ssh $GEN_SSH sudo systemctl disable kubelet || true
+  ssh $GEN_SSH sudo systemctl disable docker || true
+  ssh $GEN_SSH sudo touch /forcefsck || true
 
   # reset bare-metal servers
 
@@ -70,15 +97,24 @@ genesis_cleanup() {
 
   ssh $GEN_SSH rm -rf promenade genesis.sh
   ssh $GEN_SSH git clone https://review.opendev.org/airship/promenade
-  ssh $GEN_SSH sudo promenade/tools/cleanup.sh -f > /dev/null
+  ssh $GEN_SSH 'sudo promenade/tools/cleanup.sh -f > /dev/null' || true
 
-  ssh $GEN_SSH sudo parted -s /dev/sdb mklabel gpt
   ssh $GEN_SSH sudo rm -rf /var/lib/ceph
   ssh $GEN_SSH sudo rm -rf /var/lib/docker
+  ssh $GEN_SSH sudo rm -rf /srv
+  ssh $GEN_SSH sudo rm -rf /var/lib/openstack-helm/ceph
+
+  CEPH_VG=$(ssh $GEN_SSH sudo vgs | tail -n +1 | awk '{print $1}' | grep ceph-vg- | paste -d " "  - -)
+
+  if [[ x$CEPH_VG != 'x' ]]; then
+    ssh $GEN_SSH sudo vgremove -f $CEPH_VG
+    ssh $GEN_SSH sudo sgdisk -Z /dev/sdb
+  fi
+
+#  ssh $GEN_SSH sudo parted -s /dev/sdb mklabel gpt
 
   ssh $GEN_SSH sudo /etc/init.d/docker restart
 }
-
 
 ## Repos
 
@@ -87,7 +123,6 @@ read_yaml() {
 }
 
 git_checkout() {
-
   git clone $1
   cd ${1##*/}
 
@@ -100,7 +135,6 @@ git_checkout() {
   fi
 
   git log -1
-  cd $WORK_DIR
 }
 
 clone_repos() {
@@ -121,24 +155,91 @@ clone_repos() {
     echo "TREASUREMAP_REF $TREASUREMAP_REF"
     git_checkout 'https://review.opendev.org/airship/treasuremap' $TREASUREMAP_REF
   fi
+
+  rm -rf $WORK_DIR/treasuremap/site/$SITE_NAME
+  cp -r $WORK_DIR/airship/site/$SITE_NAME $WORK_DIR/treasuremap/site
 }
 
 ## Deployment
 
 pegleg_collect() {
-  sudo -E treasuremap/tools/airship pegleg site \
-    -r /target/airship collect -s collect $SITE_NAME
+  if [ -d "collect/${SITE_NAME}" ]; then
+    sudo rm -rf collect/${SITE_NAME}
+  fi
+  sudo mkdir -p collect/${SITE_NAME}
+  sudo -E ${AIRSHIP_CMD} pegleg site -r /target/treasuremap collect -s collect/${SITE_NAME} $SITE_NAME
+
+  sudo mkdir -p render/${SITE_NAME}
+  sudo -E ${AIRSHIP_CMD} pegleg site -r /target/treasuremap render $SITE_NAME \
+    -s /target/render/${SITE_NAME}/manifest.yaml
+}
+
+pre_genesis() {
+  
+  scp $WORK_DIR/airship/tools/files/seccomp_default $GEN_SSH:
+  ssh $GEN_SSH 'sudo mkdir -p /var/lib/kubelet/seccomp'
+  ssh $GEN_SSH 'sudo chown root:root /var/lib/kubelet/seccomp'
+  ssh $GEN_SSH 'sudo chown root:root ~/seccomp_default'
+  ssh $GEN_SSH 'sudo mv ~/seccomp_default /var/lib/kubelet/seccomp'
+
+  scp $WORK_DIR/airship/tools/files/sources.list $GEN_SSH:
+  ssh $GEN_SSH 'sudo diff -qr ~/sources.list /etc/apt/sources.list' || EXIT_CODE=$?
+
+  if [ -z '$EXIT_CODE' ] && [ $EXIT_CODE -ne 0 ]
+  then
+    ssh $GEN_SSH 'sudo mv /etc/apt/sources.list /etc/apt/sources.list.orig'
+    ssh $GEN_SSH 'sudo chown root:root ~/sources.list'
+    ssh $GEN_SSH 'sudo mv ~/sources.list /etc/apt/sources.list'
+  fi
+
+  ssh $GEN_SSH 'wget -qO - http://mirror.mirantis.com/testing/kubernetes-extra/bionic/archive-kubernetes-extra.key | sudo apt-key add -'
+  # thsi fails but appaerntly not required.
+  # ssh $GEN_SSH 'wget -qO - http://linux.dell.com/repo/community/openmanage/930/bionic/dists/bionic/Release.gpg | sudo apt-key add -'
+  ssh $GEN_SSH 'sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32'
+  ssh $GEN_SSH 'sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1285491434D8786F'
+
+  if [ -d "render/${SITE_NAME}" ]; then
+    sudo rm -rf render/${SITE_NAME}
+  fi
+
+#  sudo mkdir -p render/${SITE_NAME}
+#  sudo -E ${AIRSHIP_CMD} pegleg site -r /target/treasuremap render $SITE_NAME \
+#    -s /target/render/${SITE_NAME}/manifest.yaml
+  # pre-geneis needs more testing for now
+  # sudo -E treasuremap/tools/genesis-setup/pre-genesis.sh render/${SITE_NAME}/manifest.yaml
+}
+
+generate_certs() {
+  # create certificates based on PKI catalogs
+
+  if [ -d "certs/${SITE_NAME}" ]; then
+    sudo rm -rf certs/${SITE_NAME}
+  fi
+  sudo mkdir -p certs/${SITE_NAME}
+
+  sudo -E ${AIRSHIP_CMD} promenade generate-certs -o /target/certs/${SITE_NAME} collect/${SITE_NAME}/*.yaml
+
+  # copy certs
+  mkdir -p airship/site/${SITE_NAME}/secrets/certificates
+  sudo cp certs/${SITE_NAME}/certificates.yaml \
+    airship/site/${SITE_NAME}/secrets/certificates/certificates.yaml
 }
 
 promenade_bundle() {
-  mkdir bundle
-  sudo -E treasuremap/tools/airship promenade build-all \
-    --validators -o /target/bundle /target/collect/*.yaml
+
+  if [ -d "bundle/${SITE_NAME}" ]; then
+    sudo rm -rf bundle/${SITE_NAME}
+  fi
+  sudo mkdir -p bundle/${SITE_NAME}
+
+  PROMENADE_KEY=$(sudo -E ${AIRSHIP_CMD} promenade build-all \
+    --validators -o /target/bundle/${SITE_NAME} /target/collect/${SITE_NAME}/*.yaml | \
+    sed -n '/Copy this decryption key for use during script execution:/{n;p;d;}; x')
 }
 
 genesis_deploy() {
-  scp bundle/genesis.sh $GEN_SSH:
-  ssh $GEN_SSH 'sudo ./genesis.sh' && sleep 120
+  scp bundle/${SITE_NAME}/genesis.sh $GEN_SSH:
+  ssh $GEN_SSH PROMENADE_ENCRYPTION_KEY=$PROMENADE_KEY sudo -E ./genesis.sh
 }
 
 site_action() {
@@ -146,20 +247,29 @@ site_action() {
   # Site deployment with Shipyard, see more details here
   # https://airship-treasuremap.readthedocs.io/en/latest/authoring_and_deployment.html#deploy-site-with-shipyard
 
-  sudo -E treasuremap/tools/airship shipyard create configdocs \
-    $SITE_NAME --directory=/target/collect --replace
-  sudo -E treasuremap/tools/airship shipyard commit configdocs
+  sudo -E ${AIRSHIP_CMD} shipyard create configdocs \
+    $SITE_NAME --directory=/target/collect/$SITE_NAME --replace
+  sudo -E ${AIRSHIP_CMD} shipyard commit configdocs
 
-  sudo -E treasuremap/tools/airship shipyard create action \
+  sudo -E ${AIRSHIP_CMD} shipyard create action \
     --allow-intermediate-commits $1
 
   sudo -E treasuremap/tools/gate/wait-for-shipyard.sh
 }
 
+shipyard_action() {
+
+  # Site deployment with Shipyard, see more details here
+  # https://airship-treasuremap.readthedocs.io/en/latest/authoring_and_deployment.html#deploy-site-with-shipyard
+
+  sudo -E ${AIRSHIP_CMD} shipyard $1 $2 $3
+}
+
+
 create_public_network() {
   export OS_AUTH_URL=${OS_AUTH_URL_IDENTITY}
   sudo -E treasuremap/tools/openstack stack create --wait \
-    -t /target/airship/tools/files/heat-public-net-deployment-$SITE_NAME.yaml \
+    -t /target/../airship/tools/files/heat-public-net-deployment-$SITE_NAME.yaml \
     public-network
 }
 
@@ -168,6 +278,7 @@ case "$2" in
   genesis_cleanup
   clone_repos
   pegleg_collect
+  pre_genesis
   promenade_bundle
   genesis_deploy
   site_action $2
@@ -178,7 +289,16 @@ case "$2" in
   pegleg_collect
   site_action $2
   ;;
+'generate_certs')
+  clone_repos
+  pegleg_collect
+  generate_certs
+  ;;
+'shipyard')
+  shipyard_action $3 $4 $5
+  ;;
 *) help
+   echo "*** $2"
    exit 1
   ;;
 esac
