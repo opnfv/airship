@@ -22,6 +22,11 @@ metadata:
         path: .
 data:
   hardware_profile: intel-s2600wt
+  oob:
+    type: 'ipmi'
+    network: 'dmz'
+    # Not used. Keep for lint purpose
+    account: 'tier4'
 
   primary_network: dmz
   interfaces:
@@ -44,6 +49,13 @@ data:
       networks:
         - private
         - management
+      sriov:
+        num_vfs: 32
+        promisc: false
+      ovs_dpdk:
+        vf_index: 0
+      pci_whitelist:
+        trusted: false
     data2:
       device_link: data2
       slaves:
@@ -51,6 +63,13 @@ data:
       networks:
         - storage
         - public
+      sriov:
+        num_vfs: 32
+        promisc: false
+      ovs_dpdk:
+        vf_index: 0
+      pci_whitelist:
+        trusted: false
 
   storage:
     physical_devices:
