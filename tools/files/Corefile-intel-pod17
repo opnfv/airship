@@ -1,0 +1,11 @@
+.:53 {
+    forward . 8.8.8.8 8.8.4.4
+    log
+    errors
+}
+
+intel-pod17.opnfv.org:53 {
+    file /root/coredns/intel-pod17.db
+    log
+    errors
+}
