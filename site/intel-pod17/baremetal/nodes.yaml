@@ -31,6 +31,8 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
+  oob:
+    account: 'root'
   # NEWSITE-CHANGEME: The IPv4 address assigned to each logical network on this
   # node. In the reference Airship deployment, this is all logical Networks defined
   # in networks/physical/networks.yaml. IP addresses are manually assigned, by-hand.
@@ -46,26 +48,26 @@ data:
     # the environment; these are not addresses which MaaS assigns.
     - network: oob
       address: 10.10.170.12
-    # The IP of the node on the DMZ network. Refer to the static IP range
-    # defined for the Admin network in networks/physical/networks.yaml.
-    - network: dmz
+    # The IP of the node on the oam network. Refer to the static IP range
+    # defined for the oam network in networks/physical/networks.yaml.
+    - network: oam
       address: 10.10.170.22
-    # The IP of the node on the Admin network. Refer to the static IP range
+    # The IP of the node on the pxe network. Refer to the static IP range
     # defined for the Admin network in networks/physical/networks.yaml.
     # This network is used for PXE bootstrapping of the bare-metal servers.
-    - network: admin
+    - network: pxe
       address: 10.10.171.22
-    # The IP of the node on the Private network. Refer to the static IP range
-    # defined for the Private network in networks/physical/networks.yaml.
-    - network: private
+    # The IP of the node on the calico network. Refer to the static IP range
+    # defined for the calico network in networks/physical/networks.yaml.
+    - network: calico
       address: 10.10.172.22
     # The IP of the node on the Storage network. Refer to the static IP range
     # defined for the Storage network in networks/physical/networks.yaml.
     - network: storage
       address: 10.10.173.22
-    # The IP of the node on the Management network. Refer to the static IP range
-    # defined for the Management network in networks/physical/networks.yaml.
-    - network: management
+    # The IP of the node on the overlay network. Refer to the static IP range
+    # defined for the overlay network in networks/physical/networks.yaml.
+    - network: overlay
       address: 10.10.174.22
   # NEWSITE-CHANGEME: Set the host profile for the node.
   # Note that there are different host profiles depending if this is a control
@@ -100,19 +102,21 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
+  oob:
+    account: 'root'
   # NEWSITE-CHANGEME: The next node's IPv4 addressing
   addressing:
     - network: oob
       address: 10.10.170.13
-    - network: dmz
+    - network: oam
       address: 10.10.170.23
-    - network: admin
+    - network: pxe
       address: 10.10.171.23
-    - network: private
+    - network: calico
       address: 10.10.172.23
     - network: storage
       address: 10.10.173.23
-    - network: management
+    - network: overlay
       address: 10.10.174.23
   # NEWSITE-CHANGEME: The next node's host profile
   host_profile: cp-intel-s2600wt
@@ -134,19 +138,21 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
+  oob:
+    account: 'root'
   # NEWSITE-CHANGEME: The next node's IPv4 addressing
   addressing:
     - network: oob
       address: 10.10.170.14
-    - network: dmz
+    - network: oam
       address: 10.10.170.24
-    - network: admin
+    - network: pxe
       address: 10.10.171.24
-    - network: private
+    - network: calico
       address: 10.10.172.24
     - network: storage
       address: 10.10.173.24
-    - network: management
+    - network: overlay
       address: 10.10.174.24
   # NEWSITE-CHANGEME: The next node's host profile
   host_profile: dp-intel-s2600wt
@@ -168,19 +174,21 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
+  oob:
+    account: 'root'
   # NEWSITE-CHANGEME: The next node's IPv4 addressing
   addressing:
     - network: oob
       address: 10.10.170.15
-    - network: dmz
+    - network: oam
       address: 10.10.170.25
-    - network: admin
+    - network: pxe
       address: 10.10.171.25
-    - network: private
+    - network: calico
       address: 10.10.172.25
     - network: storage
       address: 10.10.173.25
-    - network: management
+    - network: overlay
       address: 10.10.174.25
   # NEWSITE-CHANGEME: The next node's host profile
   host_profile: dp-intel-s2600wt
