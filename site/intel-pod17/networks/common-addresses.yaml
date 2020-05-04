@@ -5,10 +5,16 @@
 schema: pegleg/CommonAddresses/v1
 metadata:
   schema: metadata/Document/v1
+  replacement: true
   name: common-addresses
   layeringDefinition:
     abstract: false
     layer: site
+    parentSelector:
+      name: common-addresses-global
+    actions:
+      - method: merge
+        path: .
   storagePolicy: cleartext
 data:
   calico:
@@ -23,19 +29,32 @@ data:
       # The etcd service IP address.
       # This address must be within data.kubernetes.service_cidr range
       service_ip: 10.96.232.136
+    ip_rule:
+      # NEWSITE-CHANGEME: The service gateway/VRR IP for routing pod traffic
+      gateway: 10.10.172.1
 
-  # NEWSITE-CHANGEME: Update virtual IPs to be used for deployment.
-  # These IPs are imporant and tied to FQDN/DNS registration for the site, see more at
-  # https://airship-treasuremap.readthedocs.io/en/latest/authoring_and_deployment.html#register-dns-names
-  vip:
-    # Used for accessing Airship/OpenStack APIs (ingress of kube-system)
-    # The address is selected from DMZ network specified in
-    # networks/physical/networks.yaml
-    ingress_vip: '10.10.170.100/32'
-    # Used for bare-metal deployment (PXE boot, fetching Drydock bootactions)
-    # The address is selected from Admin network specified in
-    # networks/physical/networks.yaml
-    maas_vip: '10.10.171.100/32'
+    bgp:
+      # on the genesis node, run /opt/cni/bin/calicoctl get bgppeers
+      # asnumber: 64688
+      ipv4:
+        # NEWSITE-CHANGEME: A routable CIDR to configure for ingress, maas, and
+        # outward facing services (i.e. routable ingress CIDR)
+        # public_service_cidr: 10.10.170.128/29
+        public_service_cidr: 10.10.170.128/29
+        # NEWSITE-CHANGEME: Update with the "public" facing VIP to assign to
+        # the ingress controller. /32 is redundant; this is an IP not a CIDR.
+        ingress_vip: 10.10.170.129/32
+        # NEWSITE-CHANGEME(v1.0.1): Update with the "public" facing VIP to assign
+        # the MAAS ingress controller. /32 is redundant; this is an IP not a CIDR.
+        maas_vip: 10.10.171.129/32
+        # NEWSITE-CHANGEME: In Network Cloud, there is a pair of "global" BGP
+        # peers that will be used for the whole site (all racks). These BGP peer
+        # IPs should be put into this list.
+        # NOTE: Any change to the size of this list (2) requires corresponding
+        # changes in calico.yaml
+        peers:
+          - 'Nonsense'
+          - 'Nonsense'
 
   dns:
     # Kubernetes cluster domain. Do not change. This is internal to the cluster.
@@ -45,11 +64,15 @@ data:
     # List of upstream DNS forwards. Verify you can reach them from your
     # environment. If so, you should not need to change them.
     upstream_servers:
-      - 8.8.8.8
-      - 8.8.4.4
+      - 10.10.170.20
+      - 10.10.171.20
     # Repeat the same values as above, but formatted as a common separated
     # string
-    upstream_servers_joined: 8.8.8.8,8.8.4.4
+    upstream_servers_joined: 10.10.170.20, 10.10.171.20
+
+    # NEWSITE-CHANGEME: Set the FQDN used by bare metal nodes according to FQDN naming standards at
+    node_domain: intel-pod17.opnfv.org
+
     # NEWSITE-CHANGEME: FQDN for ingress (i.e. "publicly facing" access point)
     # Choose FQDN according to the ingress/public FQDN naming conventions at
     # the top of this document.
@@ -66,6 +89,10 @@ data:
     # NEWSITE-CHANGEME: Address defined for Calico network in
     # networks/physical/networks.yaml
     ip: 10.10.172.21
+    # NEWSITE-CHANGEME: OOB IP of the Genesis node. This should be sourced from the
+    # engineering package and match the address used to access the iLO/iDRAC/ASMI
+    # interface for the Genesis node.
+    oob: 10.10.170.11
 
   bootstrap:
     # NEWSITE-CHANGEME: Address defined for the Admin (PXE) network in
@@ -138,6 +165,13 @@ data:
     # NEWSITE-CHANGEME: Update to the correct domain for your type of
     # deployment (test vs prod values, etc)
     domain: example
+
+  ldap:
+    # NEWSITE-CHANGEME: Replace with the site's LDAP account used to
+    # authenticate to the active directory backend to validate keystone
+    # users.
+    # It is NOT used in the example deployment.
+    username: "m12345@ldap.test.com"
 
   storage:
     ceph:
