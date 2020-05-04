@@ -8,10 +8,10 @@ metadata:
   name: intel-pod17
   storagePolicy: cleartext
 data:
-  site_type: cntt
+  site_type: cruiser
 
   repositories:
     global:
-      revision: v1.7
+      revision: refs/changes/75/723675/11
       url: https://opendev.org/airship/treasuremap.git
 ...
