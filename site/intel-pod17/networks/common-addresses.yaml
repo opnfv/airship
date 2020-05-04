@@ -5,10 +5,16 @@
 schema: pegleg/CommonAddresses/v1
 metadata:
   schema: metadata/Document/v1
+  replacement: true
   name: common-addresses
   layeringDefinition:
     abstract: false
     layer: site
+    parentSelector:
+      name: common-addresses-global
+    actions:
+      - method: merge
+        path: .
   storagePolicy: cleartext
 data:
   calico:
@@ -50,6 +56,10 @@ data:
     # Repeat the same values as above, but formatted as a common separated
     # string
     upstream_servers_joined: 8.8.8.8,8.8.4.4
+
+    # NEWSITE-CHANGEME: Set the FQDN used by bare metal nodes according to FQDN naming standards at
+    node_domain: intel-pod17.opnfv.org
+
     # NEWSITE-CHANGEME: FQDN for ingress (i.e. "publicly facing" access point)
     # Choose FQDN according to the ingress/public FQDN naming conventions at
     # the top of this document.
@@ -138,6 +148,13 @@ data:
     # NEWSITE-CHANGEME: Update to the correct domain for your type of
     # deployment (test vs prod values, etc)
     domain: example
+
+  ldap:
+    # NEWSITE-CHANGEME: Replace with the site's LDAP account used to
+    # authenticate to the active directory backend to validate keystone
+    # users.
+    # It is NOT used in the example deployment.
+    username: "m12345@ldap.test.com"
 
   storage:
     ceph:

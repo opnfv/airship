@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+set -ex
 
 export OS_USERNAME=${OS_USERNAME:-shipyard}
 export OS_PASSWORD=${OS_PASSWORD:-password123}
@@ -113,6 +113,9 @@ clone_repos() {
 
   if [ -d "treasuremap" ]; then
     echo "Found existing treasuremap folder in the working directory. Skip repo clone."
+    cd treasuremap
+    git log -1
+    cd $WORK_DIR
   else
     # clone treasuremap (only required for tools/airship)
     # match treasuremap to global from site-definition
@@ -126,12 +129,34 @@ clone_repos() {
 ## Deployment
 
 pegleg_collect() {
+  sudo mkdir -p /target/collect
+  sudo rm -rf /target/collect/*
   sudo -E treasuremap/tools/airship pegleg site \
     -r /target/airship collect -s collect $SITE_NAME
 }
 
+pre_genesis() {
+  sudo mkdir -p /target/render/$SITE_NAME
+  sudo -E treasuremap/tools/airship pegleg site -r /target/airship render $SITE_NAME \
+    -s /target/render/$SITE_NAME/manifest.yaml
+  # pre-geneis needs more testing for now
+#  sudo -E treasuremap/tools/genesis-setup/pre-genesis.sh render/$SITE_NAME/manifest.yaml
+}
+
+generate_certs() {
+  # create certificates based on PKI catalogs
+  sudo mkdir -p ${SITE_NAME}_certs
+  sudo treasuremap/tools/airship promenade generate-certs \
+    -o /target/${SITE_NAME}_certs collect/*.yaml
+
+  # copy certs
+  mkdir -p airship/site/${SITE_NAME}/secrets/certificates
+  sudo cp ${SITE_NAME}_certs/certificates.yaml \
+    airship/site/${SITE_NAME}/secrets/certificates/certificates.yaml
+}
+
 promenade_bundle() {
-  mkdir bundle
+  mkdir -p bundle
   sudo -E treasuremap/tools/airship promenade build-all \
     --validators -o /target/bundle /target/collect/*.yaml
 }
@@ -165,18 +190,24 @@ create_public_network() {
 
 case "$2" in
 'deploy_site')
-  genesis_cleanup
+#  genesis_cleanup
   clone_repos
   pegleg_collect
   promenade_bundle
+  pre_genesis
   genesis_deploy
-  site_action $2
-  create_public_network
+#  site_action $2
+#  create_public_network
   ;;
 'update_site')
   clone_repos
   pegleg_collect
   site_action $2
+  ;;
+'generate_certs')
+  clone_repos
+  pegleg_collect
+  generate_certs
   ;;
 *) help
    exit 1
