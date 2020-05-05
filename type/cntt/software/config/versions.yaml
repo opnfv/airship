@@ -18,6 +18,18 @@ metadata:
         path: .
   storagePolicy: cleartext
 data:
+  charts:
+    ucp:
+      ceph-rgw:
+        location: https://opendev.org/openstack/openstack-helm-infra
+        reference: 2f8ea3977ba31a4576ffb9bf98282d0586d1aa25
+        subpath: ceph-rgw
+        type: git
+      tenant-ceph-rgw:
+        location: https://opendev.org/openstack/openstack-helm-infra
+        reference: 2f8ea3977ba31a4576ffb9bf98282d0586d1aa25
+        subpath: ceph-rgw
+        type: git
   ovs-dpdk:
     charts:
       osh:
