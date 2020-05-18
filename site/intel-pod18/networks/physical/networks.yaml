@@ -273,20 +273,15 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
-  # NEWSITE-CHANGEME: Set the VLAN ID which the OAM network is on
+  # NEWSITE-CHANGEME: Set the VLAN ID which the Management network is on
   vlan: '184'
   mtu: 1500
-  # NEWSITE-CHANGEME: Set the CIDR for the OAM network
+  # NEWSITE-CHANGEME: Set the CIDR for the Management network
   # NOTE: The CIDR minimum size = number of nodes + 10
   cidr: 10.10.184.0/24
-  routes:
-    - subnet: 0.0.0.0/0
-      # NEWSITE-CHANGEME: Set the OAM network gateway IP address
-      gateway: 10.10.184.1
-      metric: 100
   ranges:
-    # NEWSITE-CHANGEME: Update to the remaining range after excluding the 10
-    # 10 reserved IPs.
+    # NEWSITE-CHANGEME: Update to the remaining range after excluding the
+    # reserved IPs.
     - type: static
       start: 10.10.184.1
       end: 10.23.21.19
@@ -343,8 +338,8 @@ data:
   # NOTE: The CIDR minimum size = number of nodes + 10
   cidr: 10.10.183.0/24
   ranges:
-    # NEWSITE-CHANGEME: Update to the remaining range after excluding the 10
-    # 10 reserved IPs.
+    # NEWSITE-CHANGEME: Update to the remaining range after excluding the
+    # reserved IPs.
     - type: static
       start: 10.10.183.1
       end: 10.10.183.19
