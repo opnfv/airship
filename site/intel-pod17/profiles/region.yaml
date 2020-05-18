@@ -32,14 +32,6 @@ metadata:
         # substituted, located in site/intel-pod17/secrets folder.
         name: grego_ssh_public_key
         path: .
-    - dest:
-        # Increment the list index
-        path: .authorized_keys[1]
-      src:
-        schema: deckhand/PublicKey/v1
-        # your ssh key
-        name: kasparss_ssh_public_key
-        path: .
 data:
   tag_definitions: []
   # This is the list of SSH keys which MaaS will register for the built-in

@@ -15,17 +15,24 @@ data:
     # NEWSITE-CHANGEME: The interface that calico will use. Update if your
     # logical bond interface name or calico VLAN have changed from the reference
     # site design.
-    # This should be whichever
-    # bond and VLAN number specified in networks/physical/networks.yaml for the Calico
-    # network. E.g. VLAN 22 for the calico network as a member of bond0, you
+    # This should be whichever interface (or bond) and VLAN number specified in
+    # networks/physical/networks.yaml for the Calico network. 
+    # E.g. VLAN 22 for the calico network as a member of bond0, you
     # would set "interface=bond0.22" as shown here.
     ip_autodetection_method: interface=ens785f0
     etcd:
       # etcd service IP address
+      # This address must be within data.kubernetes.service_cidr range
       service_ip: 10.96.232.136
 
   vip:
+    # Used for accessing Airship/OpenStack APIs (ingress of kube-system)
+    # The address is selected from DMZ network specified in
+    # networks/physical/networks.yaml
     ingress_vip: '10.10.180.100/32'
+    # Used for bare-metal deployment (PXE boot, fetching Drydock bootactions)
+    # The address is selected from Admin network specified in
+    # networks/physical/networks.yaml
     maas_vip: '10.10.181.100/32'
 
   dns:
@@ -102,7 +109,6 @@ data:
   node_ports:
     drydock_api: 30000
     maas_api: 30001
-    maas_proxy: 31800  # hardcoded in MAAS
 
   ntp:
     # comma separated NTP server list. Verify that these upstream NTP servers are
@@ -110,7 +116,7 @@ data:
     # values for your environment.
     servers_joined: '0.ubuntu.pool.ntp.org,1.ubuntu.pool.ntp.org,2.ubuntu.pool.ntp.org,4.ubuntu.pool.ntp.org'
 
-  # NOTE: This will be updated soon
+  # An example for Openstack Helm Infra LDAP
   ldap:
     # NEWSITE-CHANGEME: FQDN for LDAP. Update to the FQDN that is
     # relevant for your type of deployment (test vs prod values, etc).
@@ -133,7 +139,7 @@ data:
   storage:
     ceph:
       # NEWSITE-CHANGEME: CIDRs for Ceph. Update to match the network CIDR
-      # used for the `storage` network in networks/physical/networks.yaml
+      # used for the storage network in networks/physical/networks.yaml
       public_cidr: '10.10.183.0/24'
       cluster_cidr: '10.10.183.0/24'
 
