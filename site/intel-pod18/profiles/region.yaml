@@ -34,14 +34,6 @@ metadata:
         path: .
     - dest:
         # Increment the list index
-        path: .authorized_keys[1]
-      src:
-        schema: deckhand/PublicKey/v1
-        # your ssh key
-        name: kasparss_ssh_public_key
-        path: .
-    - dest:
-        # Increment the list index
         path: .authorized_keys[2]
       src:
         schema: deckhand/PublicKey/v1
