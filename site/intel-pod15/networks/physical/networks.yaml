@@ -12,7 +12,7 @@
 # |IF2 10G | private    | Underlay calico and ovs overlay   | VLAN 152 | untagged | 10.10.152.0/24 |
 # |        | management | Management (unused for now)       | VLAN 154 | tagged   | 10.10.154.0/24 |
 # |IF3 10G | storage    | Storage network                   | VLAN 153 | untagged | 10.10.153.0/24 |
-# |        | public     | Public network for VMs            | VLAN 4000| tagged   | 10.10.155.0/24 |
+# |        | public     | Public network for VMs            | VLAN 1153| tagged   | 10.10.155.0/24 |
 # +--------+------------+-----------------------------------+----------+----------+----------------+
 #
 # For standard Airship deployments, you should not need to modify the number of
@@ -307,7 +307,7 @@ data:
 ...
 ---
 # The public network for OpenStack VMs.
-# NOTE: Only interface 'ens785f0.4000' will be setup, no IPs assigned to hosts
+# NOTE: Only interface 'ens785f0.1153' will be setup, no IPs assigned to hosts
 schema: 'drydock/Network/v1'
 metadata:
   schema: 'metadata/Document/v1'
@@ -318,7 +318,7 @@ metadata:
   storagePolicy: cleartext
 data:
   # NEWSITE-CHANGEME: Set the VLAN ID which the Public network is on
-  vlan: '4000'
+  vlan: '1153'
   # NEWSITE-CHANGEME: Ensure the network switches in the environment are
   # configured for this MTU or greater.
   mtu: 1500

@@ -154,11 +154,11 @@ data:
     # Interface for the OpenStack external network. Ensure the interface name is
     # consistent with the interface and VLAN assigned to the Public network in
     # networks/physical/networks.yaml
-    external_iface: 'ens785f0.4000'
+    external_iface: 'ens785f0.1153'
 
   openvswitch:
     # Interface for the OpenStack external network. Ensure the interface name is
     # consistent with the interface and VLAN assigned to the Public network in
     # networks/physical/networks.yaml
-    external_iface: 'ens785f0.4000'
+    external_iface: 'ens785f0.1153'
 ...
