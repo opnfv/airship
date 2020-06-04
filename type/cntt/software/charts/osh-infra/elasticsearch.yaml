@@ -1,0 +1,115 @@
+---
+schema: armada/Chart/v1
+metadata:
+  schema: metadata/Document/v1
+  replacement: true
+  name: elasticsearch
+  labels:
+    name: elasticsearch-type
+  layeringDefinition:
+    abstract: false
+    layer: type
+    parentSelector:
+      hosttype: elasticsearch-global
+    actions:
+      - method: merge
+        path: .
+  storagePolicy: cleartext
+data:
+  values:
+    pod:
+      replicas:
+        master: 3
+        data: 3
+        client: 3
+      resources:
+        enabled: true
+        apache_proxy:
+          limits:
+            memory: "1024Mi"
+            cpu: "2000m"
+          requests:
+            memory: "0"
+            cpu: "0"
+        client:
+          requests:
+            memory: "4Gi"
+            cpu: "1000m"
+          limits:
+            memory: "8Gi"
+            cpu: "2000m"
+        master:
+          requests:
+            memory: "4Gi"
+            cpu: "1000m"
+          limits:
+            memory: "8Gi"
+            cpu: "2000m"
+        data:
+          requests:
+            memory: "4Gi"
+            cpu: "1000m"
+          limits:
+            memory: "8Gi"
+            cpu: "2000m"
+        prometheus_elasticsearch_exporter:
+          requests:
+            memory: "0"
+            cpu: "0"
+          limits:
+            memory: "1024Mi"
+            cpu: "2000m"
+
+    storage:
+      requests:
+        storage: 50Gi
+    conf:
+      elasticsearch:
+        env:
+          java_opts:
+            client: "-Xms2048m -Xmx2048m"
+            data: "-Xms2048m -Xmx2048m"
+            master: "-Xms2048m -Xmx2048m"
+      curator:
+        #run every 6th hour
+        schedule:  "0 */6 * * *"
+        action_file:
+          actions:
+            1:
+              action: delete_indices
+              description: >-
+                "Delete indices older than 1 days"
+              options:
+                timeout_override:
+                continue_if_exception: False
+                ignore_empty_list: True
+                disable_action: False
+              filters:
+              - filtertype: pattern
+                kind: prefix
+                value: logstash-
+              - filtertype: age
+                source: name
+                direction: older
+                timestring: '%Y.%m.%d'
+                unit: days
+                unit_count: 1
+            2:
+              action: delete_indices
+              description: >-
+                "Delete indices by age if available disk space is
+                 less than 80% total disk"
+              options:
+                timeout_override: 600
+                continue_if_exception: False
+                ignore_empty_list: True
+                disable_action: False
+              filters:
+              - filtertype: pattern
+                kind: prefix
+                value: logstash-
+              - filtertype: space
+                source: creation_date
+                use_age: True
+                disk_space: 120
+...
