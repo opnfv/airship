@@ -2,7 +2,6 @@
 schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
-  replacement: true
   name: elasticsearch
   labels:
     name: elasticsearch-type
