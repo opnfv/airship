@@ -22,5 +22,11 @@ data:
     conf:
       neutron:
         DEFAULT:
-          service_plugins: router,trunk
+          service_plugins: router,trunk,neutron.services.qos.qos_plugin.QoSPlugin
+      plugins:
+        ml2_conf:
+          ml2:
+            extension_drivers: port_security, qos
+          agent:
+            extensions: qos
 ...
