@@ -1,0 +1,29 @@
+---
+schema: nc/ControlPlaneAddresses/v1
+metadata:
+  schema: metadata/Document/v1
+  name: control-plane-addresses
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  genesis:
+    hostname: pod18-node1
+    ip:
+      oam: 10.10.180.21
+      ksn: 10.10.182.21
+
+  masters:
+    - hostname: pod18-node1
+      ip:
+        oam: 10.10.180.21
+        ksn: 10.10.182.21
+    - hostname: pod18-node2
+      ip:
+        oam: 10.10.180.22
+        ksn: 10.10.182.22
+    - hostname: pod18-node3
+      ip:
+        oam: 10.10.180.23
+        ksn: 10.10.182.23

@@ -16,22 +16,9 @@
 # *NOTE: The Genesis node is counted as one of the control plane nodes. Note
 # that the Genesis node does not appear on this bare metal list, because the
 # procedure to reprovision the Genesis host with MaaS has not yet been
-# implemented. Therefore there will be only three bare metal nodes in this file
-# with the 'masters' tag, as the genesis roles are assigned in a difference
-# place (profiles/genesis.yaml).
-# NOTE: The host profiles for the control plane are further divided into two
-# variants: primary and secondary. The only significance this has is that the
-# "primary" nodes are active Ceph nodes, whereas the "secondary" nodes are Ceph
-# standby nodes. For Ceph quorum, this means that the control plane split will
-# be 3 primary + 1 standby host profile, and the Genesis node counts toward one
-# of the 3 primary profiles. Other control plane services are not affected by
-# primary vs secondary designation.
-#
-# TODO: Include the hostname naming convention
-#
-# OVS-DPDK NOTE: Use the following host_profile for your nodes:
-#   For ovs kernel: cp-intel-s2600wt or dp-intel-s2600wt
-#   For ovs dpdk:   cp-intel-s2600wt-dpdk or dp-intel-s2600wt-dpdk
+# implemented. Therefore there will be only two bare metal nodes in this file
+# with the 'masters' tag, as the genesis roles are assigned in a different
+# place (type/cntt/profiles/genesis.yaml).
 #
 schema: 'drydock/BaremetalNode/v1'
 metadata:
@@ -44,6 +31,8 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
+  oob:
+    account: 'root'
   # NEWSITE-CHANGEME: The IPv4 address assigned to each logical network on this
   # node. In the reference Airship deployment, this is all logical Networks defined
   # in networks/physical/networks.yaml. IP addresses are manually assigned, by-hand.
@@ -59,54 +48,38 @@ data:
     # the environment; these are not addresses which MaaS assigns.
     - network: oob
       address: 10.10.180.12
-    # The IP of the node on the PXE network. Refer to the static IP range
-    # defined for the PXE network in networks/physical/networks.yaml. Begin allocating
-    # IPs from this network, starting with the second IP (inclusive) from the
-    # allocation range of this subnet (Genesis node will have the first IP).
-    # Ex: If the start IP for the PXE "static" network is 10.23.20.11, then
-    # genesis will have 10.23.20.11, this node will have 10.23.20.12, and
-    # so on with incrementing IP addresses with each additional node.
-    - network: dmz
+    # The IP of the node on the oam network. Refer to the static IP range
+    # defined for the oam network in networks/physical/networks.yaml.
+    - network: oam
       address: 10.10.180.22
-    # Genesis node gets first IP, all other nodes increment IPs from there
-    # within the allocation range defined for the network in
-    # networks/physical/networks.yaml
-    - network: admin
+    # The IP of the node on the pxe network. Refer to the static IP range
+    # defined for the Admin network in networks/physical/networks.yaml.
+    # This network is used for PXE bootstrapping of the bare-metal servers.
+    - network: pxe
       address: 10.10.181.22
-    # Genesis node gets first IP, all other nodes increment IPs from there
-    # within the allocation range defined for the network in
-    # networks/physical/networks.yaml
-    - network: private
+    # The IP of the node on the calico network. Refer to the static IP range
+    # defined for the calico network in networks/physical/networks.yaml.
+    - network: calico
       address: 10.10.182.22
-    # Genesis node gets first IP, all other nodes increment IPs from there
-    # within the allocation range defined for the network in
-    # networks/physical/networks.yaml
+    # The IP of the node on the Storage network. Refer to the static IP range
+    # defined for the Storage network in networks/physical/networks.yaml.
     - network: storage
       address: 10.10.183.22
-    # Genesis node gets first IP, all other nodes increment IPs from there
-    # within the allocation range defined for the network in
-    # networks/physical/networks.yaml
-    - network: management
+    # The IP of the node on the overlay network. Refer to the static IP range
+    # defined for the overlay network in networks/physical/networks.yaml.
+    - network: overlay
       address: 10.10.184.22
   # NEWSITE-CHANGEME: Set the host profile for the node.
   # Note that there are different host profiles depending if this is a control
   # plane vs data plane node, and different profiles that map to different types
-  # hardware. Control plane host profiles are further broken down into "primary"
-  # and "secondary" profiles (refer to the Notes section at the top of this doc).
-  # Select the host profile that matches up to your type of
+  # hardware. Select the host profile that matches up to your type of
   # hardware and function. E.g., the r720 here refers to Dell R720 hardware, the
-  # 'cp' refers to a control plane profile, and the "primary" means it will be
-  # an active member in the ceph quorum. Refer to profiles/host/ for the list
+  # 'cp' refers to a control plane profile. Refer to profiles/host/ for the list
   # of available host profiles specific to this site (otherwise, you may find
   # a general set of host profiles at the "type" or "global" layers/folders.
   # If you have hardware that is not on this list of profiles, you may need to
   # create a new host profile for that hardware.
-  # Regarding control plane vs other data plane profiles, refer to the notes at
-  # the beginning of this file. There should be one control plane node per rack,
-  # including Genesis. Note Genesis won't actually be listed in this file as a
-  # BaremetalNode, but the rest are.
-  # This is the second "primary" control plane node after Genesis.
-  host_profile: cp-intel-s2600wt-dpdk
+  host_profile: cp-intel-s2600wt
   metadata:
     tags:
       # NEWSITE-CHANGEME: See previous comment. Apply 'masters' tag for control
@@ -129,23 +102,24 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
+  oob:
+    account: 'root'
   # NEWSITE-CHANGEME: The next node's IPv4 addressing
   addressing:
     - network: oob
       address: 10.10.180.13
-    - network: dmz
+    - network: oam
       address: 10.10.180.23
-    - network: admin
+    - network: pxe
       address: 10.10.181.23
-    - network: private
+    - network: calico
       address: 10.10.182.23
     - network: storage
       address: 10.10.183.23
-    - network: management
+    - network: overlay
       address: 10.10.184.23
   # NEWSITE-CHANGEME: The next node's host profile
-  # This is the third "primary" control plane profile after genesis
-  host_profile: cp-intel-s2600wt-dpdk
+  host_profile: cp-intel-s2600wt
   metadata:
     # NEWSITE-CHANGEME: The next node's rack designation
     rack: pod18-rack
@@ -164,23 +138,24 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
+  oob:
+    account: 'root'
   # NEWSITE-CHANGEME: The next node's IPv4 addressing
   addressing:
     - network: oob
       address: 10.10.180.14
-    - network: dmz
+    - network: oam
       address: 10.10.180.24
-    - network: admin
+    - network: pxe
       address: 10.10.181.24
-    - network: private
+    - network: calico
       address: 10.10.182.24
     - network: storage
       address: 10.10.183.24
-    - network: management
+    - network: overlay
       address: 10.10.184.24
   # NEWSITE-CHANGEME: The next node's host profile
-  # This is the one and only appearance of the "secondary" control plane profile
-  host_profile: dp-intel-s2600wt-dpdk
+  host_profile: dp-intel-s2600wt
   metadata:
     # NEWSITE-CHANGEME: The next node's rack designation
     rack: pod18-rack
@@ -199,22 +174,24 @@ metadata:
     layer: site
   storagePolicy: cleartext
 data:
+  oob:
+    account: 'root'
   # NEWSITE-CHANGEME: The next node's IPv4 addressing
   addressing:
     - network: oob
       address: 10.10.180.15
-    - network: dmz
+    - network: oam
       address: 10.10.180.25
-    - network: admin
+    - network: pxe
       address: 10.10.181.25
-    - network: private
+    - network: calico
       address: 10.10.182.25
     - network: storage
       address: 10.10.183.25
-    - network: management
+    - network: overlay
       address: 10.10.184.25
   # NEWSITE-CHANGEME: The next node's host profile
-  host_profile: dp-intel-s2600wt-dpdk
+  host_profile: dp-intel-s2600wt
   metadata:
     # NEWSITE-CHANGEME: The next node's rack designation
     rack: pod18-rack
