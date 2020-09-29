@@ -21,6 +21,9 @@ Version history
 | 2020-01-21         | 0.1.0              | James Gu           | First draft based  |
 |                    |                    |                    | on Wiki content    |
 +--------------------+--------------------+--------------------+--------------------+
+| 2020-09-29         | 0.2.0              | James Gu           | Airship 1.8 update |
+|                    |                    |                    |                    |
++--------------------+--------------------+--------------------+--------------------+
 
 Introduction
 ============
@@ -127,8 +130,49 @@ The `site-definition.yaml <https://github.com/opnfv/airship/blob/master/site/int
 
      repositories:
        global:
-         revision: v1.7
+         revision: v1.8
          url: https://opendev.org/airship/treasuremap.git
+
+Prerequisites
+=============
+
+Airship installation requires access to external repositories and the deployed services has two
+virtual IPs that are defined in the site/intel-pod17/networks/common-addresses.yaml.
+
+If an existing DNS service is to be used, add the Airship required DNS entries following
+`Register DNS names <https://airship-treasuremap.readthedocs.io/en/latest/authoring_and_deployment.html#register-dns-names>`_.
+
+In Intel POD 17, a CoreDNS service has been installed on the jump host using the following example
+procedure:
+
+.. code-block:: console
+
+  $ sudo -i
+  $ mkdir /root/coredns
+  $ cp {cloned_airship_repo_location}/site/intel-pod17/tools/files/Corefile-intel-pod17 /root/coredns
+  $ cp {cloned_airship_repo_location}/site/intel-pod17/tools/files/intel-pod17.db /root/coredns
+  $ docker run -d --name coredns --restart=always --volume=/root/coredns/:/root/coredns -p 53:53/udp coredns/coredns -conf /root/coredns/Corefile-intel-pod17
+
+Update the external DNS server IP addresses and Airship MAAS and Ingress virtual IPS accordingly in
+the `Corefile-intel-pod17` and `intel-pod17.db` files.
+
+Set up and install the geneis node following `Genenis node <https://airship-treasuremap.readthedocs.io/en/latest/authoring_and_deployment.html#genesis-node>`_
+section in Airship Site Authoring and Deployment Guide.
+
+On the genesis node, ensure that Virtualization is enabled in BIOS, and PXE is set as first boot
+device and  the correct NIC is selected for PXE.
+
+The last step is to configure the Hugepages settings for OVS-DPDK by adding the following line in
+`/etc/default/grub` on the genesis node:
+
+.. code-block:: console
+
+  GRUB_CMDLINE_LINUX="hugepagesz=1G hugepages=12 transparent_hugepage=never default_hugepagesz=1G dpdk-socket-mem=4096,4096 iommu=pt intel_iommu=on amd_iommu=on cgroup_disable=hugetlb console=ttyS1,115200n8"
+
+Reboot the genesis node after GRUB setting change.
+
+Note that the Hugepages configuration values should match the ones in
+`treasuremap/type/cruiserlite/profiles/host/cp-intel-s2600wt.yaml`.
 
 Deployment
 ==========
@@ -139,9 +183,8 @@ side is light. See `deploy.sh <https://github.com/opnfv/airship/blob/master/tool
 You will need to export environment variables that correspond to the new site (`keystone` URL, node
 IPs, and so on). See the beginning of the deploy script for details on the required variables.
 
-Once the prerequisites that are described in the Airship deployment guide (such as setting up Genesis
-node), and the manifests are created, you are ready to execute deploy.sh that supports Shipyard
-actions: `deploy_site` and `update_site`.
+Once the prerequisites are met and the manifests are created, you are ready to execute deploy.sh
+that supports Shipyard actions: `deploy_site` and `update_site`.
 
 .. code-block:: console
 
@@ -170,7 +213,7 @@ Setup the needed environment variables, and execute the script as OpenStack CLI
 
 .. code-block:: console
 
-   $ export OSH_KEYSTONE_URL='http://identity-airship.intel-pod17.opnfv.org/v3'
+   $ export OSH_KEYSTONE_URL='http://identity-nc.intel-pod17.opnfv.org/v3'
    $ export OS_REGION_NAME=intel-pod17
    $ treasuremap/tools/openstack image list
 
