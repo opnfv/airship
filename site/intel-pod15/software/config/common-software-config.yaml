@@ -13,4 +13,7 @@ data:
   osh:
     # NEWSITE-CHANGEME: Replace with the site name
     region_name: intel-pod15
+  location:
+    # NEWSITE-CHANGEME: Replace with the site's corridor (c1 - Dev, c2 - IST, c3 - SIL, prod - PROD)
+    location_corridor: c15
 ...

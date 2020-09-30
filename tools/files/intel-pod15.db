@@ -1,0 +1,25 @@
+intel-pod15.opnfv.org.        IN  SOA dns.intel-pod15.opnfv.org. admin.intel-pod15.opnfv.org. 2015082541 7200 3600 1209600 3600
+dns.intel-pod15.opnfv.org.      IN  A 10.10.150.20
+iam-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+shipyard-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+cloudformation-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+compute-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+dashboard-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+grafana-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+identity-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+image-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+kibana-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+nagios-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+network-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+nova-novncproxy-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+object-store-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+orchestration-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+placement-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+volume-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+kubernetes-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+mini-mirror-nc.intel-pod15.opnfv.org.   IN  A   10.10.151.129
+ranger-agent-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+ro-nc.intel-pod15.opnfv.org.   IN  A   10.10.150.129
+drydock-nc.intel-pod15.opnfv.org.   IN  A   10.10.151.129
+maas-nc.intel-pod15.opnfv.org.   IN  A   10.10.151.129
+

@@ -8,6 +8,7 @@
 schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
+  replacement: true
   name: ucp-divingbell
   layeringDefinition:
     abstract: false
@@ -25,31 +26,19 @@ metadata:
         path: .values.conf.uamlite.users[0].user_sshkeys[0]
       src:
         schema: deckhand/PublicKey/v1
-        name: opnfv_ssh_public_key
+        name: jenkins_ssh_public_key
         path: .
     - dest:
         path: .values.conf.uamlite.users[1].user_sshkeys[0]
       src:
         schema: deckhand/PublicKey/v1
-        name: sridhar_ssh_public_key
-        path: .
-    - dest:
-        path: .values.conf.uamlite.users[1].user_crypt_passwd
-      src:
-        schema: deckhand/Passphrase/v1
-        name: sridhar_crypt_password
+        name: jamesg_ssh_public_key
         path: .
     - dest:
         path: .values.conf.uamlite.users[2].user_sshkeys[0]
       src:
         schema: deckhand/PublicKey/v1
-        name: mfix_ssh_public_key
-        path: .
-    - dest:
-        path: .values.conf.uamlite.users[2].user_crypt_passwd
-      src:
-        schema: deckhand/Passphrase/v1
-        name: mfix_crypt_password
+        name: sridhar_ssh_public_key
         path: .
     - dest:
         path: .values.conf.uamlite.users[3].user_sshkeys[0]
@@ -57,24 +46,18 @@ metadata:
         schema: deckhand/PublicKey/v1
         name: cedric_ssh_public_key
         path: .
-    - dest:
-        path: .values.conf.uamlite.users[3].user_crypt_passwd
-      src:
-        schema: deckhand/Passphrase/v1
-        name: cedric_crypt_password
-        path: .
 data:
   values:
     conf:
       uamlite:
         users:
-          - user_name: opnfv
+          - user_name: jenkins
+            user_sudo: true
+            user_sshkeys: []
+          - user_name: jamesg
             user_sudo: true
             user_sshkeys: []
           - user_name: sridhar
-            user_sudo: true
-            user_sshkeys: []
-          - user_name: mfix
             user_sudo: true
             user_sshkeys: []
           - user_name: cedric
