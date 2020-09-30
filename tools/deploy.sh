@@ -121,9 +121,9 @@ pegleg_collect() {
   sudo mkdir -p collect/${SITE_NAME}
   sudo -E ${AIRSHIP_CMD} pegleg site -r /target/airship collect -s collect/${SITE_NAME} $SITE_NAME
 
-#  sudo mkdir -p render/${SITE_NAME}
-#  sudo -E ${AIRSHIP_CMD} pegleg site -r /target/treasuremap render $SITE_NAME \
-#    -s /target/render/${SITE_NAME}/manifest.yaml
+ sudo mkdir -p render/${SITE_NAME}
+ sudo -E ${AIRSHIP_CMD} pegleg site -r /target/airship render $SITE_NAME \
+   -s /target/render/${SITE_NAME}/manifest.yaml
 }
 
 pre_genesis() {
