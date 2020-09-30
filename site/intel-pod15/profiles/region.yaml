@@ -1,5 +1,5 @@
 ---
-# The purpose of this file is to define the drydock Region, which in turn drives
+# The purpose of this file is to define the Drydock Region, which in turn drives
 # the MaaS region.
 schema: 'drydock/Region/v1'
 metadata:
@@ -17,7 +17,7 @@ metadata:
         schema: pegleg/SoftwareVersions/v1
         name: software-versions
         path: .packages.repositories.main_archive
-    # NEWSITE-CHANGEME: Substitutions from deckhand SSH public keys into the
+    # NEWSITE-CHANGEME: Substitutions from Deckhand SSH public keys into the
     # list of authorized keys which MaaS will register for the build-in "ubuntu"
     # account during the PXE process. Create a substitution rule for each SSH
     # key that should have access to the "ubuntu" account (useful for trouble-
@@ -30,7 +30,7 @@ metadata:
         schema: deckhand/PublicKey/v1
         # This should match the "name" metadata of the SSH key which will be
         # substituted, located in site/intel-pod15/secrets folder.
-        name: sridhar_ssh_public_key
+        name: jenkins_ssh_public_key
         path: .
     - dest:
         # Increment the list index
@@ -38,15 +38,7 @@ metadata:
       src:
         schema: deckhand/PublicKey/v1
         # your ssh key
-        name: mfix_ssh_public_key
-        path: .
-    - dest:
-        # Increment the list index
-        path: .authorized_keys[2]
-      src:
-        schema: deckhand/PublicKey/v1
-        # your ssh key
-        name: cedric_ssh_public_key
+        name: jamesg_ssh_public_key
         path: .
 data:
   tag_definitions: []
