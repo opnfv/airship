@@ -252,10 +252,4 @@ data:
       # NEWSITE-CHANGEME: Update to the gateway address for this network
       gateway: 10.10.155.1
       metric: 100
-  labels:
-    # NEWSITE-CHANGEME: All cruisers should have this enabled, set to false if this
-    #     is a special case in corridor 1 that doesn't support a floating IP pool.
-    #     If set to false, IP Addresses and CIDR will still need to be specified
-    #     above to satisfy the schema and substitution used by other documents.
-    enabled: true
 ...
