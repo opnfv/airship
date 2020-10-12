@@ -7,11 +7,11 @@ parameters:
 
   physical_network_name:
     type: string
-    default: public
+    default: ovsnet
 
-  physical_network_interface:
+  vlan_id:
     type: string
-    default: external
+    default: 1153
 
   subnet_name:
     type: string
@@ -23,7 +23,7 @@ parameters:
 
   subnet_gateway:
     type: string
-    default: 10.10.155.20
+    default: 10.10.155.1
 
   subnet_pool_start:
     type: string
@@ -40,11 +40,13 @@ resources:
       admin_state_up: true
       name:
         get_param: network_name
-      network_type: flat
+      network_type: vlan
       physical_network:
-        get_param: physical_network_interface
+        get_param: physical_network_name
+      segmentation_id:
+        get_param: vlan_id
       port_security_enabled: true
-      router_external: true
+      router_external: false
       shared: true
 
   private_subnet:

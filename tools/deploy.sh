@@ -108,7 +108,6 @@ clone_repos() {
     TREASUREMAP_REF=$(read_yaml $SITE_DEF "$SITE_DEF_KEY")
     echo "TREASUREMAP_REF $TREASUREMAP_REF"
     git_checkout 'https://review.opendev.org/airship/treasuremap' $TREASUREMAP_REF
-    git fetch https://review.opendev.org/airship/treasuremap refs/changes/33/707733/4 && git cherry-pick FETCH_HEAD
   fi
 }
 
@@ -119,11 +118,11 @@ pegleg_collect() {
     sudo rm -rf collect/${SITE_NAME}
   fi
   sudo mkdir -p collect/${SITE_NAME}
-  sudo -E ${AIRSHIP_CMD} pegleg site -r /target/airship collect -s collect/${SITE_NAME} $SITE_NAME
+  sudo -E ${AIRSHIP_CMD} pegleg site -e global=treasuremap -r /target/airship collect -s collect/${SITE_NAME} $SITE_NAME
 
- sudo mkdir -p render/${SITE_NAME}
- sudo -E ${AIRSHIP_CMD} pegleg site -r /target/airship render $SITE_NAME \
-   -s /target/render/${SITE_NAME}/manifest.yaml
+  sudo mkdir -p render/${SITE_NAME}
+  sudo -E ${AIRSHIP_CMD} pegleg site -e global=treasuremap -r /target/airship render $SITE_NAME \
+    -s /target/render/${SITE_NAME}/manifest.yaml
 }
 
 pre_genesis() {
@@ -261,6 +260,9 @@ case "$2" in
   clone_repos
   pegleg_collect
   site_action $2
+  ;;
+'init_cloud')
+  create_public_network
   ;;
 'generate_certs')
   clone_repos
