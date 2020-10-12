@@ -163,3 +163,39 @@ data:
     tags:
       - 'workers'
 ...
+---
+schema: 'drydock/BaremetalNode/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  # NEWSITE-CHANGEME: The next node's hostname
+  name: pod15-node5
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  oob:
+    account: 'root'
+  # NEWSITE-CHANGEME: The next node's IPv4 addressing
+  addressing:
+    - network: oob
+      address: 10.10.150.15
+    - network: oam
+      address: 10.10.150.25
+    - network: pxe
+      address: 10.10.151.25
+    - network: calico
+      address: 10.10.152.25
+    - network: storage
+      address: 10.10.153.25
+    - network: overlay
+      address: 10.10.154.25
+  # NEWSITE-CHANGEME: The next node's host profile
+  host_profile: dp-intel-s2600wt
+  metadata:
+    # NEWSITE-CHANGEME: The next node's rack designation
+    rack: pod15-rack
+    # NEWSITE-CHANGEME: The next node's role desigatnion
+    tags:
+      - 'workers'
+...
