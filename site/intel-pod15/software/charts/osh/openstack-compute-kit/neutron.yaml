@@ -23,4 +23,9 @@ data:
     conf:
       sriov_init:
         - besteffort
+      plugins:
+        sriov_agent:
+          sriov_nic:
+            physical_device_mappings: sriovnet1:ens785f1
+            exclude_devices: ens785f1:0000:05:10.1; 0000:05:10.3
 ...

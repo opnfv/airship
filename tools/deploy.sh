@@ -108,7 +108,6 @@ clone_repos() {
     TREASUREMAP_REF=$(read_yaml $SITE_DEF "$SITE_DEF_KEY")
     echo "TREASUREMAP_REF $TREASUREMAP_REF"
     git_checkout 'https://review.opendev.org/airship/treasuremap' $TREASUREMAP_REF
-    git fetch https://review.opendev.org/airship/treasuremap refs/changes/33/707733/4 && git cherry-pick FETCH_HEAD
   fi
 }
 
@@ -119,11 +118,11 @@ pegleg_collect() {
     sudo rm -rf collect/${SITE_NAME}
   fi
   sudo mkdir -p collect/${SITE_NAME}
-  sudo -E ${AIRSHIP_CMD} pegleg site -r /target/airship collect -s collect/${SITE_NAME} $SITE_NAME
+  sudo -E ${AIRSHIP_CMD} pegleg site -e global=treasuremap -r /target/airship collect -s collect/${SITE_NAME} $SITE_NAME
 
- sudo mkdir -p render/${SITE_NAME}
- sudo -E ${AIRSHIP_CMD} pegleg site -r /target/airship render $SITE_NAME \
-   -s /target/render/${SITE_NAME}/manifest.yaml
+  sudo mkdir -p render/${SITE_NAME}
+  sudo -E ${AIRSHIP_CMD} pegleg site -e global=treasuremap -r /target/airship render $SITE_NAME \
+    -s /target/render/${SITE_NAME}/manifest.yaml
 }
 
 pre_genesis() {
@@ -231,6 +230,19 @@ create_public_network() {
     public-network
 }
 
+
+create_dpdk_flavor() {
+  export OS_AUTH_URL=${OS_AUTH_URL_IDENTITY}
+  sudo -E treasuremap/tools/openstack flavor create --ram 1024 --disk 1 --vcpus 1 --public --property hw:mem_page_size=large dpdk.tiny
+}
+
+create_cirros_image() {
+  export OS_AUTH_URL=${OS_AUTH_URL_IDENTITY}
+  wget http://download.cirros-cloud.net/0.5.1/cirros-0.5.1-x86_64-disk.img
+  sudo -E treasuremap/tools/openstack image create --disk-format qcow2 --container-format bare --public --file /target/cirros-0.5.1-x86_64-disk.img cirros
+  rm -rf cirros-0.5.1-x86_64-disk.img cirros
+}
+
 case "$2" in
 'pre_genesis')
   pre_genesis
@@ -250,7 +262,7 @@ case "$2" in
   pre_genesis
   genesis_deploy
   site_action $2
-  create_public_network
+#  create_public_network
   ;;
 'update_site')
   clone_repos
@@ -261,6 +273,15 @@ case "$2" in
   clone_repos
   pegleg_collect
   site_action $2
+  ;;
+'init_cloud')
+#  wget http://download.cirros-cloud.net/0.5.1/cirros-0.5.1-x86_64-disk.img
+#  openstack image create --disk-format qcow2 --container-format bare --public --file /target/cirros-0.5.1-x86_64-disk.img cirros
+#  rm -rf cirros-0.5.1-x86_64-disk.img cirros
+#  openstack flavor create --ram 1024 --disk 1 --vcpus 1 --public --hw:mem_page_size=large dpdk.tiny
+  create_cirros_image
+  create_dpdk_flavor
+  create_public_network
   ;;
 'generate_certs')
   clone_repos

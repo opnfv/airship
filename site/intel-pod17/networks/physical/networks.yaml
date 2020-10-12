@@ -245,8 +245,8 @@ data:
   ranges:
     - type: reserved
       # NEWSITE-CHANGEME: Update to the start and end addresses to be used for the Floating IP pool
-      start: 10.10.175.31
-      end: 10.10.175.128
+      start: 10.10.175.1
+      end: 10.10.175.19
   routes:
     - subnet: 0.0.0.0/0
       # NEWSITE-CHANGEME: Update to the gateway address for this network
