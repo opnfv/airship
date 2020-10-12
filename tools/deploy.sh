@@ -108,7 +108,6 @@ clone_repos() {
     TREASUREMAP_REF=$(read_yaml $SITE_DEF "$SITE_DEF_KEY")
     echo "TREASUREMAP_REF $TREASUREMAP_REF"
     git_checkout 'https://review.opendev.org/airship/treasuremap' $TREASUREMAP_REF
-    git fetch https://review.opendev.org/airship/treasuremap refs/changes/33/707733/4 && git cherry-pick FETCH_HEAD
   fi
 }
 
