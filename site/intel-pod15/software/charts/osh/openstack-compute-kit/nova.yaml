@@ -1,0 +1,25 @@
+---
+schema: armada/Chart/v1
+metadata:
+  schema: metadata/Document/v1
+  replacement: true
+  name: nova
+  layeringDefinition:
+    abstract: false
+    layer: site
+    parentSelector:
+      name: nova-cruiserlite
+      component: nova
+    actions:
+      - method: merge
+        path: .
+  storagePolicy: cleartext
+data:
+  values:
+    conf:
+      nova:
+        pci:
+          ## NOTE: Exclude vf0 from each of the sriov nic
+          passthrough_whitelist: |
+              [{"address": {"domain":"0000","bus":"05","slot":"10","function":"[57]"}, "physical_network": "sriovnet1"},{"address": {"domain":"0000","bus":"05","slot":"1[1-7]","function":"[1357]"}, "physical_network": "sriovnet1"}]
+...
