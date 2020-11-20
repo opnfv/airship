@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d408b64_f31dc746",
+        "filename": "tools/files/blacklist.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2020-11-20T08:00:53Z",
+      "side": 1,
+      "message": "blacklist is now useless (live migration testing fails as it does)",
+      "revId": "661e60ad659ac41423f8041438ce933905f8f3f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a1db7c6_c57350d2",
+        "filename": "tools/files/tempest_conf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2020-11-20T08:00:53Z",
+      "side": 1,
+      "message": "nova and cinder must be updated too (be careful about yaml here)\n\ndiff --git a/functest/opnfv_tests/openstack/tempest/custom_tests/tempest_conf.yaml b/functest/opnfv_tests/openstack/tempest/custom_tests/tempest_conf.yaml\nindex e4b9ee70..be18a366 100644\n--- a/functest/opnfv_tests/openstack/tempest/custom_tests/tempest_conf.yaml\n+++ b/functest/opnfv_tests/openstack/tempest/custom_tests/tempest_conf.yaml\n@@ -1,6 +1,6 @@\n ---\n compute:\n-    max_microversion: 2.65\n+    max_microversion: 2.72\n compute-feature-enabled:\n     attach_encrypted_volume: false\n     block_migration_for_live_migration: false\n@@ -55,7 +55,7 @@ network-feature-enabled:\n     port_security: true\n     floating_ips: true\n placement:\n-    max_microversion: \"1.30\"\n+    max_microversion: 1.31\n validation:\n     image_ssh_user: cirros\n     ssh_timeout: 196\n@@ -63,7 +63,7 @@ validation:\n     run_validation: true\n     connect_method: floating\n volume:\n-    max_microversion: 3.55\n+    max_microversion: 3.59\n     storage_protocol: ceph\n     manage_volume_ref: source-name,volume-%s\n     manage_snapshot_ref: source-name,snapshot-%s\n@@ -77,6 +77,8 @@ volume-feature-enabled:\n     extend_attached_volume: false\n     consistency_group: false\n     volume_revert: true\n+load_balancer:\n+    test_with_ipv6: false\n neutron_plugin_options:\n     agent_availability_zone: nova\n     available_type_drivers: flat,geneve,vlan,gre,local,vxlan",
+      "revId": "661e60ad659ac41423f8041438ce933905f8f3f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
