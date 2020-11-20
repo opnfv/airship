@@ -248,13 +248,6 @@ case "$2" in
   pre_genesis
   ;;
 'deploy_site')
-  read -n 1 -p "This script will clean up the genesis node. Continue (Y/N) ?" input
-  case $input in
-    [Yy] ) break;;
-    [Nn] ) exit 1;;
-      * ) echo "Please answer yes or no."; exit 1;
-  esac
-
   clone_repos
   pegleg_collect
   promenade_bundle
