@@ -28,7 +28,8 @@ source $(dirname "$(realpath $0)")/../site/$1/$1.env
 
 if [ -z "$AS_HOME" ]; then
   WORK_DIR=$(mktemp -d)
-  trap "{ sudo rm -rf $WORK_DIR; }" EXIT
+  echo "Working directory is set to $WORK_DIR"
+  # trap "{ sudo rm -rf $WORK_DIR; }" EXIT
 else
   WORK_DIR=$AS_HOME
 fi
@@ -155,7 +156,7 @@ pre_genesis() {
   fi
 
   ssh $GEN_SSH 'sudo cp /etc/default/grub /etc/default/grub.orig'
-  ssh $GEN_SSH 'sudo sed -i "/GRUB_CMDLINE_LINUX=\"/c GRUB_CMDLINE_LINUX=\"hugepagesz=1G hugepages=12 transparent_hugepage=never default_hugepagesz=1G dpdk-socket-mem=4096,4096 iommu=pt intel_iommu=on amd_iommu=on cgroup_disable=hugetlb console=ttyS1,115200n8\"" /etc/default/grub'
+  ssh $GEN_SSH 'sudo sed -i "/GRUB_CMDLINE_LINUX=\"/c GRUB_CMDLINE_LINUX=\"hugepagesz=1G hugepages=10 transparent_hugepage=never default_hugepagesz=1G dpdk-socket-mem=4096,4096 iommu=pt intel_iommu=on amd_iommu=on cgroup_disable=hugetlb console=ttyS1,115200n8\"" /etc/default/grub'
   ssh $GEN_SSH 'sudo update-grub'
 
   # upstream pre-geneis is not ready to be used directly yet
@@ -235,7 +236,6 @@ create_public_network() {
     public-network
 }
 
-
 create_dpdk_flavor() {
   export OS_AUTH_URL=${OS_AUTH_URL_IDENTITY}
   sudo -E treasuremap/tools/openstack flavor create --ram 1024 --disk 1 --vcpus 1 --public --property hw:mem_page_size=large dpdk.tiny
@@ -246,6 +246,12 @@ create_cirros_image() {
   wget http://download.cirros-cloud.net/0.5.1/cirros-0.5.1-x86_64-disk.img
   sudo -E treasuremap/tools/openstack image create --disk-format qcow2 --container-format bare --public --file /target/cirros-0.5.1-x86_64-disk.img cirros
   rm -rf cirros-0.5.1-x86_64-disk.img cirros
+}
+
+deploy_test_conf() {
+  sudo mkdir -p /home/opnfv/functest
+  sudo cp airship/tools/files/blacklist.yaml /home/opnfv/functest
+  sudo cp airship/tools/files/tempest_conf.yaml /home/opnfv/functest
 }
 
 case "$2" in
@@ -263,16 +269,19 @@ case "$2" in
   create_cirros_image
   create_dpdk_flavor
   create_public_network
+  deploy_test_conf
   ;;
 'update_site')
   clone_repos
   pegleg_collect
   site_action $2
+  deploy_test_conf
   ;;
 'update_software')
   clone_repos
   pegleg_collect
   site_action $2
+  deploy_test_conf
   ;;
 'init_cloud')
   create_cirros_image
