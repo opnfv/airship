@@ -76,8 +76,8 @@ read_yaml() {
 }
 
 git_checkout() {
-  git clone $1
-  cd ${1##*/}
+  git clone $1 $3
+  cd $3
 
   # check refs for patchsets
   if [[ $2 == *"refs"* ]]; then
@@ -96,18 +96,22 @@ clone_repos() {
     echo "Found existing airship folder. Skip repo clone."
   else
     # clone/checkout site manifests
-    git_checkout 'https://gerrit.opnfv.org/gerrit/airship' $GERRIT_REFSPEC
+    git_checkout 'https://gerrit.opnfv.org/gerrit/airship' $GERRIT_REFSPEC airship
   fi
 
   if [ -d "treasuremap" ]; then
     echo "Found existing treasuremap folder in the working directory. Skip repo clone."
   else
-    # clone treasuremap (only required for tools/airship)
+    # clone treasuremap
     # match treasuremap to global from site-definition
-    SITE_DEF_KEY="['data']['repositories']['global']['revision']"
-    TREASUREMAP_REF=$(read_yaml $SITE_DEF "$SITE_DEF_KEY")
+    GLOBAL_URL_KEY="['data']['repositories']['global']['url']"
+    TREASUREMAP_URL=$(read_yaml $SITE_DEF "$GLOBAL_URL_KEY")
+    echo "TREASUREMAP_URL $TREASUREMAP_URL"
+
+    GLOBAL_REF_KEY="['data']['repositories']['global']['revision']"
+    TREASUREMAP_REF=$(read_yaml $SITE_DEF "$GLOBAL_REF_KEY")
     echo "TREASUREMAP_REF $TREASUREMAP_REF"
-    git_checkout 'https://review.opendev.org/airship/treasuremap' $TREASUREMAP_REF
+    git_checkout $TREASUREMAP_URL $TREASUREMAP_REF treasuremap
   fi
 }
 
