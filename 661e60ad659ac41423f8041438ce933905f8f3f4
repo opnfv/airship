@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "836e762f_0bf137b5",
+        "filename": "tools/files/blacklist.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7590
+      },
+      "writtenOn": "2020-11-23T15:06:18Z",
+      "side": 1,
+      "message": "Cedric, if blacklist is now \"useless\", is there a new way that we filter out live migration test cases?",
+      "parentUuid": "5d408b64_f31dc746",
+      "revId": "661e60ad659ac41423f8041438ce933905f8f3f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a1db7c6_c57350d2",
         "filename": "tools/files/tempest_conf.yaml",
         "patchSetId": 1
