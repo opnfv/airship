@@ -1,6 +1,6 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International License.
-.. http://creativecommons.org/licenses/by/4.0
-.. (c) Bin Hu and Kaspars Skels (AT&T)
+.. SPDX-License-Identifier: CC-BY-4.0
+.. (c) Open Platform for NFV Project, Inc. and its contributors
 
 =============================================
 OPNFV Airship Installer Project Release Notes
@@ -18,6 +18,8 @@ Version History
 +--------------------+--------------------+--------------------+----------------------+
 | 2019-12-19         | 1.0.0              | Bin Hu             | Iruya release        |
 +--------------------+--------------------+--------------------+----------------------+
+| 2020-12-??         | 2.0.0              | James Gu           | Jerma release        |
++--------------------+--------------------+--------------------+----------------------+
 
 Release Data
 ------------
@@ -25,13 +27,13 @@ Release Data
 +--------------------------------------+--------------------------------------+
 | **Project**                          | Airship Installer                    |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | opnfv-9.0.0                          |
+| **Repo/tag**                         | opnfv-10.0.0                         |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Iruya 9.0                            |
+| **Release designation**              | Jerma 10.0                           |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | January 10, 2020                     |
+| **Release date**                     | December ??, 2020                    |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Iruya 9.0 Release              |
+| **Purpose of the delivery**          | OPNFVJerma 10.0 Release              |
 +--------------------------------------+--------------------------------------+
 
 Important Notes
