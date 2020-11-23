@@ -51,6 +51,24 @@
       "revId": "661e60ad659ac41423f8041438ce933905f8f3f4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b3b529e_e0296061",
+        "filename": "tools/files/tempest_conf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7590
+      },
+      "writtenOn": "2020-11-23T15:17:05Z",
+      "side": 1,
+      "message": "Hi Cedric, I see that the placement version I have is different. fixed it. the rest seems to be identical to what you posed in comments with the exception of floating ips (line 60 and 68) and neutron drivers (line 88). Can you confirm what I have is correct to what functest expects?",
+      "parentUuid": "3a1db7c6_c57350d2",
+      "revId": "661e60ad659ac41423f8041438ce933905f8f3f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
