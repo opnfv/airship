@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e13184ea_fd626240",
+        "filename": "tools/files/blacklist.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7590
+      },
+      "writtenOn": "2020-11-24T03:36:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "836e762f_0bf137b5",
+      "revId": "661e60ad659ac41423f8041438ce933905f8f3f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a1db7c6_c57350d2",
         "filename": "tools/files/tempest_conf.yaml",
         "patchSetId": 1
@@ -69,6 +87,24 @@
       "revId": "661e60ad659ac41423f8041438ce933905f8f3f4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d59cc7c0_1f56ace7",
+        "filename": "tools/files/tempest_conf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7590
+      },
+      "writtenOn": "2020-11-24T03:36:40Z",
+      "side": 1,
+      "message": "fixed placement version. The rest was the same from Cedric\u0027s version",
+      "parentUuid": "9b3b529e_e0296061",
+      "revId": "661e60ad659ac41423f8041438ce933905f8f3f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
