@@ -2,18 +2,12 @@
 scenario:
     -
         scenarios:
-            - '^os-'  # all scenarios
+            - 'ovs'
         tests:
             - 'NovaServers.boot_and_live_migrate_server'
             - 'NovaServers.boot_server_attach_created_volume_and_live_migrate'
             - 'NovaServers.boot_server_from_volume_and_live_migrate'
             - 'NovaServers.boot_and_migrate_server'
-            - 'NovaServers.resize_server'
-            - 'NovaServers.boot_and_get_console_url'
-            # Following test occasionally fails due to race condition issue on
-            # quota manipulation in nova.
-            # Ref: https://bugs.launchpad.net/nova/+bug/1552622
-            - 'Quotas.nova_update_and_delete'
 
 functionality:
     -
@@ -44,3 +38,4 @@ functionality:
             - NeutronNetworks.create_and_delete_floating_ips
             - NeutronNetworks.create_and_list_floating_ips
             - NeutronNetworks.associate_and_dissociate_floating_ips
+            - VMTasks.dd_load_test

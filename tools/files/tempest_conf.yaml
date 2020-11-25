@@ -59,13 +59,12 @@ network-feature-enabled:
     # not supported in Airship 1.8 due to DPDK
     floating_ips: false
 placement:
-    max_microversion: 1.4
+    max_microversion: 1.31
 validation:
     image_ssh_user: cirros
     ssh_timeout: 196
     ip_version_for_ssh: 4
     run_validation: true
-    connect_method: fixed
 volume:
     max_microversion: 3.59
     storage_protocol: ceph
@@ -87,6 +86,9 @@ neutron_plugin_options:
     agent_availability_zone: nova
     available_type_drivers: flat,vlan,vxlan
     provider_vlans: ovsnet
+object-storage:
+    operator_role: _member_
+    reseller_admin_role: admin
 object-storage-feature-enabled:
     discoverable_apis: "account_quotas,formpost,bulk_upload,bulk_delete,\
       tempurl,crossdomain,container_quotas,staticweb,account_quotas,slo"
