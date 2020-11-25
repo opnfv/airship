@@ -2,7 +2,7 @@
 scenario:
     -
         scenarios:
-            - '^os-'  # all scenarios
+            - '^ovs'
         tests:
             - 'NovaServers.boot_and_live_migrate_server'
             - 'NovaServers.boot_server_attach_created_volume_and_live_migrate'
