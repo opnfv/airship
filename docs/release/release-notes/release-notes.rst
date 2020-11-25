@@ -18,7 +18,7 @@ Version History
 +--------------------+--------------------+--------------------+----------------------+
 | 2019-12-19         | 1.0.0              | Bin Hu             | Iruya release        |
 +--------------------+--------------------+--------------------+----------------------+
-| 2020-12-??         | 2.0.0              | James Gu           | Jerma release        |
+| 2020-12-01         | 2.0.0              | James Gu           | Jerma release        |
 +--------------------+--------------------+--------------------+----------------------+
 
 Release Data
@@ -31,9 +31,9 @@ Release Data
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Jerma 10.0                           |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | December ??, 2020                    |
+| **Release date**                     | December 1st, 2020                   |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFVJerma 10.0 Release              |
+| **Purpose of the delivery**          | OPNFV Jerma 10.0 Release             |
 +--------------------------------------+--------------------------------------+
 
 Important Notes
@@ -44,7 +44,7 @@ Please visit https://www.airshipit.org/ for upstream Airship Project.
 Summary
 -------
 
-This is the Iruya release of the Airship Installer as part of OPNFV, including:
+This is the Jerma release of the Airship Installer as part of OPNFV, including:
 
 * deployment of an NFVi with Airship Installer in a hardware infrastructure.
 
@@ -58,12 +58,17 @@ Known Limitations, Issues and Workarounds
 System Limitations
 ^^^^^^^^^^^^^^^^^^
 
-None.
+In the default configuration of Airship 1.8, OVS-DPDK is used to provide
+high-performance networking between instances on OpenStack compute nodes.
+Due to known issues and performance concerns between Neutron and OVS_DPDK,
+the default configuration of Airship 1.8 does not support Neutron floating
+ip and Neutron self-service tenant network.
 
 Known Issues
 ^^^^^^^^^^^^
 
-None.
+Nova live migration is not supported because the functionality is not
+avaialable yet in OpenStack Helm project.
 
 Workarounds
 ^^^^^^^^^^^
@@ -79,7 +84,7 @@ Airship Installer.
 References
 ----------
 
-For more information on the OPNFV Hunter release, please see:
+For more information on the OPNFV Jerma release, please see:
 
 http://www.opnfv.org/software
 
