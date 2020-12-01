@@ -205,13 +205,23 @@ genesis_deploy() {
   ssh $GEN_SSH PROMENADE_ENCRYPTION_KEY=$PROMENADE_KEY sudo -E ./genesis.sh
 }
 
-site_action() {
+create_configdocs() {
+  sudo -E ${AIRSHIP_CMD} shipyard create configdocs \
+    $SITE_NAME --directory=/target/collect/$SITE_NAME --replace
+}
 
+site_action() {
   # Site deployment with Shipyard, see more details here
   # https://airship-treasuremap.readthedocs.io/en/latest/authoring_and_deployment.html#deploy-site-with-shipyard
 
-  sudo -E ${AIRSHIP_CMD} shipyard create configdocs \
-    $SITE_NAME --directory=/target/collect/$SITE_NAME --replace
+  # retry in case the ucp apis are not ready to serve yet
+  retries=0
+  while ! create_configdocs && [ $retries -lt 20 ]; do
+    retries=$((retries+1))
+    echo "Create configdocs failed. Retrying # $retries out of 20 in 15 seconds"
+    sleep 15
+  done
+
   sudo -E ${AIRSHIP_CMD} shipyard commit configdocs
 
   sudo -E ${AIRSHIP_CMD} shipyard create action \
