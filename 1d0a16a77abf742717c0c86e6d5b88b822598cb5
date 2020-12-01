@@ -46,6 +46,30 @@
       "revId": "1d0a16a77abf742717c0c86e6d5b88b822598cb5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69f1b969_ee8df351",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7551
+      },
+      "writtenOn": "2020-12-01T15:14:02Z",
+      "side": 1,
+      "message": "you mention neutron.... and neutron is part of the openstack.... https://wiki.openstack.org/wiki/Neutron",
+      "parentUuid": "e5bf4f80_c8527419",
+      "range": {
+        "startLine": 61,
+        "startChar": 32,
+        "endLine": 61,
+        "endChar": 43
+      },
+      "revId": "1d0a16a77abf742717c0c86e6d5b88b822598cb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
