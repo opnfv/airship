@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4533f2b9_b3dd058e",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7551
+      },
+      "writtenOn": "2020-12-01T14:56:26Z",
+      "side": 1,
+      "message": "sorry I could seems to get this straight.... is it Treasuremap 1.8 or Airship 1.8?  and is ovs-dpdk really the deploy configuration for airship?  or is it the default configuration for cntt\u0027 or whatever?  I do not know if we are now considering openstack to be part of airship.",
+      "range": {
+        "startLine": 61,
+        "startChar": 32,
+        "endLine": 61,
+        "endChar": 43
+      },
+      "revId": "1d0a16a77abf742717c0c86e6d5b88b822598cb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
