@@ -22,6 +22,30 @@
       "revId": "1d0a16a77abf742717c0c86e6d5b88b822598cb5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5bf4f80_c8527419",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7590
+      },
+      "writtenOn": "2020-12-01T15:10:28Z",
+      "side": 1,
+      "message": "Yes, technically it is Treasuremap 1.8. I can clarify that.  Yes, in 1.8, dpdk is the default configuration, and also is the default configuration for cntt. I didn\u0027t state \"openstack to be part of airship\". Which sentence or wording that leads to the confusion?",
+      "parentUuid": "4533f2b9_b3dd058e",
+      "range": {
+        "startLine": 61,
+        "startChar": 32,
+        "endLine": 61,
+        "endChar": 43
+      },
+      "revId": "1d0a16a77abf742717c0c86e6d5b88b822598cb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
