@@ -209,9 +209,14 @@ site_action() {
 
   # Site deployment with Shipyard, see more details here
   # https://airship-treasuremap.readthedocs.io/en/latest/authoring_and_deployment.html#deploy-site-with-shipyard
+  # retry in case the ucp apis are not ready to serve yet
+  for i in {1..10}
+  do
+    sudo -E ${AIRSHIP_CMD} shipyard create configdocs \
+    $SITE_NAME --directory=/target/collect/$SITE_NAME --replace \
+    && break || sleep 30
+  done
 
-  sudo -E ${AIRSHIP_CMD} shipyard create configdocs \
-    $SITE_NAME --directory=/target/collect/$SITE_NAME --replace
   sudo -E ${AIRSHIP_CMD} shipyard commit configdocs
 
   sudo -E ${AIRSHIP_CMD} shipyard create action \
