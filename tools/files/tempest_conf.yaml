@@ -54,10 +54,23 @@ image-feature-enabled:
     api_v2: true
     api_v1: false
 network-feature-enabled:
+    api_extensions: "address-scope,agent,agent-resources-synced,\
+      allowed-address-pairs,availability_zone,availability_zone_filter,\
+      default-subnetpools,dhcp_agent_scheduler,empty-string-filtering,\
+      external-net,extra_dhcp_opt,filter-validation,flavors,\
+      ip-substring-filtering,multi-provider,net-mtu,net-mtu-writable,\
+      network_availability_zone,network-ip-availability,pagination,\
+      port-mac-address-regenerate,port-resource-request,binding,\
+      binding-extended,port-security,project-id,provider,qos,\
+      qos-bw-limit-direction,qos-bw-minimum-ingress,qos-default,\
+      qos-rule-type-details,qos-rules-alias,quotas,quota_details,\
+      rbac-policies,rbac-security-groups,revision-if-match,\
+      standard-attr-revisions,port-security-groups-filtering,security-group,\
+      service-type,sorting,standard-attr-description,subnet_onboard,\
+      subnet-service-types,subnet_allocation,standard-attr-tag,\
+      standard-attr-timestamp,trunk,trunk-details"
     port_admin_state_change: true
     port_security: true
-    # not supported in Airship 1.8 due to DPDK
-    floating_ips: false
 placement:
     max_microversion: 1.31
 validation:
