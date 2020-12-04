@@ -4,10 +4,10 @@ scenario:
         scenarios:
             - 'ovs'
         tests:
-            - 'NovaServers.boot_and_live_migrate_server'
-            - 'NovaServers.boot_server_attach_created_volume_and_live_migrate'
-            - 'NovaServers.boot_server_from_volume_and_live_migrate'
-            - 'NovaServers.boot_and_migrate_server'
+            - NovaServers.boot_and_live_migrate_server
+            - NovaServers.boot_server_attach_created_volume_and_live_migrate
+            - NovaServers.boot_server_from_volume_and_live_migrate
+            - NovaServers.boot_and_migrate_server
 
 functionality:
     -
@@ -39,3 +39,7 @@ functionality:
             - NeutronNetworks.create_and_list_floating_ips
             - NeutronNetworks.associate_and_dissociate_floating_ips
             - VMTasks.dd_load_test
+            - NeutronNetworks.create_and_delete_routers
+            - NeutronNetworks.create_and_list_routers
+            - NeutronNetworks.set_and_clear_router_gateway
+            - Quotas.neutron_update
