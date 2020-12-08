@@ -1,4 +1,6 @@
 ---
+auth:
+    tempest_roles: admin_keystone_read
 compute:
     max_microversion: 2.72
 compute-feature-enabled:
