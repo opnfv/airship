@@ -260,7 +260,8 @@ create_cirros_image() {
 
 deploy_test_conf() {
   sudo mkdir -p /home/opnfv/functest
-  sudo cp airship/tools/files/blacklist.yaml /home/opnfv/functest
+  sudo cp airship/tools/files/rally_blacklist.yaml /home/opnfv/functest
+  sudo cp airship/tools/files/tempest_blacklist.yaml /home/opnfv/functest
   sudo cp airship/tools/files/tempest_conf.yaml /home/opnfv/functest
 }
 

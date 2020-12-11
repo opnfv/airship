@@ -9,7 +9,8 @@ export FUNCTEST_CACHE=${FUNCTEST_CACHE:-"${HOME}/.opnfv/functest"}
 export SITE=${2:-"intel-pod17"}
 
 cp tools/files/tempest_conf.yaml ${FUNCTEST_CACHE}
-cp tools/files/blacklist.yaml ${FUNCTEST_CACHE}
+cp tools/files/rally_blacklist.yaml ${FUNCTEST_CACHE}
+cp tools/files/tempest_blacklist.yaml ${FUNCTEST_CACHE}
 TMP_DIR=$(mktemp -d)
 cd $TMP_DIR
 
@@ -17,6 +18,11 @@ trap "{ sudo rm -rf $TMP_DIR; }" EXIT
 
 
 cat > env << EOF
+S3_ENDPOINT_URL=https://storage.googleapis.com
+S3_DST_URL=s3://artifacts.opnfv.org/xtesting/test
+HTTP_DST_URL=http://artifacts.opnfv.org/xtesting/test
+TEST_DB_URL=http://testresults.opnfv.org/test/api/v1/results
+TEST_DB_EXT_URL=http://testresults.opnfv.org/test/api/v1/results
 EXTERNAL_NETWORK=public
 BLOCK_MIGRATION=False
 DEPLOY_SCENARIO=ovs
@@ -53,13 +59,15 @@ help() {
 run_tests() {
 
   sudo rm -rf ${FUNCTEST_CACHE}/results && mkdir ${FUNCTEST_CACHE}/results
-
+  sudo docker pull opnfv/functest-${1}:iruya
   sudo docker run -it --env-file env --network host \
       -v $(pwd)/openstack.env:/home/opnfv/functest/conf/env_file \
+      -v ${FUNCTEST_CACHE}/.boto:/root/.boto \
       -v ${FUNCTEST_CACHE}/images:/home/opnfv/functest/images \
       -v ${FUNCTEST_CACHE}/results:/home/opnfv/functest/results \
       -v ${FUNCTEST_CACHE}/tempest_conf.yaml:/usr/lib/python3.6/site-packages/functest/opnfv_tests/openstack/tempest/custom_tests/tempest_conf.yaml \
-      -v ${FUNCTEST_CACHE}/blacklist.yaml:/usr/lib/python3.6/site-packages/functest/opnfv_tests/openstack/rally/blacklist.yaml \
+      -v ${FUNCTEST_CACHE}/tempest_blacklist.yaml:/usr/lib/python3.6/site-packages/functest/opnfv_tests/openstack/tempest/custom_tests/blacklist.yaml \
+      -v ${FUNCTEST_CACHE}/rally_blacklist.yaml:/usr/lib/python3.6/site-packages/functest/opnfv_tests/openstack/rally/blacklist.yaml \
       -v /home/ubuntu/nc/functest/functest/core/singlevm.py:/usr/lib/python3.6/site-packages/functest/core/singlevm.py \
       opnfv/functest-${1}:iruya bash
 }
