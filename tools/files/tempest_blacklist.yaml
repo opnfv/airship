@@ -1,0 +1,36 @@
+---
+-
+    scenarios:
+        - os-ovn-nofeature-ha
+        - os-ovn-nofeature-noha
+    tests:
+        - neutron_tempest_plugin.api.admin.test_dhcp_agent_scheduler
+        - neutron_tempest_plugin.api.test_trunk.TrunkTestInheritJSONBase.test_add_subport
+        - patrole_tempest_plugin.tests.api.network.test_agents_rbac
+        - patrole_tempest_plugin.tests.api.network.test_networks_rbac.NetworksRbacTest.test_create_network_provider_network_type
+        - patrole_tempest_plugin.tests.api.network.test_networks_rbac.NetworksRbacTest.test_create_network_provider_segmentation_id
+        - tempest.api.network.admin.test_dhcp_agent_scheduler
+
+-
+    scenarios:
+        - ovs
+    tests:
+        # Bug detected by tempest_smoke
+        # - tempest.api.identity.v3.test_domains.DefaultDomainTestJSON.test_default_domain_exists
+#        - neutron_tempest_plugin.api.admin.test_floating_ips_admin_actions.FloatingIPAdminTestJSON.test_associate_floating_ip_with_port_from_another_project
+#        - neutron_tempest_plugin.api.admin.test_floating_ips_admin_actions.FloatingIPAdminTestJSON.test_create_floatingip_with_specified_ip_address
+#        - tempest.api.network.test_extensions.ExtensionsTestJSON.test_list_show_extensions
+#        - tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota
+#        - tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object
+#        - tempest.api.object_storage.test_account_services.AccountTest.test_list_account_metadata
+#        - tempest.api.object_storage.test_account_services.AccountTest.test_list_containers
+#        - tempest.api.object_storage.test_object_services.ObjectTest.test_create_object
+#        - tempest.api.object_storage.test_object_services.ObjectTest.test_get_object
+#        - tempest.api.object_storage.test_object_services.ObjectTest.test_list_object_metadata
+#        - tempest.api.object_storage.test_object_services.ObjectTest.test_update_object_metadata
+#        - tempest.api.object_storage.test_container_quotas.ContainerQuotasTest.test_upload_large_object
+#        - tempest.api.object_storage.test_container_quotas.ContainerQuotasTest.test_upload_too_many_objects
+#        - tempest.api.object_storage.test_container_quotas.ContainerQuotasTest.test_upload_valid_object
+#        - tempest.api.object_storage.test_container_services.ContainerTest.test_create_container
+#        - tempest.api.object_storage.test_container_services.ContainerTest.test_list_container_contents
+#        - tempest.api.object_storage.test_container_services.ContainerTest.test_list_container_metadata
