@@ -77,7 +77,7 @@ Airship Installer.
 References
 ----------
 
-For more information on the OPNFV Hunter release, please see:
+For more information on the OPNFV Iruya release, please see:
 
 http://www.opnfv.org/software
 
