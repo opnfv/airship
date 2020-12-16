@@ -68,7 +68,7 @@ run_tests() {
       -v ${FUNCTEST_CACHE}/tempest_conf.yaml:/usr/lib/python3.6/site-packages/functest/opnfv_tests/openstack/tempest/custom_tests/tempest_conf.yaml \
       -v ${FUNCTEST_CACHE}/tempest_blacklist.yaml:/usr/lib/python3.6/site-packages/functest/opnfv_tests/openstack/tempest/custom_tests/blacklist.yaml \
       -v ${FUNCTEST_CACHE}/rally_blacklist.yaml:/usr/lib/python3.6/site-packages/functest/opnfv_tests/openstack/rally/blacklist.yaml \
-      -v /home/ubuntu/nc/functest/functest/core/singlevm.py:/usr/lib/python3.6/site-packages/functest/core/singlevm.py \
+      -v /home/opnfv/functest/singlevm.py:/usr/lib/python3.6/site-packages/functest/core/singlevm.py \
       opnfv/functest-${1}:iruya bash
 }
 
