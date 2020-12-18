@@ -8,19 +8,18 @@ metadata:
     layer: site
     parentSelector:
       corridor: '1'
-      region: 'anuket-intel'
+      region: 'anuket-laas'
     actions:
       - method: merge
         path: .
   storagePolicy: cleartext
 data:
-  corridor: 'C-I17'
+  corridor: 'C-L01'
   infrastructure:
     dns:
       upstream_servers:
-        - 10.10.170.20
-        - 10.10.171.20
+        - 10.200.139.8      
       # Repeat the same values as above, but formatted as a common separated
       # string
-      upstream_servers_joined: 10.10.170.20, 10.10.171.20
+      upstream_servers_joined: 10.200.139.8
 ...
