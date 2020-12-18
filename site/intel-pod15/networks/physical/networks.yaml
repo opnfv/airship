@@ -23,6 +23,72 @@
 # and how-tos on working with Drydock/YAMLs in more generic way and enabling
 # custom/additional features not represented here  (such as bonded networks).
 # See https://airship-drydock.readthedocs.io/en/latest/topology.html#defining-networking
+---
+schema: 'drydock/NetworkLink/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  name: dmz
+  layeringDefinition:
+    abstract: false
+    layer: type
+  storagePolicy: cleartext
+data:
+  bonding:
+    mode: disabled
+  mtu: 1500
+  linkspeed: auto
+  trunking:
+    mode: disabled
+    default_network: oam
+  allowed_networks:
+    - oam
+...
+---
+schema: 'drydock/NetworkLink/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  name: data1
+  layeringDefinition:
+    abstract: false
+    layer: type
+  storagePolicy: cleartext
+data:
+  bonding:
+    mode: disabled
+  # NEWSITE-CHANGEME: Ensure the network switches in the environment are
+  # configured for this MTU or greater.
+  mtu: 1500
+  linkspeed: auto
+  trunking:
+    mode: 802.1q
+  allowed_networks:
+    - calico
+    - overlay
+...
+---
+schema: 'drydock/NetworkLink/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  name: data2
+  layeringDefinition:
+    abstract: false
+    layer: type
+  storagePolicy: cleartext
+data:
+  bonding:
+    mode: disabled
+  # NEWSITE-CHANGEME: Ensure the network switches in the environment are
+  # configured for this MTU or greater.
+  mtu: 1500
+  linkspeed: auto
+  trunking:
+    mode: 802.1q
+    default_network: storage
+  allowed_networks:
+    - storage
+    - routable
+...
+---
 schema: 'drydock/Network/v1'
 metadata:
   schema: 'metadata/Document/v1'
@@ -32,7 +98,7 @@ metadata:
     layer: site
     parentSelector:
       network_role: oob
-      topology: cruiserlite
+      topology: cruiser
     actions:
       - method: merge
         path: .
@@ -56,12 +122,15 @@ metadata:
     layer: site
     parentSelector:
       network_role: pxe
-      topology: cruiserlite
+      topology: cruiser
     actions:
       - method: merge
         path: .
   storagePolicy: cleartext
 data:
+  # NEWSITE-CHANGEME: Set the VLAN ID for the PXE network
+  # or '0' for untagged VLAN
+  vlan: '0'
   # NEWSITE-CHANGEME: Update with the site's PXE network CIDR
   # NOTE: The CIDR minimum size = (number of nodes * 2) + 10
   cidr: 10.10.151.0/24
@@ -104,12 +173,15 @@ metadata:
     layer: site
     parentSelector:
       network_role: oam
-      topology: cruiserlite
+      topology: cruiser
     actions:
       - method: merge
         path: .
   storagePolicy: cleartext
 data:
+  # NEWSITE-CHANGEME: Set the VLAN ID for the oam network
+  # or '0' for untagged VLAN
+  vlan: '0'
   # NEWSITE-CHANGEME: Update with the site's DMZ network CIDR
   cidr: 10.10.150.0/24
   routes:
@@ -139,12 +211,15 @@ metadata:
     layer: site
     parentSelector:
       network_role: calico
-      topology: cruiserlite
+      topology: cruiser
     actions:
       - method: merge
         path: .
   storagePolicy: cleartext
 data:
+  # NEWSITE-CHANGEME: Set the VLAN ID for the calico network
+  # or '0' for untagged VLAN
+  vlan: '0'
   # NEWSITE-CHANGEME: Set the CIDR for the Private network
   # NOTE: The CIDR minimum size = number of nodes + 10
   cidr: 10.10.152.0/24
@@ -165,13 +240,13 @@ metadata:
     layer: site
     parentSelector:
       network_role: os-overlay
-      topology: cruiserlite
+      topology: cruiser
     actions:
       - method: merge
         path: .
   storagePolicy: cleartext
 data:
-  # NEWSITE-CHANGEME: Set the VLAN ID which the Management network is on
+  # NEWSITE-CHANGEME: Set the VLAN ID which the overlay network is on
   vlan: '154'
   # NEWSITE-CHANGEME: Set the CIDR for the Management network
   # NOTE: The CIDR minimum size = number of nodes + 10
@@ -206,12 +281,15 @@ metadata:
     layer: site
     parentSelector:
       network_role: storage
-      topology: cruiserlite
+      topology: cruiser
     actions:
       - method: merge
         path: .
   storagePolicy: cleartext
 data:
+  # NEWSITE-CHANGEME: Set the VLAN ID for the storage network
+  # or '0' for untagged VLAN
+  vlan: '0'
   # NEWSITE-CHANGEME: Set the CIDR for the Storage network
   # NOTE: The CIDR minimum size = number of nodes + 10
   cidr: 10.10.153.0/24
@@ -232,7 +310,7 @@ metadata:
     layer: site
     parentSelector:
       network_role: os-routable
-      topology: cruiserlite
+      topology: cruiser
     actions:
       - method: merge
         path: .

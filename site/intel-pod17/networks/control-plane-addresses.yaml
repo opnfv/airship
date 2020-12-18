@@ -27,3 +27,9 @@ data:
       ip:
         oam: 10.10.170.23
         ksn: 10.10.172.23
+    # node9 doesn't exist. Dummy data for the only purpose of satisfying the
+    # pci catalog structure shared with 4 node control plane labs
+    - hostname: pod17-node9
+      ip:
+        oam: 10.10.170.254
+        ksn: 10.10.172.254

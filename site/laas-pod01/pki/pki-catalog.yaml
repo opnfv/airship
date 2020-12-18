@@ -1,0 +1,91 @@
+---
+# The purpose of this file is to define the PKI certificates for the environment
+#
+# NOTE: When deploying a new site, this file should not be configured until
+# baremetal/nodes.yaml is complete.
+#
+schema: promenade/PKICatalog/v1
+metadata:
+  schema: metadata/Document/v1
+  name: cluster-certificates
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  certificate_authorities:
+    kubernetes:
+      description: CA for Kubernetes components
+      certificates:
+
+        # NEWSITE-CHANGEME: The following should be a list of all the nodes in
+        # the environment (genesis, control plane, data plane, everything).
+        # Add/delete from this list as necessary until all nodes are listed.
+        # For each node, the `hosts` list should be comprised of:
+        #   1. The node's hostname
+        #   2. The node's ksn/Calico IP address
+        # master nodes
+        - document_name: kubelet-hpe39
+          common_name: system:node:hpe1
+          hosts:
+            - hpe39
+            - 10.200.212.21
+          groups:
+            - system:nodes
+        - document_name: kubelet-hpe40
+          common_name: system:node:hpe2
+          hosts:
+            - hpe40
+            - 10.200.212.22
+          groups:
+            - system:nodes
+        - document_name: kubelet-hpe41
+          common_name: system:node:hpe3
+          hosts:
+            - hpe41
+            - 10.200.212.23
+          groups:
+            - system:nodes
+        - document_name: kubelet-hpe42
+          common_name: system:node:hpe43
+          hosts:
+            - hpe42
+            - 10.200.212.24
+          groups:
+            - system:nodes
+
+        # work nodes
+        - document_name: kubelet-hpe43
+          common_name: system:node:hpe43
+          hosts:
+            # values from baremetal/nodes.yaml
+            - hpe43
+            - 10.200.212.25
+          groups:
+            - system:nodes
+        - document_name: kubelet-hpe44
+          common_name: system:node:hpe44
+          hosts:
+            # values from baremetal/nodes.yaml
+            - hpe44
+            - 10.200.212.26
+          groups:
+            - system:nodes
+        - document_name: kubelet-hpe45
+          common_name: system:node:hpe45
+          hosts:
+            # values from baremetal/nodes.yaml
+            - hpe45
+            - 10.200.212.27
+          groups:
+            - system:nodes
+        - document_name: kubelet-hpe46
+          common_name: system:node:hpe46
+          hosts:
+            # values from baremetal/nodes.yaml
+            - hpe46
+            - 10.200.212.28
+          groups:
+            - system:nodes
+        # End node list
+...

@@ -1,0 +1,310 @@
+---
+# Drydock BaremetalNode resources for a specific rack are stored in this file.
+#
+# NOTE: For new sites, you should complete the networks/physical/networks.yaml
+# file before working on this file.
+#
+# In this file, you should make the number of `drydock/BaremetalNode/v1`
+# resources equal the number of bare metal nodes you have, either by deleting
+# excess BaremetalNode definitions (if there are too many), or by copying and
+# pasting the last BaremetalNode in the file until you have the correct number
+# of baremetal nodes (if there are too few).
+#
+# Then in each file, address all additional NEWSITE-CHANGEME markers to update
+# the data in these files with the right values for your new site.
+#
+# *NOTE: The Genesis node is counted as one of the control plane nodes. Note
+# that the Genesis node does not appear on this bare metal list, because the
+# procedure to reprovision the Genesis host with MaaS has not yet been
+# implemented. Therefore there will be only two bare metal nodes in this file
+# with the 'masters' tag, as the genesis roles are assigned in a different
+# place (type/cntt/profiles/genesis.yaml).
+#
+schema: 'drydock/BaremetalNode/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  # NEWSITE-CHANGEME: Replace with the hostname of the first node in the rack,
+  # after (excluding) genesis.
+  name: hpe40
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  oob:
+    account: 'OPNFV'
+  # NEWSITE-CHANGEME: The IPv4 address assigned to each logical network on this
+  # node. In the reference Airship deployment, this is all logical Networks defined
+  # in networks/physical/networks.yaml. IP addresses are manually assigned, by-hand.
+  # (what could possibly go wrong!) The instructions differ for each logical
+  # network, which are laid out below.
+  addressing:
+    # The iDrac/iLo IP of the node. It's important that this match up with the
+    # node's hostname above, so that the rack number and node position encoded
+    # in the hostname are accurate and matching the node that IPMI operations
+    # will be performed against (for poweron, poweroff, PXE boot to wipe disk or
+    # reconfigure identity, etc - very important to get right for these reasons).
+    # These addresses should already be assigned to nodes racked and stacked in
+    # the environment; these are not addresses which MaaS assigns.
+    - network: oob
+      address: 10.10.139.10
+    # The IP of the node on the oam network. Refer to the static IP range
+    # defined for the oam network in networks/physical/networks.yaml.
+    - network: oam
+      address: 10.200.201.22
+    # The IP of the node on the pxe network. Refer to the static IP range
+    # defined for the Admin network in networks/physical/networks.yaml.
+    # This network is used for PXE bootstrapping of the bare-metal servers.
+    - network: pxe
+      address: 10.200.212.22
+    # The IP of the node on the calico network. Refer to the static IP range
+    # defined for the calico network in networks/physical/networks.yaml.
+    - network: calico
+      address: 10.200.214.22
+    # The IP of the node on the Storage network. Refer to the static IP range
+    # defined for the Storage network in networks/physical/networks.yaml.
+    - network: storage
+      address: 10.200.213.22
+    # The IP of the node on the overlay network. Refer to the static IP range
+    # defined for the overlay network in networks/physical/networks.yaml.
+    - network: overlay
+      address: 10.200.215.22
+  # NEWSITE-CHANGEME: Set the host profile for the node.
+  # Note that there are different host profiles depending if this is a control
+  # plane vs data plane node, and different profiles that map to different types
+  # hardware. Select the host profile that matches up to your type of
+  # hardware and function. E.g., the r720 here refers to Dell R720 hardware, the
+  # 'cp' refers to a control plane profile. Refer to profiles/host/ for the list
+  # of available host profiles specific to this site (otherwise, you may find
+  # a general set of host profiles at the "type" or "global" layers/folders.
+  # If you have hardware that is not on this list of profiles, you may need to
+  # create a new host profile for that hardware.
+  host_profile: cp-hpe-dl380
+  metadata:
+    tags:
+      # NEWSITE-CHANGEME: See previous comment. Apply 'masters' tag for control
+      # plane node, and 'workers' tag for data plane hosts.
+      - 'masters'
+    # NEWSITE-CHANGEME: Refer to site engineering package or other supporting
+    # documentation for the specific rack name. This should be a rack name that
+    # is meaningful to data center personnel (i.e. a rack they could locate if
+    # you gave them this rack designation).
+    rack: lass-pod01-rack
+...
+---
+schema: 'drydock/BaremetalNode/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  # NEWSITE-CHANGEME
+  name: hpe41
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  oob:
+    account: 'OPNFV'
+  # NEWSITE-CHANGEME
+  addressing:
+    - network: oob
+      address: 10.10.139.11
+    - network: oam
+      address: 10.200.201.23
+    - network: pxe
+      address: 10.200.212.23
+    - network: calico
+      address: 10.200.214.23
+    - network: storage
+      address: 10.200.213.23
+    - network: overlay
+      address: 10.200.215.23
+  # NEWSITE-CHANGEME
+  host_profile: cp-hpe-dl380
+  metadata:
+    tags:
+      # NEWSITE-CHANGEME:
+      - 'masters'
+    # NEWSITE-CHANGEME
+    rack: lass-pod01-rack
+...
+---
+schema: 'drydock/BaremetalNode/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  # NEWSITE-CHANGEME
+  name: hpe42
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  oob:
+    account: 'OPNFV'
+  # NEWSITE-CHANGEME
+  addressing:
+    - network: oob
+      address: 10.10.139.12
+    - network: oam
+      address: 10.200.201.24
+    - network: pxe
+      address: 10.200.212.24
+    - network: calico
+      address: 10.200.214.24
+    - network: storage
+      address: 10.200.213.24
+    - network: overlay
+      address: 10.200.215.24
+  # NEWSITE-CHANGEME
+  host_profile: cp-hpe-dl380
+  metadata:
+    tags:
+      # NEWSITE-CHANGEME:
+      - 'masters'
+    # NEWSITE-CHANGEME
+    rack: lass-pod01-rack
+...
+---
+schema: 'drydock/BaremetalNode/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  # NEWSITE-CHANGEME
+  name: hpe43
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  oob:
+    account: 'OPNFV'
+  # NEWSITE-CHANGEME
+  addressing:
+    - network: oob
+      address: 10.10.139.13
+    - network: oam
+      address: 10.200.201.25
+    - network: pxe
+      address: 10.200.212.25
+    - network: calico
+      address: 10.200.214.25
+    - network: storage
+      address: 10.200.213.25
+    - network: overlay
+      address: 10.200.215.25
+  # NEWSITE-CHANGEME
+  host_profile: dp-hpe-dl380
+  metadata:
+    tags:
+      # NEWSITE-CHANGEME:
+      - 'workers'
+    # NEWSITE-CHANGEME
+    rack: lass-pod01-rack
+...
+---
+schema: 'drydock/BaremetalNode/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  # NEWSITE-CHANGEME
+  name: hpe44
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  oob:
+    account: 'OPNFV'
+  # NEWSITE-CHANGEME
+  addressing:
+    - network: oob
+      address: 10.10.139.14
+    - network: oam
+      address: 10.200.201.26
+    - network: pxe
+      address: 10.200.212.26
+    - network: calico
+      address: 10.200.214.26
+    - network: storage
+      address: 10.200.213.26
+    - network: overlay
+      address: 10.200.215.26
+  # NEWSITE-CHANGEME
+  host_profile: dp-hpe-dl380
+  metadata:
+    tags:
+      # NEWSITE-CHANGEME:
+      - 'workers'
+    # NEWSITE-CHANGEME
+    rack: lass-pod01-rack
+...
+---
+schema: 'drydock/BaremetalNode/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  # NEWSITE-CHANGEME
+  name: hpe45
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  oob:
+    account: 'OPNFV'
+  # NEWSITE-CHANGEME
+  addressing:
+    - network: oob
+      address: 10.10.139.15
+    - network: oam
+      address: 10.200.201.27
+    - network: pxe
+      address: 10.200.212.27
+    - network: calico
+      address: 10.200.214.27
+    - network: storage
+      address: 10.200.213.27
+    - network: overlay
+      address: 10.200.215.27
+  # NEWSITE-CHANGEME
+  host_profile: dp-hpe-dl380
+  metadata:
+    tags:
+      # NEWSITE-CHANGEME:
+      - 'workers'
+    # NEWSITE-CHANGEME
+    rack: lass-pod01-rack
+...
+---
+schema: 'drydock/BaremetalNode/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  # NEWSITE-CHANGEME
+  name: hpe46
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  oob:
+    account: 'OPNFV'
+  # NEWSITE-CHANGEME
+  addressing:
+    - network: oob
+      address: 10.10.139.16
+    - network: oam
+      address: 10.200.201.28
+    - network: pxe
+      address: 10.200.212.28
+    - network: calico
+      address: 10.200.214.28
+    - network: storage
+      address: 10.200.213.28
+    - network: overlay
+      address: 10.200.215.28
+  # NEWSITE-CHANGEME
+  host_profile: dp-hpe-dl380
+  metadata:
+    tags:
+      # NEWSITE-CHANGEME:
+      - 'workers'
+    # NEWSITE-CHANGEME
+    rack: lass-pod01-rack
+...
+

@@ -1,0 +1,20 @@
+---
+# The primary control plane host profile for Airship for DELL R720s, and
+# should not need to be altered if you are using matching HW. The active
+# participants in the Ceph cluster run on this profile. Other control plane
+# services are not affected by primary vs secondary designation.
+schema: drydock/HostProfile/v1
+metadata:
+  schema: metadata/Document/v1
+  name: host-config
+  storagePolicy: cleartext
+  layeringDefinition:
+    abstract: false
+    layer: site
+    parentSelector:
+      hosttype: anuket-cp-intel-s2600wt
+    actions:
+      - method: merge
+        path: .
+data: {}
+...

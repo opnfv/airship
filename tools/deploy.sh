@@ -146,7 +146,7 @@ pre_genesis() {
   ssh $GEN_SSH 'sudo mv ~/sources.list /etc/apt/sources.list'
 
   ssh $GEN_SSH 'wget -qO - http://mirror.mirantis.com/testing/kubernetes-extra/bionic/archive-kubernetes-extra.key | sudo apt-key add -'
-  # thsi fails but appaerntly not required.
+  # this fails but apparently not required.
   # ssh $GEN_SSH 'wget -qO - http://linux.dell.com/repo/community/openmanage/930/bionic/dists/bionic/Release.gpg | sudo apt-key add -'
   ssh $GEN_SSH 'sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32'
   ssh $GEN_SSH 'sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1285491434D8786F'

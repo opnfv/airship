@@ -1,0 +1,201 @@
+---
+schema: nc/Policy/v1
+metadata:
+  schema: metadata/Document/v1
+  name: site-policy
+  labels:
+    name: site-policy
+  layeringDefinition:
+    abstract: false
+    layer: site
+    parentSelector:
+      name: type-policy
+    actions:
+    - method: merge
+      path: .
+  storagePolicy: cleartext
+data:
+  policy:
+    sitelevel:
+      priority: 5
+      rules: []
+    hostendpoints:
+      priority: 9
+      rules:
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe39-oam
+          labels:
+            host: nc-control
+            intf-alias: oam
+        spec:
+          interfaceName: bond1.201
+          node: hpe39
+          expectedIPs:
+          - 10.200.201.21
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe39-ksn
+          labels:
+            host: nc-control
+            intf-alias: ksn
+        spec:
+          interfaceName: bond1.214
+          node: hpe39
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe40-oam
+          labels:
+            host: nc-control
+            intf-alias: oam
+        spec:
+          interfaceName: bond1.201
+          node: hpe40
+          expectedIPs:
+          - 10.200.201.22
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe40-ksn
+          labels:
+            host: nc-control
+            intf-alias: ksn
+        spec:
+          interfaceName: bond1.214
+          node: hpe40
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe41-oam
+          labels:
+            host: nc-control
+            intf-alias: oam
+        spec:
+          interfaceName: bond1.201
+          node: hpe41
+          expectedIPs:
+          - 10.200.201.23
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe41-ksn
+          labels:
+            host: nc-control
+            intf-alias: ksn
+        spec:
+          interfaceName: bond1.214
+          node: hpe41
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe42-oam
+          labels:
+            host: nc-control
+            intf-alias: oam
+        spec:
+          interfaceName: bond1.201
+          node: hpe42
+          expectedIPs:
+          - 10.200.201.24
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe42-ksn
+          labels:
+            host: nc-control
+            intf-alias: ksn
+        spec:
+          interfaceName: bond1.214
+          node: hpe42
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe43-oam
+          labels:
+            host: nc-compute
+            intf-alias: oam
+        spec:
+          interfaceName: bond1.201
+          node: hpe43
+          expectedIPs:
+          - 10.200.201.25
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe43-ksn
+          labels:
+            host: nc-compute
+            intf-alias: ksn
+        spec:
+          interfaceName: bond1.214
+          node: hpe43
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe44-oam
+          labels:
+            host: nc-compute
+            intf-alias: oam
+        spec:
+          interfaceName: bond1.201
+          node: hpe44
+          expectedIPs:
+          - 10.200.201.26
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe44-ksn
+          labels:
+            host: nc-compute
+            intf-alias: ksn
+        spec:
+          interfaceName: bond1.214
+          node: hpe44
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe45-oam
+          labels:
+            host: nc-compute
+            intf-alias: oam
+        spec:
+          interfaceName: bond1.201
+          node: hpe45
+          expectedIPs:
+          - 10.200.201.27
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe45-ksn
+          labels:
+            host: nc-compute
+            intf-alias: ksn
+        spec:
+          interfaceName: bond1.214
+          node: hpe45
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe46-oam
+          labels:
+            host: nc-compute
+            intf-alias: oam
+        spec:
+          interfaceName: bond1.201
+          node: hpe46
+          expectedIPs:
+          - 10.200.201.28
+      - apiVersion: projectcalico.org/v3
+        kind: HostEndpoint
+        metadata:
+          name: hpe46-ksn
+          labels:
+            host: nc-compute
+            intf-alias: ksn
+        spec:
+          interfaceName: bond1.214
+          node: hpe46
+...
