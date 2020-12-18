@@ -1,0 +1,33 @@
+---
+schema: nc/ControlPlaneAddresses/v1
+metadata:
+  schema: metadata/Document/v1
+  name: control-plane-addresses
+  layeringDefinition:
+    abstract: false
+    layer: site
+  storagePolicy: cleartext
+data:
+  genesis:
+    hostname: hpe6
+    ip:
+      oam: 10.200.200.21
+      ksn: 10.200.202.21
+
+  masters:
+    - hostname: hpe6
+      ip:
+        oam: 10.200.200.21
+        ksn: 10.200.202.21
+    - hostname: hpe7
+      ip:
+        oam: 10.200.200.22
+        ksn: 10.200.202.22
+    - hostname: hpe13
+      ip:
+        oam: 10.200.200.23
+        ksn: 10.200.202.23
+    - hostname: hpe25
+      ip:
+        oam: 10.200.200.24
+        ksn: 10.200.202.24        
