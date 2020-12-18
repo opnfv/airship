@@ -1,0 +1,15 @@
+---
+schema: 'drydock/HardwareProfile/v1'
+metadata:
+  schema: 'metadata/Document/v1'
+  name: hardware-config
+  layeringDefinition:
+    abstract: false
+    layer: site
+    parentSelector:
+      name: anuket-hpe-dl380
+    actions:
+      - method: merge
+        path: .
+  storagePolicy: cleartext
+data: {}

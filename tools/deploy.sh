@@ -7,6 +7,7 @@ export OS_PASSWORD=${OS_PASSWORD:-password123}
 
 export IPMI_USER=${IPMI_USER:-root}
 export IPMI_PASS=${IPMI_PASS:-root}
+export IPMI_ROLE=${IPMI_ROLE:-operator}
 
 export GERRIT_REFSPEC=${GERRIT_REFSPEC:-master}
 
@@ -56,11 +57,11 @@ genesis_cleanup() {
   # reset bare-metal servers
   ALL_NODES="${GEN_IPMI} ${NODES_IPMI}"
   for node in $ALL_NODES; do
-    ipmitool -I lanplus -H $node -U $IPMI_USER -P $IPMI_PASS chassis power off
+    ipmitool -I lanplus -H $node -U $IPMI_USER -P $IPMI_PASS chassis -L $IPMI_ROLE power off
   done
 
   sleep 11 # wait for genesis node to power-off
-  ipmitool -I lanplus -H $GEN_IPMI -U $IPMI_USER -P $IPMI_PASS chassis power on
+  ipmitool -I lanplus -H $GEN_IPMI -U $IPMI_USER -P $IPMI_PASS -L $IPMI_ROLE chassis power on
 
   while ! ssh $GEN_SSH hostname; do :; done
 
@@ -146,7 +147,7 @@ pre_genesis() {
   ssh $GEN_SSH 'sudo mv ~/sources.list /etc/apt/sources.list'
 
   ssh $GEN_SSH 'wget -qO - http://mirror.mirantis.com/testing/kubernetes-extra/bionic/archive-kubernetes-extra.key | sudo apt-key add -'
-  # thsi fails but appaerntly not required.
+  # this fails but apparently not required.
   # ssh $GEN_SSH 'wget -qO - http://linux.dell.com/repo/community/openmanage/930/bionic/dists/bionic/Release.gpg | sudo apt-key add -'
   ssh $GEN_SSH 'sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32'
   ssh $GEN_SSH 'sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1285491434D8786F'

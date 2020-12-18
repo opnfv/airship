@@ -8,13 +8,13 @@ metadata:
     layer: site
     parentSelector:
       corridor: '1'
-      region: 'global'
+      region: 'anuket-intel'
     actions:
       - method: merge
         path: .
   storagePolicy: cleartext
 data:
-  corridor: 'c15'
+  corridor: 'C-L15'
   infrastructure:
     dns:
       upstream_servers:
