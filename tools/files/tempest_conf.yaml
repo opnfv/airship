@@ -1,6 +1,7 @@
 ---
 auth:
-    tempest_roles: admin_keystone_read
+#    tempest_roles: admin_keystone_read
+    use_dynamic_credentials: True
 compute:
     max_microversion: 2.72
 compute-feature-enabled:
@@ -41,8 +42,8 @@ compute-feature-enabled:
 identity:
     auth_version: v3
     user_unique_last_password_count: 2
-    user_lockout_duration: 10
-    user_lockout_failure_attempts: 2
+    user_lockout_duration: 60
+    user_lockout_failure_attempts: 3
 identity-feature-enabled:
     trust: true
     api_v2: false
@@ -52,6 +53,7 @@ identity-feature-enabled:
     external_idp: false
     project_tags: true
     application_credentials: true
+    domain_specific_drivers: true
 image-feature-enabled:
     api_v2: true
     api_v1: false
