@@ -91,28 +91,6 @@ data:
       - apiVersion: projectcalico.org/v3
         kind: HostEndpoint
         metadata:
-          name: pod17-node4-oam
-          labels:
-            host: nc-compute
-            intf-alias: oam
-        spec:
-          interfaceName: dmz.170
-          node: pod17-node4
-          expectedIPs:
-          - 10.10.170.24
-      - apiVersion: projectcalico.org/v3
-        kind: HostEndpoint
-        metadata:
-          name: pod17-node4-ksn
-          labels:
-            host: nc-compute
-            intf-alias: ksn
-        spec:
-          interfaceName: data1.172
-          node: pod17-node4
-      - apiVersion: projectcalico.org/v3
-        kind: HostEndpoint
-        metadata:
           name: pod17-node5-oam
           labels:
             host: nc-compute

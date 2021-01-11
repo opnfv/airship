@@ -48,14 +48,6 @@ data:
             - system:nodes
 
         # work nodes
-        - document_name: kubelet-pod17-node4
-          common_name: system:node:pod17-node4
-          hosts:
-            # values from baremetal/nodes.yaml
-            - pod17-node4
-            - 10.10.172.24
-          groups:
-            - system:nodes
         - document_name: kubelet-pod17-node5
           common_name: system:node:pod17-node5
           hosts:
