@@ -132,42 +132,6 @@ schema: 'drydock/BaremetalNode/v1'
 metadata:
   schema: 'metadata/Document/v1'
   # NEWSITE-CHANGEME: The next node's hostname
-  name: pod17-node4
-  layeringDefinition:
-    abstract: false
-    layer: site
-  storagePolicy: cleartext
-data:
-  oob:
-    account: 'root'
-  # NEWSITE-CHANGEME: The next node's IPv4 addressing
-  addressing:
-    - network: oob
-      address: 10.10.170.14
-    - network: oam
-      address: 10.10.170.24
-    - network: pxe
-      address: 10.10.171.24
-    - network: calico
-      address: 10.10.172.24
-    - network: storage
-      address: 10.10.173.24
-    - network: overlay
-      address: 10.10.174.24
-  # NEWSITE-CHANGEME: The next node's host profile
-  host_profile: dp-intel-s2600wt
-  metadata:
-    # NEWSITE-CHANGEME: The next node's rack designation
-    rack: pod17-rack
-    # NEWSITE-CHANGEME: The next node's role desigatnion
-    tags:
-      - 'workers'
-...
----
-schema: 'drydock/BaremetalNode/v1'
-metadata:
-  schema: 'metadata/Document/v1'
-  # NEWSITE-CHANGEME: The next node's hostname
   name: pod17-node5
   layeringDefinition:
     abstract: false
