@@ -1,6 +1,6 @@
 ---
 auth:
-#    tempest_roles: admin_keystone_read
+    tempest_roles: admin_glance_update
     use_dynamic_credentials: True
 compute:
     max_microversion: 2.72
