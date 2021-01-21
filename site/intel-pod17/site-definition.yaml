@@ -12,6 +12,7 @@ data:
 
   repositories:
     global:
-      revision: 94f354467b7bbe1cd464b7803b3369296ca55e35
+      # qos fix
+      revision: refs/changes/70/771670/1
       url: https://opendev.org/airship/treasuremap.git
 ...
