@@ -12,10 +12,7 @@ data:
 
   repositories:
     global:
-<<<<<<< HEAD   (ea42d6 Catch NeutronNetworks.create_and_*routers in blacklist)
-      revision: v1.8
-=======
-      revision: 94f354467b7bbe1cd464b7803b3369296ca55e35
->>>>>>> CHANGE (c79c2e Update treasuremap version to include upstream rbac fixes)
+      # qos fix
+      revision: refs/changes/70/771670/1
       url: https://opendev.org/airship/treasuremap.git
 ...
