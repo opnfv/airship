@@ -1,11 +1,6 @@
 ---
 auth:
-<<<<<<< HEAD   (13ed0e Update treasuremap version to include upstream rbac fixes)
     tempest_roles: admin_keystone_read
-=======
-    tempest_roles: admin_glance_update
-    use_dynamic_credentials: True
->>>>>>> CHANGE (153904 Fix glance deactivate image test cases)
 compute:
     max_microversion: 2.72
 compute-feature-enabled:
