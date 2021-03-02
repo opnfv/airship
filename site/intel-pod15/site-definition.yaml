@@ -12,10 +12,14 @@ data:
 
   repositories:
     global:
+<<<<<<< HEAD   (b6153c Revert "Fix glance deactivate image test cases")
 <<<<<<< HEAD   (ea42d6 Catch NeutronNetworks.create_and_*routers in blacklist)
       revision: v1.8
 =======
       revision: 94f354467b7bbe1cd464b7803b3369296ca55e35
 >>>>>>> CHANGE (c79c2e Update treasuremap version to include upstream rbac fixes)
+=======
+      revision: 40c743f7fa715c3c9dc3e3cc4ee21cf6553f2ebb
+>>>>>>> CHANGE (88723e Intel-pod 15 upgrade to Airship 1.8)
       url: https://opendev.org/airship/treasuremap.git
 ...
