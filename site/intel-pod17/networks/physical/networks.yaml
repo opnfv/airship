@@ -86,13 +86,13 @@ data:
     - type: dhcp
       start: 10.10.171.40
       end: 10.10.171.128
-#   dns:
+  dns:
     # NEWSITE-CHANGEME: Use MAAS VIP as the DNS server.
     # MAAS has inbuilt DNS server and Debian mirror that allows nodes to be
     # deployed without requiring routed/internet access for the Admin/PXE interface.
     # See data.vip.maas_vip in networks/common-addresses.yaml.
     # TODO: This should be populated via substitution from common-addresses
-#    servers: '10.10.171.20'
+    servers: '10.10.171.20'
 ...
 ---
 schema: 'drydock/Network/v1'
