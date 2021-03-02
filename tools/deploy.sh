@@ -203,6 +203,8 @@ promenade_bundle() {
 genesis_deploy() {
   scp bundle/${SITE_NAME}/genesis.sh $GEN_SSH:
   ssh $GEN_SSH PROMENADE_ENCRYPTION_KEY=$PROMENADE_KEY sudo -E ./genesis.sh
+  # give some time for shipyard service to be ready to avoid error out during site actions
+  sleep 60
 }
 
 create_configdocs() {

@@ -86,13 +86,13 @@ data:
     - type: dhcp
       start: 10.10.151.40
       end: 10.10.151.128
-#   dns:
+  dns:
     # NEWSITE-CHANGEME: Use MAAS VIP as the DNS server.
     # MAAS has inbuilt DNS server and Debian mirror that allows nodes to be
     # deployed without requiring routed/internet access for the Admin/PXE interface.
     # See data.vip.maas_vip in networks/common-addresses.yaml.
     # TODO: This should be populated via substitution from common-addresses
-#    servers: '10.10.151.20'
+    servers: '10.10.151.20'
 ...
 ---
 schema: 'drydock/Network/v1'
@@ -252,4 +252,10 @@ data:
       # NEWSITE-CHANGEME: Update to the gateway address for this network
       gateway: 10.10.155.1
       metric: 100
+  labels:
+    # NEWSITE-CHANGEME: All cruisers should have this enabled, set to false if this
+    #     is a special case in corridor 1 that doesn't support a floating IP pool.
+    #     If set to false, IP Addresses and CIDR will still need to be specified
+    #     above to satisfy the schema and substitution used by other documents.
+    enabled: true
 ...
