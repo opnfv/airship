@@ -1,0 +1,5 @@
+resources:
+  - ../../../../../../treasuremap/manifests/type/airship-core/network-policies
+
+patchesStrategicMerge:
+  - calico_failsafe_rules_patch.yaml

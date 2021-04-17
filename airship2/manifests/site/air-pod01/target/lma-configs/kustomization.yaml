@@ -1,0 +1,4 @@
+resources:
+  - ../../../../../../treasuremap/manifests/function/lma-configs
+
+namespace: lma-infra

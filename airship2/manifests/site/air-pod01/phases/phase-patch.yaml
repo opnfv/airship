@@ -1,0 +1,12 @@
+apiVersion: airshipit.org/v1alpha1
+kind: BaremetalManager
+metadata:
+  name: RemoteDirectEphemeral
+spec:
+  hostSelector:
+    # NEWSITE_CHANGED: ephemeral node
+    name: hpe40
+  operationOptions:
+    remoteDirect:
+      # NEWSITE_CHANGED: URL to the ephemeral node iso 
+      isoURL: http:///10.200.201.20/ephemeral.iso

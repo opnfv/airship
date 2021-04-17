@@ -1,0 +1,16 @@
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
+kind: Metal3MachineTemplate
+metadata:
+  name: worker-1
+spec:
+  template:
+    spec:
+      hostSelector:
+        matchLabels:
+          airshipit.org/k8s-role: worker
+      image:
+        # NEWSITE_CHANGED: update the below ips with the first target node pxe ip
+        url: http://10.200.212.21/images/control-plane.qcow2
+        checksum: http://10.200.212.21/images/control-plane.qcow2.md5sum
+

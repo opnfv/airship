@@ -1,0 +1,6 @@
+phase:
+  docEntryPointPrefix: manifests/site/air-pod01
+  path: manifests/site/air-pod01/phases
+
+inventory:
+  path: manifests/site/air-pod01/host-inventory
