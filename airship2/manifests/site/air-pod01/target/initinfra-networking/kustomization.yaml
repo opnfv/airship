@@ -1,0 +1,8 @@
+resources:
+  - ../../../../../../treasuremap/manifests/type/airship-core/target/initinfra-networking
+
+commonLabels:
+  airshipit.org/stage: initinfra
+patchesStrategicMerge:
+  - patch_calico.yaml
+

@@ -1,0 +1,22 @@
+# This patches the node02 BMH to be suitable for ephemeral purposes
+apiVersion: metal3.io/v1alpha1
+kind: BareMetalHost
+metadata:
+  annotations:
+  labels:
+    airshipit.org/ephemeral-node: "true"
+    airshipit.org/deploy-k8s: "false"
+   # NEWSITE_CHANGED : ephemeral node name
+  name: hpe40
+spec:
+  online: true
+  bmc:
+    # NEWSITE_CHANGED: ephemeral node redhish api endpoint
+    address: redfish+https://10.10.99.64/redfish/v1/Systems/1
+status:
+  provisioning:
+# we need this status to make sure, that the host is not going to be
+# reprovisioned by the ephemeral baremetal operator.
+# when we have more flexible labeling system in place, we will not
+# deliver this document to ephemeral cluster
+    state: externally provisioned

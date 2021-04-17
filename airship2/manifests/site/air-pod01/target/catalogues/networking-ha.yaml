@@ -1,0 +1,17 @@
+# This catalogue alone needs to be overriden at site level based on the
+# networkign requirement like HA
+
+apiVersion: airshipit.org/v1alpha1
+kind: VariableCatalogue
+metadata:
+  name: networking-ha
+  labels:
+    airshipit.org/deploy-k8s: "false"
+vrrp:
+  # NEWSITE_CHANGED: Update VRRP virtual ips and OAM interface
+  kubernetes:
+    interface: bond0.201
+    virtual_ipaddress: 10.200.201.129
+  ingress:
+    interface: bond0.201
+    virtual_ipaddress: 10.200.201.130

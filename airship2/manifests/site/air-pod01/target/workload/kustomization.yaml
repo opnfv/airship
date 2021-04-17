@@ -1,0 +1,5 @@
+resources:
+  - ../../../../../../treasuremap/manifests/type/airship-core/target/workload/ingress
+  - ../catalogues
+transformers:
+  - ../../../../../../treasuremap/manifests/function/ingress/replacements

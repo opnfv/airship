@@ -1,0 +1,90 @@
+# Site-level host catalogue.  This info feeds the Templater
+# kustomize plugin config in the hostgenerator-m3 function.
+
+apiVersion: airshipit.org/v1alpha1
+kind: VariableCatalogue
+metadata:
+  name: host-catalogue
+  labels:
+    airshipit.org/deploy-k8s: "false"
+hosts:
+  # NEWSITE_CHANGED: update with the site specific host details for all hosts
+  m3:
+    hpe39:
+      bootMode: legacy
+      macAddress: 3c:fd:fe:b2:c3:60
+      bmcAddress: redfish+https://10.10.99.63/redfish/v1/Systems/1
+      bmcUsername: airship
+      bmcPassword: npl77v11xs
+      disableCertificateVerification: true
+      ipAddresses:
+        oam-ipv4: 10.200.201.21
+        pxe-ipv4: 10.200.212.21
+        storage-ipv4: 10.200.213.21
+        calico-ipv4: 10.200.214.21
+      hardwareProfile: default
+    hpe40:
+      bootMode: legacy
+      macAddress: 3c:fd:fe:b2:b1:78
+      bmcAddress: redfish+https://10.10.99.64/redfish/v1/Systems/1
+      bmcUsername: airship
+      bmcPassword: npl77v11xs
+      disableCertificateVerification: true
+      ipAddresses:
+        oam-ipv4: 10.200.201.22
+        pxe-ipv4: 10.200.212.22
+        storage-ipv4: 10.200.213.22
+        calico-ipv4: 10.200.214.22
+      hardwareProfile: default
+    hpe41:
+      bootMode: legacy
+      macAddress: 3c:fd:fe:b2:af:40
+      bmcAddress: redfish+https://10.10.99.65/redfish/v1/Systems/1
+      bmcUsername: airship
+      bmcPassword: npl77v11xs
+      disableCertificateVerification: true
+      ipAddresses:
+        oam-ipv4: 10.200.201.23
+        pxe-ipv4: 10.200.212.23
+        storage-ipv4: 10.200.213.23
+        calico-ipv4: 10.200.214.23
+      hardwareProfile: default
+    hpe42:
+      bootMode: legacy
+      macAddress: 3c:fd:fe:b2:ad:d0
+      bmcAddress: redfish+https://10.10.99.66/redfish/v1/Systems/1
+      bmcUsername: airship
+      bmcPassword: npl77v11xs
+      disableCertificateVerification: true
+      ipAddresses:
+        oam-ipv4: 10.200.201.24
+        pxe-ipv4: 10.200.212.24
+        storage-ipv4: 10.200.213.24
+        calico-ipv4: 10.200.214.24
+      hardwareProfile: default
+    hpe43:
+      bootMode: legacy
+      macAddress: 3c:fd:fe:b2:ad:78
+      bmcAddress: redfish+https://10.10.99.67/redfish/v1/Systems/1
+      bmcUsername: airship
+      bmcPassword: npl77v11xs
+      disableCertificateVerification: true
+      ipAddresses:
+        oam-ipv4: 10.200.201.25
+        pxe-ipv4: 10.200.212.25
+        storage-ipv4: 10.200.213.25
+        calico-ipv4: 10.200.214.25
+      hardwareProfile: default
+    hpe44:
+      bootMode: legacy
+      macAddress: 3c:fd:fe:b2:b2:d8
+      bmcAddress: redfish+https://10.10.99.68/redfish/v1/Systems/1
+      bmcUsername: airship
+      bmcPassword: npl77v11xs
+      disableCertificateVerification: true
+      ipAddresses:
+        oam-ipv4: 10.200.201.26
+        pxe-ipv4: 10.200.212.26
+        storage-ipv4: 10.200.213.26
+        calico-ipv4: 10.200.214.26
+      hardwareProfile: default
