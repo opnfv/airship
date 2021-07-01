@@ -1,6 +1,6 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International License.
 .. SPDX-License-Identifier: CC-BY-4.0
-.. (c) Open Platform for NFV Project, Inc. and its contributors
+.. (c) Anuket and its contributors
 
 =============================================
 OPNFV Airship Installer Project Release Notes
@@ -20,6 +20,8 @@ Version History
 +--------------------+--------------------+--------------------+----------------------+
 | 2020-12-01         | 2.0.0              | James Gu           | Jerma release        |
 +--------------------+--------------------+--------------------+----------------------+
+| 2021-07-01         | 3.0.0              | James Gu           | Kali release         |
++--------------------+--------------------+--------------------+----------------------+
 
 Release Data
 ------------
@@ -27,13 +29,13 @@ Release Data
 +--------------------------------------+--------------------------------------+
 | **Project**                          | Airship Installer                    |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | opnfv-10.0.0                         |
+| **Repo/tag**                         | Kali                                 |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Jerma 10.0                           |
+| **Release designation**              | Kali                                 |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | December 1st, 2020                   |
+| **Release date**                     | July 1st, 2021                       |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | OPNFV Jerma 10.0 Release             |
+| **Purpose of the delivery**          | Anuket Kali Release                  |
 +--------------------------------------+--------------------------------------+
 
 Important Notes
@@ -44,7 +46,7 @@ Please visit https://www.airshipit.org/ for upstream Airship Project.
 Summary
 -------
 
-This is the Jerma release of the Airship Installer as part of OPNFV, including:
+This is the Kali release of the Airship Installer as part of Anuket, including:
 
 * deployment of an NFVi with Airship Installer in a hardware infrastructure.
 
@@ -85,7 +87,5 @@ Airship Installer.
 References
 ----------
 
-For more information on the OPNFV Jerma release, please see:
-
-http://www.opnfv.org/software
+N/A.
 
