@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4286cdd7_a2951242",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-07-01T16:13:48Z",
+      "side": 1,
+      "message": "Anuket, please!",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 6
+      },
+      "revId": "5801a6c192f930d582f6f419891863d91be8464c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
