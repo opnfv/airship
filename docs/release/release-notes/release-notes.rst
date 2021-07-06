@@ -3,7 +3,7 @@
 .. (c) Anuket and its contributors
 
 =============================================
-OPNFV Airship Installer Project Release Notes
+Anuket Airship Installer Project Release Notes
 =============================================
 
 This document provides the release notes for Airship Installer Project.
